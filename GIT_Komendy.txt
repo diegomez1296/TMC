@@ -1,0 +1,19 @@
+$ git init ==> inicjalizacja repozytorium
+
+$ git config --global user.name "Imie"	==> Ustaw nazwe
+$ git config --global user.email email@email.com	==> Ustaw email
+
+$ git clone https://github.com/diegomez1296/TMC.git ==> Sklonowanie repozytorium
+
+$ git status ==> sprawdŸ status plików
+$ git add . ==> Dodanie plików do kolejki oczekiwania
+$ git commit -m "Message" ==> Zatwierdzenie zmian
+$ git log (--oneline) ==> spis commitów
+
+$ git push ==> WprowadŸ zmiany na serwer
+$ git pull ==> Pobierz zmiany z serwera
+
+
+
+
+
