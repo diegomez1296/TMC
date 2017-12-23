@@ -1,0 +1,2 @@
+1. Ustawienie szerokosci i wysokosci, resizeable = false
+2. Dodanie MainJPanel
