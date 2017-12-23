@@ -74,6 +74,7 @@ public class TMC_Application extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TMC_Application().setVisible(true);
+		//dodalem komentarz - falcon
             }
         });
     }
