@@ -28,26 +28,1095 @@ public class TMC_Application extends javax.swing.JFrame {
     private void initComponents() {
 
         MainJPanel = new javax.swing.JPanel();
+        GridPanelJPanel = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jPanel15 = new javax.swing.JPanel();
+        jPanel16 = new javax.swing.JPanel();
+        jPanel17 = new javax.swing.JPanel();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel108 = new javax.swing.JLabel();
+        jLabel113 = new javax.swing.JLabel();
+        jLabel111 = new javax.swing.JLabel();
+        jLabel76 = new javax.swing.JLabel();
+        jLabel75 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        jLabel77 = new javax.swing.JLabel();
+        jLabel167 = new javax.swing.JLabel();
+        jLabel168 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel119 = new javax.swing.JLabel();
+        jLabel114 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel94 = new javax.swing.JLabel();
+        jLabel112 = new javax.swing.JLabel();
+        jLabel109 = new javax.swing.JLabel();
+        jLabel110 = new javax.swing.JLabel();
+        jLabel120 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel74 = new javax.swing.JLabel();
+        jLabel170 = new javax.swing.JLabel();
+        jLabel171 = new javax.swing.JLabel();
+        jLabel118 = new javax.swing.JLabel();
+        jLabel196 = new javax.swing.JLabel();
+        jLabel116 = new javax.swing.JLabel();
+        jLabel133 = new javax.swing.JLabel();
+        jLabel197 = new javax.swing.JLabel();
+        jLabel132 = new javax.swing.JLabel();
+        jLabel123 = new javax.swing.JLabel();
+        jLabel115 = new javax.swing.JLabel();
+        jLabel140 = new javax.swing.JLabel();
+        jLabel122 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel107 = new javax.swing.JLabel();
+        jLabel178 = new javax.swing.JLabel();
+        jLabel181 = new javax.swing.JLabel();
+        jLabel180 = new javax.swing.JLabel();
+        jLabel187 = new javax.swing.JLabel();
+        jLabel179 = new javax.swing.JLabel();
+        jLabel183 = new javax.swing.JLabel();
+        jLabel198 = new javax.swing.JLabel();
+        jLabel175 = new javax.swing.JLabel();
+        jLabel177 = new javax.swing.JLabel();
+        jLabel176 = new javax.swing.JLabel();
+        jLabel174 = new javax.swing.JLabel();
+        jLabel91 = new javax.swing.JLabel();
+        jLabel173 = new javax.swing.JLabel();
+        jLabel172 = new javax.swing.JLabel();
+        jLabel121 = new javax.swing.JLabel();
+        jLabel90 = new javax.swing.JLabel();
+        jLabel169 = new javax.swing.JLabel();
+        jLabel89 = new javax.swing.JLabel();
+        jLabel186 = new javax.swing.JLabel();
+        jLabel131 = new javax.swing.JLabel();
+        jLabel184 = new javax.swing.JLabel();
+        jLabel151 = new javax.swing.JLabel();
+        jLabel182 = new javax.swing.JLabel();
+        jLabel148 = new javax.swing.JLabel();
+        jLabel149 = new javax.swing.JLabel();
+        jLabel124 = new javax.swing.JLabel();
+        jLabel146 = new javax.swing.JLabel();
+        jLabel147 = new javax.swing.JLabel();
+        jLabel154 = new javax.swing.JLabel();
+        jLabel152 = new javax.swing.JLabel();
+        jLabel145 = new javax.swing.JLabel();
+        jLabel141 = new javax.swing.JLabel();
+        jLabel188 = new javax.swing.JLabel();
+        jLabel185 = new javax.swing.JLabel();
+        jLabel126 = new javax.swing.JLabel();
+        jLabel139 = new javax.swing.JLabel();
+        jLabel138 = new javax.swing.JLabel();
+        jLabel125 = new javax.swing.JLabel();
+        jLabel150 = new javax.swing.JLabel();
+        jLabel137 = new javax.swing.JLabel();
+        jLabel106 = new javax.swing.JLabel();
+        jLabel117 = new javax.swing.JLabel();
+        jLabel153 = new javax.swing.JLabel();
+        jLabel88 = new javax.swing.JLabel();
+        jLabel189 = new javax.swing.JLabel();
+        jLabel136 = new javax.swing.JLabel();
+        jLabel191 = new javax.swing.JLabel();
+        jLabel199 = new javax.swing.JLabel();
+        jLabel207 = new javax.swing.JLabel();
+        jLabel210 = new javax.swing.JLabel();
+        jLabel209 = new javax.swing.JLabel();
+        jLabel208 = new javax.swing.JLabel();
+        jLabel200 = new javax.swing.JLabel();
+        jLabel206 = new javax.swing.JLabel();
+        jLabel205 = new javax.swing.JLabel();
+        jLabel204 = new javax.swing.JLabel();
+        jLabel203 = new javax.swing.JLabel();
+        jLabel202 = new javax.swing.JLabel();
+        jLabel144 = new javax.swing.JLabel();
+        jLabel143 = new javax.swing.JLabel();
+        jLabel95 = new javax.swing.JLabel();
+        jLabel135 = new javax.swing.JLabel();
+        jLabel211 = new javax.swing.JLabel();
+        jLabel134 = new javax.swing.JLabel();
+        jLabel93 = new javax.swing.JLabel();
+        jLabel86 = new javax.swing.JLabel();
+        jLabel128 = new javax.swing.JLabel();
+        jLabel129 = new javax.swing.JLabel();
+        jLabel192 = new javax.swing.JLabel();
+        jLabel127 = new javax.swing.JLabel();
+        jLabel85 = new javax.swing.JLabel();
+        jLabel190 = new javax.swing.JLabel();
+        jLabel201 = new javax.swing.JLabel();
+        jLabel142 = new javax.swing.JLabel();
+        jLabel84 = new javax.swing.JLabel();
+        jLabel97 = new javax.swing.JLabel();
+        jLabel83 = new javax.swing.JLabel();
+        jLabel130 = new javax.swing.JLabel();
+        jLabel96 = new javax.swing.JLabel();
+        jLabel82 = new javax.swing.JLabel();
+        jLabel81 = new javax.swing.JLabel();
+        jLabel195 = new javax.swing.JLabel();
+        jLabel87 = new javax.swing.JLabel();
+        jLabel194 = new javax.swing.JLabel();
+        jLabel79 = new javax.swing.JLabel();
+        jLabel193 = new javax.swing.JLabel();
+        jLabel78 = new javax.swing.JLabel();
+        jLabel61 = new javax.swing.JLabel();
+        jLabel60 = new javax.swing.JLabel();
+        jLabel59 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
+        jLabel80 = new javax.swing.JLabel();
+        jLabel92 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        jLabel164 = new javax.swing.JLabel();
+        jLabel68 = new javax.swing.JLabel();
+        jLabel73 = new javax.swing.JLabel();
+        jLabel72 = new javax.swing.JLabel();
+        jLabel71 = new javax.swing.JLabel();
+        jLabel67 = new javax.swing.JLabel();
+        jLabel65 = new javax.swing.JLabel();
+        jLabel98 = new javax.swing.JLabel();
+        jLabel66 = new javax.swing.JLabel();
+        jLabel64 = new javax.swing.JLabel();
+        jLabel166 = new javax.swing.JLabel();
+        jLabel70 = new javax.swing.JLabel();
+        jLabel155 = new javax.swing.JLabel();
+        jLabel165 = new javax.swing.JLabel();
+        jLabel156 = new javax.swing.JLabel();
+        jLabel163 = new javax.swing.JLabel();
+        jLabel162 = new javax.swing.JLabel();
+        jLabel159 = new javax.swing.JLabel();
+        jLabel158 = new javax.swing.JLabel();
+        jLabel157 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel100 = new javax.swing.JLabel();
+        jLabel101 = new javax.swing.JLabel();
+        jLabel99 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel161 = new javax.swing.JLabel();
+        jLabel160 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel69 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel104 = new javax.swing.JLabel();
+        jLabel105 = new javax.swing.JLabel();
+        jLabel103 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel62 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel102 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel212 = new javax.swing.JLabel();
+        jLabel213 = new javax.swing.JLabel();
+        jLabel214 = new javax.swing.JLabel();
+        jLabel215 = new javax.swing.JLabel();
+        jLabel216 = new javax.swing.JLabel();
+        jLabel217 = new javax.swing.JLabel();
+        jLabel218 = new javax.swing.JLabel();
+        jLabel219 = new javax.swing.JLabel();
+        jLabel220 = new javax.swing.JLabel();
+        jLabel239 = new javax.swing.JLabel();
+        jLabel224 = new javax.swing.JLabel();
+        MenuJMenu = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tank Map Creator");
-        setPreferredSize(new java.awt.Dimension(1000, 700));
         setResizable(false);
         setSize(new java.awt.Dimension(1000, 700));
 
         MainJPanel.setBackground(new java.awt.Color(204, 204, 255));
         MainJPanel.setPreferredSize(new java.awt.Dimension(1000, 700));
 
+        GridPanelJPanel.setBackground(new java.awt.Color(204, 204, 204));
+        GridPanelJPanel.setMaximumSize(new java.awt.Dimension(600, 600));
+        GridPanelJPanel.setMinimumSize(new java.awt.Dimension(600, 600));
+        GridPanelJPanel.setPreferredSize(new java.awt.Dimension(600, 600));
+        GridPanelJPanel.setLayout(new java.awt.GridLayout(15, 15, 1, 1));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+
+        GridPanelJPanel.add(jPanel4);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+
+        GridPanelJPanel.add(jPanel5);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+
+        GridPanelJPanel.add(jPanel6);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+
+        GridPanelJPanel.add(jPanel7);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+
+        GridPanelJPanel.add(jPanel8);
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+
+        GridPanelJPanel.add(jPanel9);
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+
+        GridPanelJPanel.add(jPanel10);
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+
+        GridPanelJPanel.add(jPanel11);
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+
+        GridPanelJPanel.add(jPanel12);
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+
+        GridPanelJPanel.add(jPanel13);
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+
+        GridPanelJPanel.add(jPanel14);
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+
+        GridPanelJPanel.add(jPanel15);
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+
+        GridPanelJPanel.add(jPanel16);
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+
+        GridPanelJPanel.add(jPanel17);
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 39, Short.MAX_VALUE)
+        );
+
+        GridPanelJPanel.add(jPanel18);
+
+        jLabel50.setText("jLabel50");
+        GridPanelJPanel.add(jLabel50);
+
+        jLabel47.setText("jLabel47");
+        GridPanelJPanel.add(jLabel47);
+
+        jLabel108.setText("jLabel108");
+        GridPanelJPanel.add(jLabel108);
+
+        jLabel113.setText("jLabel113");
+        GridPanelJPanel.add(jLabel113);
+
+        jLabel111.setText("jLabel111");
+        GridPanelJPanel.add(jLabel111);
+
+        jLabel76.setText("jLabel76");
+        GridPanelJPanel.add(jLabel76);
+
+        jLabel75.setText("jLabel75");
+        GridPanelJPanel.add(jLabel75);
+
+        jLabel52.setText("jLabel52");
+        GridPanelJPanel.add(jLabel52);
+
+        jLabel77.setText("jLabel77");
+        GridPanelJPanel.add(jLabel77);
+
+        jLabel167.setText("jLabel167");
+        GridPanelJPanel.add(jLabel167);
+
+        jLabel168.setText("jLabel168");
+        GridPanelJPanel.add(jLabel168);
+
+        jLabel48.setText("jLabel48");
+        GridPanelJPanel.add(jLabel48);
+
+        jLabel119.setText("jLabel119");
+        GridPanelJPanel.add(jLabel119);
+
+        jLabel114.setText("jLabel114");
+        GridPanelJPanel.add(jLabel114);
+
+        jLabel51.setText("jLabel51");
+        GridPanelJPanel.add(jLabel51);
+
+        jLabel94.setText("jLabel94");
+        GridPanelJPanel.add(jLabel94);
+
+        jLabel112.setText("jLabel112");
+        GridPanelJPanel.add(jLabel112);
+
+        jLabel109.setText("jLabel109");
+        GridPanelJPanel.add(jLabel109);
+
+        jLabel110.setText("jLabel110");
+        GridPanelJPanel.add(jLabel110);
+
+        jLabel120.setText("jLabel120");
+        GridPanelJPanel.add(jLabel120);
+
+        jLabel46.setText("jLabel46");
+        GridPanelJPanel.add(jLabel46);
+
+        jLabel74.setText("jLabel74");
+        GridPanelJPanel.add(jLabel74);
+
+        jLabel170.setText("jLabel170");
+        GridPanelJPanel.add(jLabel170);
+
+        jLabel171.setText("jLabel171");
+        GridPanelJPanel.add(jLabel171);
+
+        jLabel118.setText("jLabel118");
+        GridPanelJPanel.add(jLabel118);
+
+        jLabel196.setText("jLabel196");
+        GridPanelJPanel.add(jLabel196);
+
+        jLabel116.setText("jLabel116");
+        GridPanelJPanel.add(jLabel116);
+
+        jLabel133.setText("jLabel133");
+        GridPanelJPanel.add(jLabel133);
+
+        jLabel197.setText("jLabel197");
+        GridPanelJPanel.add(jLabel197);
+
+        jLabel132.setText("jLabel132");
+        GridPanelJPanel.add(jLabel132);
+
+        jLabel123.setText("jLabel123");
+        GridPanelJPanel.add(jLabel123);
+
+        jLabel115.setText("jLabel115");
+        GridPanelJPanel.add(jLabel115);
+
+        jLabel140.setText("jLabel140");
+        GridPanelJPanel.add(jLabel140);
+
+        jLabel122.setText("jLabel122");
+        GridPanelJPanel.add(jLabel122);
+
+        jLabel40.setText("jLabel40");
+        GridPanelJPanel.add(jLabel40);
+
+        jLabel107.setText("jLabel107");
+        GridPanelJPanel.add(jLabel107);
+
+        jLabel178.setText("jLabel178");
+        GridPanelJPanel.add(jLabel178);
+
+        jLabel181.setText("jLabel181");
+        GridPanelJPanel.add(jLabel181);
+
+        jLabel180.setText("jLabel180");
+        GridPanelJPanel.add(jLabel180);
+
+        jLabel187.setText("jLabel187");
+        GridPanelJPanel.add(jLabel187);
+
+        jLabel179.setText("jLabel179");
+        GridPanelJPanel.add(jLabel179);
+
+        jLabel183.setText("jLabel183");
+        GridPanelJPanel.add(jLabel183);
+
+        jLabel198.setText("jLabel198");
+        GridPanelJPanel.add(jLabel198);
+
+        jLabel175.setText("jLabel175");
+        GridPanelJPanel.add(jLabel175);
+
+        jLabel177.setText("jLabel177");
+        GridPanelJPanel.add(jLabel177);
+
+        jLabel176.setText("jLabel176");
+        GridPanelJPanel.add(jLabel176);
+
+        jLabel174.setText("jLabel174");
+        GridPanelJPanel.add(jLabel174);
+
+        jLabel91.setText("jLabel91");
+        GridPanelJPanel.add(jLabel91);
+
+        jLabel173.setText("jLabel173");
+        GridPanelJPanel.add(jLabel173);
+
+        jLabel172.setText("jLabel172");
+        GridPanelJPanel.add(jLabel172);
+
+        jLabel121.setText("jLabel121");
+        GridPanelJPanel.add(jLabel121);
+
+        jLabel90.setText("jLabel90");
+        GridPanelJPanel.add(jLabel90);
+
+        jLabel169.setText("jLabel169");
+        GridPanelJPanel.add(jLabel169);
+
+        jLabel89.setText("jLabel89");
+        GridPanelJPanel.add(jLabel89);
+
+        jLabel186.setText("jLabel186");
+        GridPanelJPanel.add(jLabel186);
+
+        jLabel131.setText("jLabel131");
+        GridPanelJPanel.add(jLabel131);
+
+        jLabel184.setText("jLabel184");
+        GridPanelJPanel.add(jLabel184);
+
+        jLabel151.setText("jLabel151");
+        GridPanelJPanel.add(jLabel151);
+
+        jLabel182.setText("jLabel182");
+        GridPanelJPanel.add(jLabel182);
+
+        jLabel148.setText("jLabel148");
+        GridPanelJPanel.add(jLabel148);
+
+        jLabel149.setText("jLabel149");
+        GridPanelJPanel.add(jLabel149);
+
+        jLabel124.setText("jLabel124");
+        GridPanelJPanel.add(jLabel124);
+
+        jLabel146.setText("jLabel146");
+        GridPanelJPanel.add(jLabel146);
+
+        jLabel147.setText("jLabel147");
+        GridPanelJPanel.add(jLabel147);
+
+        jLabel154.setText("jLabel154");
+        GridPanelJPanel.add(jLabel154);
+
+        jLabel152.setText("jLabel152");
+        GridPanelJPanel.add(jLabel152);
+
+        jLabel145.setText("jLabel145");
+        GridPanelJPanel.add(jLabel145);
+
+        jLabel141.setText("jLabel141");
+        GridPanelJPanel.add(jLabel141);
+
+        jLabel188.setText("jLabel188");
+        GridPanelJPanel.add(jLabel188);
+
+        jLabel185.setText("jLabel185");
+        GridPanelJPanel.add(jLabel185);
+
+        jLabel126.setText("jLabel126");
+        GridPanelJPanel.add(jLabel126);
+
+        jLabel139.setText("jLabel139");
+        GridPanelJPanel.add(jLabel139);
+
+        jLabel138.setText("jLabel138");
+        GridPanelJPanel.add(jLabel138);
+
+        jLabel125.setText("jLabel125");
+        GridPanelJPanel.add(jLabel125);
+
+        jLabel150.setText("jLabel150");
+        GridPanelJPanel.add(jLabel150);
+
+        jLabel137.setText("jLabel137");
+        GridPanelJPanel.add(jLabel137);
+
+        jLabel106.setText("jLabel106");
+        GridPanelJPanel.add(jLabel106);
+
+        jLabel117.setText("jLabel117");
+        GridPanelJPanel.add(jLabel117);
+
+        jLabel153.setText("jLabel153");
+        GridPanelJPanel.add(jLabel153);
+
+        jLabel88.setText("jLabel88");
+        GridPanelJPanel.add(jLabel88);
+
+        jLabel189.setText("jLabel189");
+        GridPanelJPanel.add(jLabel189);
+
+        jLabel136.setText("jLabel136");
+        GridPanelJPanel.add(jLabel136);
+
+        jLabel191.setText("jLabel191");
+        GridPanelJPanel.add(jLabel191);
+
+        jLabel199.setText("jLabel199");
+        GridPanelJPanel.add(jLabel199);
+
+        jLabel207.setText("jLabel207");
+        GridPanelJPanel.add(jLabel207);
+
+        jLabel210.setText("jLabel210");
+        GridPanelJPanel.add(jLabel210);
+
+        jLabel209.setText("jLabel209");
+        GridPanelJPanel.add(jLabel209);
+
+        jLabel208.setText("jLabel208");
+        GridPanelJPanel.add(jLabel208);
+
+        jLabel200.setText("jLabel200");
+        GridPanelJPanel.add(jLabel200);
+
+        jLabel206.setText("jLabel206");
+        GridPanelJPanel.add(jLabel206);
+
+        jLabel205.setText("jLabel205");
+        GridPanelJPanel.add(jLabel205);
+
+        jLabel204.setText("jLabel204");
+        GridPanelJPanel.add(jLabel204);
+
+        jLabel203.setText("jLabel203");
+        GridPanelJPanel.add(jLabel203);
+
+        jLabel202.setText("jLabel202");
+        GridPanelJPanel.add(jLabel202);
+
+        jLabel144.setText("jLabel144");
+        GridPanelJPanel.add(jLabel144);
+
+        jLabel143.setText("jLabel143");
+        GridPanelJPanel.add(jLabel143);
+
+        jLabel95.setText("jLabel95");
+        GridPanelJPanel.add(jLabel95);
+
+        jLabel135.setText("jLabel135");
+        GridPanelJPanel.add(jLabel135);
+
+        jLabel211.setText("jLabel211");
+        GridPanelJPanel.add(jLabel211);
+
+        jLabel134.setText("jLabel134");
+        GridPanelJPanel.add(jLabel134);
+
+        jLabel93.setText("jLabel93");
+        GridPanelJPanel.add(jLabel93);
+
+        jLabel86.setText("jLabel86");
+        GridPanelJPanel.add(jLabel86);
+
+        jLabel128.setText("jLabel128");
+        GridPanelJPanel.add(jLabel128);
+
+        jLabel129.setText("jLabel129");
+        GridPanelJPanel.add(jLabel129);
+
+        jLabel192.setText("jLabel192");
+        GridPanelJPanel.add(jLabel192);
+
+        jLabel127.setText("jLabel127");
+        GridPanelJPanel.add(jLabel127);
+
+        jLabel85.setText("jLabel85");
+        GridPanelJPanel.add(jLabel85);
+
+        jLabel190.setText("jLabel190");
+        GridPanelJPanel.add(jLabel190);
+
+        jLabel201.setText("jLabel201");
+        GridPanelJPanel.add(jLabel201);
+
+        jLabel142.setText("jLabel142");
+        GridPanelJPanel.add(jLabel142);
+
+        jLabel84.setText("jLabel84");
+        GridPanelJPanel.add(jLabel84);
+
+        jLabel97.setText("jLabel97");
+        GridPanelJPanel.add(jLabel97);
+
+        jLabel83.setText("jLabel83");
+        GridPanelJPanel.add(jLabel83);
+
+        jLabel130.setText("jLabel130");
+        GridPanelJPanel.add(jLabel130);
+
+        jLabel96.setText("jLabel96");
+        GridPanelJPanel.add(jLabel96);
+
+        jLabel82.setText("jLabel82");
+        GridPanelJPanel.add(jLabel82);
+
+        jLabel81.setText("jLabel81");
+        GridPanelJPanel.add(jLabel81);
+
+        jLabel195.setText("jLabel195");
+        GridPanelJPanel.add(jLabel195);
+
+        jLabel87.setText("jLabel87");
+        GridPanelJPanel.add(jLabel87);
+
+        jLabel194.setText("jLabel194");
+        GridPanelJPanel.add(jLabel194);
+
+        jLabel79.setText("jLabel79");
+        GridPanelJPanel.add(jLabel79);
+
+        jLabel193.setText("jLabel193");
+        GridPanelJPanel.add(jLabel193);
+
+        jLabel78.setText("jLabel78");
+        GridPanelJPanel.add(jLabel78);
+
+        jLabel61.setText("jLabel61");
+        GridPanelJPanel.add(jLabel61);
+
+        jLabel60.setText("jLabel60");
+        GridPanelJPanel.add(jLabel60);
+
+        jLabel59.setText("jLabel59");
+        GridPanelJPanel.add(jLabel59);
+
+        jLabel58.setText("jLabel58");
+        GridPanelJPanel.add(jLabel58);
+
+        jLabel80.setText("jLabel80");
+        GridPanelJPanel.add(jLabel80);
+
+        jLabel92.setText("jLabel92");
+        GridPanelJPanel.add(jLabel92);
+
+        jLabel57.setText("jLabel57");
+        GridPanelJPanel.add(jLabel57);
+
+        jLabel164.setText("jLabel164");
+        GridPanelJPanel.add(jLabel164);
+
+        jLabel68.setText("jLabel68");
+        GridPanelJPanel.add(jLabel68);
+
+        jLabel73.setText("jLabel73");
+        GridPanelJPanel.add(jLabel73);
+
+        jLabel72.setText("jLabel72");
+        GridPanelJPanel.add(jLabel72);
+
+        jLabel71.setText("jLabel71");
+        GridPanelJPanel.add(jLabel71);
+
+        jLabel67.setText("jLabel67");
+        GridPanelJPanel.add(jLabel67);
+
+        jLabel65.setText("jLabel65");
+        GridPanelJPanel.add(jLabel65);
+
+        jLabel98.setText("jLabel98");
+        GridPanelJPanel.add(jLabel98);
+
+        jLabel66.setText("jLabel66");
+        GridPanelJPanel.add(jLabel66);
+
+        jLabel64.setText("jLabel64");
+        GridPanelJPanel.add(jLabel64);
+
+        jLabel166.setText("jLabel166");
+        GridPanelJPanel.add(jLabel166);
+
+        jLabel70.setText("jLabel70");
+        GridPanelJPanel.add(jLabel70);
+
+        jLabel155.setText("jLabel155");
+        GridPanelJPanel.add(jLabel155);
+
+        jLabel165.setText("jLabel165");
+        GridPanelJPanel.add(jLabel165);
+
+        jLabel156.setText("jLabel156");
+        GridPanelJPanel.add(jLabel156);
+
+        jLabel163.setText("jLabel163");
+        GridPanelJPanel.add(jLabel163);
+
+        jLabel162.setText("jLabel162");
+        GridPanelJPanel.add(jLabel162);
+
+        jLabel159.setText("jLabel159");
+        GridPanelJPanel.add(jLabel159);
+
+        jLabel158.setText("jLabel158");
+        GridPanelJPanel.add(jLabel158);
+
+        jLabel157.setText("jLabel157");
+        GridPanelJPanel.add(jLabel157);
+
+        jLabel56.setText("jLabel56");
+        GridPanelJPanel.add(jLabel56);
+
+        jLabel53.setText("jLabel53");
+        GridPanelJPanel.add(jLabel53);
+
+        jLabel54.setText("jLabel54");
+        GridPanelJPanel.add(jLabel54);
+
+        jLabel100.setText("jLabel100");
+        GridPanelJPanel.add(jLabel100);
+
+        jLabel101.setText("jLabel101");
+        GridPanelJPanel.add(jLabel101);
+
+        jLabel99.setText("jLabel99");
+        GridPanelJPanel.add(jLabel99);
+
+        jLabel45.setText("jLabel45");
+        GridPanelJPanel.add(jLabel45);
+
+        jLabel161.setText("jLabel161");
+        GridPanelJPanel.add(jLabel161);
+
+        jLabel160.setText("jLabel160");
+        GridPanelJPanel.add(jLabel160);
+
+        jLabel44.setText("jLabel44");
+        GridPanelJPanel.add(jLabel44);
+
+        jLabel63.setText("jLabel63");
+        GridPanelJPanel.add(jLabel63);
+
+        jLabel55.setText("jLabel55");
+        GridPanelJPanel.add(jLabel55);
+
+        jLabel43.setText("jLabel43");
+        GridPanelJPanel.add(jLabel43);
+
+        jLabel37.setText("jLabel37");
+        GridPanelJPanel.add(jLabel37);
+
+        jLabel69.setText("jLabel69");
+        GridPanelJPanel.add(jLabel69);
+
+        jLabel33.setText("jLabel33");
+        GridPanelJPanel.add(jLabel33);
+
+        jLabel42.setText("jLabel42");
+        GridPanelJPanel.add(jLabel42);
+
+        jLabel41.setText("jLabel41");
+        GridPanelJPanel.add(jLabel41);
+
+        jLabel36.setText("jLabel36");
+        GridPanelJPanel.add(jLabel36);
+
+        jLabel104.setText("jLabel104");
+        GridPanelJPanel.add(jLabel104);
+
+        jLabel105.setText("jLabel105");
+        GridPanelJPanel.add(jLabel105);
+
+        jLabel103.setText("jLabel103");
+        GridPanelJPanel.add(jLabel103);
+
+        jLabel39.setText("jLabel39");
+        GridPanelJPanel.add(jLabel39);
+
+        jLabel38.setText("jLabel38");
+        GridPanelJPanel.add(jLabel38);
+
+        jLabel62.setText("jLabel62");
+        GridPanelJPanel.add(jLabel62);
+
+        jLabel27.setText("jLabel27");
+        GridPanelJPanel.add(jLabel27);
+
+        jLabel23.setText("jLabel23");
+        GridPanelJPanel.add(jLabel23);
+
+        jLabel35.setText("jLabel35");
+        GridPanelJPanel.add(jLabel35);
+
+        jLabel34.setText("jLabel34");
+        GridPanelJPanel.add(jLabel34);
+
+        jLabel102.setText("jLabel102");
+        GridPanelJPanel.add(jLabel102);
+
+        jLabel22.setText("jLabel22");
+        GridPanelJPanel.add(jLabel22);
+
+        jLabel32.setText("jLabel32");
+        GridPanelJPanel.add(jLabel32);
+
+        jLabel26.setText("jLabel26");
+        GridPanelJPanel.add(jLabel26);
+
+        jLabel20.setText("jLabel20");
+        GridPanelJPanel.add(jLabel20);
+
+        jLabel19.setText("jLabel19");
+        GridPanelJPanel.add(jLabel19);
+
+        jLabel21.setText("jLabel21");
+        GridPanelJPanel.add(jLabel21);
+
+        jLabel18.setText("jLabel18");
+        GridPanelJPanel.add(jLabel18);
+
+        jLabel4.setText("jLabel4");
+        GridPanelJPanel.add(jLabel4);
+
+        jLabel5.setText("jLabel5");
+        GridPanelJPanel.add(jLabel5);
+
+        jLabel6.setText("jLabel6");
+        GridPanelJPanel.add(jLabel6);
+
+        jLabel7.setText("jLabel7");
+        GridPanelJPanel.add(jLabel7);
+
+        jLabel8.setText("jLabel8");
+        GridPanelJPanel.add(jLabel8);
+
+        jLabel9.setText("jLabel9");
+        GridPanelJPanel.add(jLabel9);
+
+        jLabel10.setText("jLabel10");
+        GridPanelJPanel.add(jLabel10);
+
+        jLabel11.setText("jLabel11");
+        GridPanelJPanel.add(jLabel11);
+
+        jLabel12.setText("jLabel12");
+        GridPanelJPanel.add(jLabel12);
+
+        jLabel13.setText("jLabel13");
+        GridPanelJPanel.add(jLabel13);
+
+        jLabel14.setText("jLabel14");
+        GridPanelJPanel.add(jLabel14);
+
+        jLabel15.setText("jLabel15");
+        GridPanelJPanel.add(jLabel15);
+
+        jLabel212.setText("jLabel212");
+        GridPanelJPanel.add(jLabel212);
+
+        jLabel213.setText("jLabel213");
+        GridPanelJPanel.add(jLabel213);
+
+        jLabel214.setText("jLabel214");
+        GridPanelJPanel.add(jLabel214);
+
+        jLabel215.setText("jLabel215");
+        GridPanelJPanel.add(jLabel215);
+
+        jLabel216.setText("jLabel216");
+        GridPanelJPanel.add(jLabel216);
+
+        jLabel217.setText("jLabel217");
+        GridPanelJPanel.add(jLabel217);
+
+        jLabel218.setText("jLabel218");
+        GridPanelJPanel.add(jLabel218);
+
+        jLabel219.setText("jLabel219");
+        GridPanelJPanel.add(jLabel219);
+
+        jLabel220.setText("jLabel220");
+        GridPanelJPanel.add(jLabel220);
+
+        jLabel239.setText("jLabel239");
+        GridPanelJPanel.add(jLabel239);
+        GridPanelJPanel.add(jLabel224);
+
         javax.swing.GroupLayout MainJPanelLayout = new javax.swing.GroupLayout(MainJPanel);
         MainJPanel.setLayout(MainJPanelLayout);
         MainJPanelLayout.setHorizontalGroup(
             MainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGroup(MainJPanelLayout.createSequentialGroup()
+                .addComponent(GridPanelJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 400, Short.MAX_VALUE))
         );
         MainJPanelLayout.setVerticalGroup(
             MainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGroup(MainJPanelLayout.createSequentialGroup()
+                .addComponent(GridPanelJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 100, Short.MAX_VALUE))
         );
+
+        jMenu1.setText("Plik");
+        MenuJMenu.add(jMenu1);
+
+        jMenu2.setText("Edycja");
+        MenuJMenu.add(jMenu2);
+
+        setJMenuBar(MenuJMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,6 +1169,235 @@ public class TMC_Application extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel GridPanelJPanel;
     private javax.swing.JPanel MainJPanel;
+    private javax.swing.JMenuBar MenuJMenu;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel100;
+    private javax.swing.JLabel jLabel101;
+    private javax.swing.JLabel jLabel102;
+    private javax.swing.JLabel jLabel103;
+    private javax.swing.JLabel jLabel104;
+    private javax.swing.JLabel jLabel105;
+    private javax.swing.JLabel jLabel106;
+    private javax.swing.JLabel jLabel107;
+    private javax.swing.JLabel jLabel108;
+    private javax.swing.JLabel jLabel109;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel110;
+    private javax.swing.JLabel jLabel111;
+    private javax.swing.JLabel jLabel112;
+    private javax.swing.JLabel jLabel113;
+    private javax.swing.JLabel jLabel114;
+    private javax.swing.JLabel jLabel115;
+    private javax.swing.JLabel jLabel116;
+    private javax.swing.JLabel jLabel117;
+    private javax.swing.JLabel jLabel118;
+    private javax.swing.JLabel jLabel119;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel120;
+    private javax.swing.JLabel jLabel121;
+    private javax.swing.JLabel jLabel122;
+    private javax.swing.JLabel jLabel123;
+    private javax.swing.JLabel jLabel124;
+    private javax.swing.JLabel jLabel125;
+    private javax.swing.JLabel jLabel126;
+    private javax.swing.JLabel jLabel127;
+    private javax.swing.JLabel jLabel128;
+    private javax.swing.JLabel jLabel129;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel130;
+    private javax.swing.JLabel jLabel131;
+    private javax.swing.JLabel jLabel132;
+    private javax.swing.JLabel jLabel133;
+    private javax.swing.JLabel jLabel134;
+    private javax.swing.JLabel jLabel135;
+    private javax.swing.JLabel jLabel136;
+    private javax.swing.JLabel jLabel137;
+    private javax.swing.JLabel jLabel138;
+    private javax.swing.JLabel jLabel139;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel140;
+    private javax.swing.JLabel jLabel141;
+    private javax.swing.JLabel jLabel142;
+    private javax.swing.JLabel jLabel143;
+    private javax.swing.JLabel jLabel144;
+    private javax.swing.JLabel jLabel145;
+    private javax.swing.JLabel jLabel146;
+    private javax.swing.JLabel jLabel147;
+    private javax.swing.JLabel jLabel148;
+    private javax.swing.JLabel jLabel149;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel150;
+    private javax.swing.JLabel jLabel151;
+    private javax.swing.JLabel jLabel152;
+    private javax.swing.JLabel jLabel153;
+    private javax.swing.JLabel jLabel154;
+    private javax.swing.JLabel jLabel155;
+    private javax.swing.JLabel jLabel156;
+    private javax.swing.JLabel jLabel157;
+    private javax.swing.JLabel jLabel158;
+    private javax.swing.JLabel jLabel159;
+    private javax.swing.JLabel jLabel160;
+    private javax.swing.JLabel jLabel161;
+    private javax.swing.JLabel jLabel162;
+    private javax.swing.JLabel jLabel163;
+    private javax.swing.JLabel jLabel164;
+    private javax.swing.JLabel jLabel165;
+    private javax.swing.JLabel jLabel166;
+    private javax.swing.JLabel jLabel167;
+    private javax.swing.JLabel jLabel168;
+    private javax.swing.JLabel jLabel169;
+    private javax.swing.JLabel jLabel170;
+    private javax.swing.JLabel jLabel171;
+    private javax.swing.JLabel jLabel172;
+    private javax.swing.JLabel jLabel173;
+    private javax.swing.JLabel jLabel174;
+    private javax.swing.JLabel jLabel175;
+    private javax.swing.JLabel jLabel176;
+    private javax.swing.JLabel jLabel177;
+    private javax.swing.JLabel jLabel178;
+    private javax.swing.JLabel jLabel179;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel180;
+    private javax.swing.JLabel jLabel181;
+    private javax.swing.JLabel jLabel182;
+    private javax.swing.JLabel jLabel183;
+    private javax.swing.JLabel jLabel184;
+    private javax.swing.JLabel jLabel185;
+    private javax.swing.JLabel jLabel186;
+    private javax.swing.JLabel jLabel187;
+    private javax.swing.JLabel jLabel188;
+    private javax.swing.JLabel jLabel189;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel190;
+    private javax.swing.JLabel jLabel191;
+    private javax.swing.JLabel jLabel192;
+    private javax.swing.JLabel jLabel193;
+    private javax.swing.JLabel jLabel194;
+    private javax.swing.JLabel jLabel195;
+    private javax.swing.JLabel jLabel196;
+    private javax.swing.JLabel jLabel197;
+    private javax.swing.JLabel jLabel198;
+    private javax.swing.JLabel jLabel199;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel200;
+    private javax.swing.JLabel jLabel201;
+    private javax.swing.JLabel jLabel202;
+    private javax.swing.JLabel jLabel203;
+    private javax.swing.JLabel jLabel204;
+    private javax.swing.JLabel jLabel205;
+    private javax.swing.JLabel jLabel206;
+    private javax.swing.JLabel jLabel207;
+    private javax.swing.JLabel jLabel208;
+    private javax.swing.JLabel jLabel209;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel210;
+    private javax.swing.JLabel jLabel211;
+    private javax.swing.JLabel jLabel212;
+    private javax.swing.JLabel jLabel213;
+    private javax.swing.JLabel jLabel214;
+    private javax.swing.JLabel jLabel215;
+    private javax.swing.JLabel jLabel216;
+    private javax.swing.JLabel jLabel217;
+    private javax.swing.JLabel jLabel218;
+    private javax.swing.JLabel jLabel219;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel220;
+    private javax.swing.JLabel jLabel224;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel239;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
+    private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel68;
+    private javax.swing.JLabel jLabel69;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
+    private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
+    private javax.swing.JLabel jLabel76;
+    private javax.swing.JLabel jLabel77;
+    private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
+    private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel85;
+    private javax.swing.JLabel jLabel86;
+    private javax.swing.JLabel jLabel87;
+    private javax.swing.JLabel jLabel88;
+    private javax.swing.JLabel jLabel89;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel90;
+    private javax.swing.JLabel jLabel91;
+    private javax.swing.JLabel jLabel92;
+    private javax.swing.JLabel jLabel93;
+    private javax.swing.JLabel jLabel94;
+    private javax.swing.JLabel jLabel95;
+    private javax.swing.JLabel jLabel96;
+    private javax.swing.JLabel jLabel97;
+    private javax.swing.JLabel jLabel98;
+    private javax.swing.JLabel jLabel99;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
 }
