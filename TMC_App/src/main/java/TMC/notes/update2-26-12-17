@@ -1,5 +1,0 @@
-1. Utworzenie siatki 15x15
-2. W kazdym kwadracie jest przycisk
-3. Na kazdy przycisk nalozony jest JPanel gdzie mozna wywolac metoda MouseClicked
-4. Ogolnie zostalo dodanych 225 przyciskow i 225 jpaneli, co przeklada sie na duza ilosc dodatkowego kodu
-5. Najlepiej byloby wyrzucic te deklaracje do innego pliku.

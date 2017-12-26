@@ -1,0 +1,43 @@
+
+-------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------
+TMC v0.0.4 || Update 3 - 26.12.2017 //diegomez
+********
+1. Dodanie gotowych tekstur
+-Tekstury tanków mog¹ siê przydaæ, do wybierania spawnów
+2. Dodanie klasy Block
+3. Poprawki w Gridzie
+-Automatyczne tworzenie pustych bloków (potrzebna bêdzie nowa tekstura)
+-Usuniêcie 255 jpaneli
+-Usuniêcie siatki (przy jLabelach i tak nie dzia³a - byæ mo¿e siatkê zrobimy z tekstury)
+4. Dodanie nowych paneli na narzêdzia i itemy
+5. Wstawienie Comboboxa do prze³¹czana miêdzy blokami / spawnami tankow / ustawieniami t³a
+6. Wstêpna implementacja drugiego jêzyka do apki (Angielski)
+7. Nowy jLabel na opis
+8. Zrobienie metody zczytuj¹cej informacje o bloczkach na mapie
+-Potrzebne bêdzie do tworzenia plików .txt
+-------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------
+TMC v0.0.3 || Update 2 - 26.12.2017 //falcon
+********
+1. Utworzenie siatki 15x15
+2. W kazdym kwadracie jest przycisk
+3. Na kazdy przycisk nalozony jest JPanel gdzie mozna wywolac metoda MouseClicked
+4. Ogolnie zostalo dodanych 225 przyciskow i 225 jpaneli, co przeklada sie na duza ilosc dodatkowego kodu
+5. Najlepiej byloby wyrzucic te deklaracje do innego pliku.
+-------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------
+TMC v0.0.2 || Update 1 - 23.12.2017 //falcon
+********
+1. Ustawienie szerokosci i wysokosci, resizeable = false
+2. Dodanie MainJPanel
+-------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------
+TMC v0.0.1 || Update 0 - 17.12.2017 //diegomez
+********
+-Stworzenie nowego projektu
+-------------------------------------------------------------------------------------------------

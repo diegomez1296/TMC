@@ -1,0 +1,22 @@
+//diegomez
+
+Hejka. Kilka informacji:
+Proponujê ustaliæ konwencjê zapisu commitów, ¿eby potem jakoœ to ³adnie i przejrzyœcie wygl¹da³o.
+
+Mianowicie:
+TMC v0.Y.X || Desc
+********
+X - Podajecie kolejn¹ cyferkê
+Y - Po v0.0.9 bêdzie v0.1.0 zamiast v0.0.10. Tak dla przejrzystoœci
+
+Ogólnie d¹¿ymy do wersji 1.0.0 - która bêdzie finalna
+
+Desc - krótki opis tego co siê zrobi³o, szczegó³y opisujemy w pliku 'Updates'
+***********
+Commity róbcie wtedy - kiedy naprawdê skoñczyliœcie ju¿ pracê (ewentualnie robicie d³u¿sz¹ przerwê) - ¿eby nie zrobi³ siê z nimi ba³agan. (W sensie nie róbcie commita co ka¿d¹ linijkê kodu - bo potem to s³abo wygl¹da w historii.
+
+Ogarnijcie discorda - to jak bêdzie chwila to na spokojnie jeszcze o tym wszystkim powiem. 
+Przydaæ siê mo¿e te¿ teamViever - ale zobaczymy jeszcze.
+
+
+Aha i wstawi³em wszystkie update'y do jednego pliku - wydaje mi siê, ¿e tak bêdzie lepiej.
