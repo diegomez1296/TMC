@@ -38,7 +38,7 @@ public class TMC_Application extends javax.swing.JFrame {
         {
             Str_ComboB_Blocks = "Blocks";
             Str_ComboB_Tanks = "Tank Spawn";
-            Str_ComboB_Background = "Background";
+            Str_ComboB_Background = "Change Background Color";
             
             Str_LangPL = "Polish"; 
             Str_LangEng = "English";
@@ -82,6 +82,7 @@ public class TMC_Application extends javax.swing.JFrame {
         initComponents();
         createDefaultBlocks();
         getInfoAboutBlocks();
+        selectColorJComboBox.setVisible(false);
         
     }
     /**
@@ -98,6 +99,7 @@ public class TMC_Application extends javax.swing.JFrame {
         jPanel_Tools = new javax.swing.JPanel();
         jComboBox_CreatingMapOptions = new javax.swing.JComboBox<>();
         jPanel_Items = new javax.swing.JPanel();
+        selectColorJComboBox = new javax.swing.JComboBox<>();
         jLabel_Description = new javax.swing.JLabel();
         MenuJMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -157,6 +159,13 @@ public class TMC_Application extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
+        selectColorJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Background Color", "Yellow", "Green", "Red", "Blue" }));
+        selectColorJComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectColorJComboBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel_ToolsLayout = new javax.swing.GroupLayout(jPanel_Tools);
         jPanel_Tools.setLayout(jPanel_ToolsLayout);
         jPanel_ToolsLayout.setHorizontalGroup(
@@ -166,8 +175,10 @@ public class TMC_Application extends javax.swing.JFrame {
                 .addGroup(jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel_Items, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel_ToolsLayout.createSequentialGroup()
-                        .addComponent(jComboBox_CreatingMapOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 70, Short.MAX_VALUE)))
+                        .addGroup(jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox_CreatingMapOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(selectColorJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 26, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel_ToolsLayout.setVerticalGroup(
@@ -177,6 +188,8 @@ public class TMC_Application extends javax.swing.JFrame {
                 .addComponent(jComboBox_CreatingMapOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel_Items, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(selectColorJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -239,21 +252,47 @@ public class TMC_Application extends javax.swing.JFrame {
         switch(jComboBox_CreatingMapOptions.getSelectedIndex())
         {
             case 0:
+                selectColorJComboBox.setVisible(false);
                 jPanel_Items.setBackground(Color.GREEN);
                 ShowInfo("Ustawiamy bloczki");
                 break;
             case 1:
+                selectColorJComboBox.setVisible(false);
                 jPanel_Items.setBackground(Color.blue);
                 ShowInfo("Ustawiamy Spawny Tanków");
                 break;
             
             case 2:
+                //GridPanelJPanel.setBackground(Color.red);
+                selectColorJComboBox.setVisible(true);
                 jPanel_Items.setBackground(Color.red);
                 ShowInfo("Ustawiamy BackGround");
                 break;
         }
         
     }//GEN-LAST:event_jComboBox_CreatingMapOptionsActionPerformed
+
+    private void selectColorJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectColorJComboBoxActionPerformed
+        // TODO add your handling code here:
+        //wybieranie kolorow
+        
+        switch(selectColorJComboBox.getSelectedIndex()){
+            case 0:
+                break;
+                
+            case 1:
+                GridPanelJPanel.setBackground(Color.yellow);
+                break;
+            case 2:
+                GridPanelJPanel.setBackground(Color.green);
+                break;
+            case 3:
+                GridPanelJPanel.setBackground(Color.red);
+                break;
+            case 4:
+                GridPanelJPanel.setBackground(Color.blue);
+        }
+    }//GEN-LAST:event_selectColorJComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -308,5 +347,6 @@ public class TMC_Application extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel_Items;
     private javax.swing.JPanel jPanel_Tools;
+    private javax.swing.JComboBox<String> selectColorJComboBox;
     // End of variables declaration//GEN-END:variables
 }

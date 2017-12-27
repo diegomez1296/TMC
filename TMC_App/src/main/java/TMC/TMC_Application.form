@@ -161,8 +161,11 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel_Items" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="jComboBox_CreatingMapOptions" min="-2" pref="83" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="70" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jComboBox_CreatingMapOptions" min="-2" pref="83" max="-2" attributes="0"/>
+                                  <Component id="selectColorJComboBox" min="-2" pref="131" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="26" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -176,6 +179,8 @@
                       <Component id="jComboBox_CreatingMapOptions" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel_Items" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="selectColorJComboBox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -215,6 +220,25 @@
                 </DimensionLayout>
               </Layout>
             </Container>
+            <Component class="javax.swing.JComboBox" name="selectColorJComboBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="5">
+                    <StringItem index="0" value="Select Background Color"/>
+                    <StringItem index="1" value="Yellow"/>
+                    <StringItem index="2" value="Green"/>
+                    <StringItem index="3" value="Red"/>
+                    <StringItem index="4" value="Blue"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectColorJComboBoxActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel_Description">
