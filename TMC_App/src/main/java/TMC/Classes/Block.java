@@ -23,24 +23,44 @@ public class Block {
     public boolean IsCollidingWithBullet;
     public boolean IsWater;
 
-
-public Block(String ImageFromAddress, Color BackColor, boolean isDestroyable, boolean isCollidingtanks, boolean isCollidingBullet, boolean isWater, int LocationBlockX, int LocationBlockY)
+//MapBlocks
+public Block(String ImageFromAddress, boolean isDestroyable, boolean isCollidingtanks, boolean isCollidingBullet, boolean isWater, int LocationBlockX, int LocationBlockY)
         {
             Bloczek = new JLabel();
             Bloczek.setSize(40, 40);
             Bloczek.setLocation(LocationBlockX, LocationBlockY);
             Bloczek.setIcon(new ImageIcon(ImageFromAddress));
-            Bloczek.setBackground(BackColor);
+            //Bloczek.setBackground(BackColor);
             IsDestroyable = isDestroyable;
             IsCollidingWithTanks = isCollidingtanks;
             IsCollidingWithBullet = isCollidingBullet;
             IsWater = isWater;
         }
 
+
+
+
+
+//AllTypeBlocks
+public Block(String ImageFromAddress, boolean isDestroyable, boolean isCollidingtanks, boolean isCollidingBullet, boolean isWater)
+        {
+            Bloczek = new JLabel();
+            Bloczek.setSize(40, 40);
+            Bloczek.setIcon(new ImageIcon(ImageFromAddress));
+            IsDestroyable = isDestroyable;
+            IsCollidingWithTanks = isCollidingtanks;
+            IsCollidingWithBullet = isCollidingBullet;
+            IsWater = isWater;
+                        
+            
+        }
+
     @Override
     public String toString() {
-        return "Block{" + "Bloczek=" + Bloczek + ", IsDestroyable=" + IsDestroyable + ", IsCollidingWithTanks=" + IsCollidingWithTanks + ", IsCollidingWithBullet=" + IsCollidingWithBullet + ", IsWater=" + IsWater + '}';
+        return "Block{" + "Bloczek=" + Bloczek + ", IsDestroyable=" + IsDestroyable + ", IsCollidingWithTanks=" + IsCollidingWithTanks + ", IsWater=" + IsWater + '}';
     }
+
+    
 
 
 

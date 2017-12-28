@@ -1,5 +1,33 @@
+﻿-------------------------------------------------------------------------------------------------
+TMC v0.0.5 || 28.12.2017 //diegomez
+********
+1. Przeniesienie selectColorJComboBox na jPanel_Items
+2. Rozwinięcie zakładki z Blokami w menu narzędzi
+- Wczytywanie bloczków
+- Pokazywanie aktywnego bloczka (oraz zapis atrybutów wybranego bloczka)
+- Możliwość ustawienia domyślnego (pustego) bloczka
+3. Rozwinięcie GridPanelu
+- Można edytować/usuwać już bloczki na mapie (zapisywane są atrybuty bloczków (przyda się, przy ustalaniu spawnów))
+4. Implementacja dwóch języków
+- Apka zawiera już w większości tłumaczenie w dwóch językach
+5. Dodanie zakładki z autorami (do rozwinięcia w przyszłości)
+6. Zrobienie i dodanie kilku tekstur
+- Default Block
+- Delete Block
+- FlagaPL
+- FlagaEng
+- FlagaPL kliknięta
+- FlagaEng kliknięta
+- Zdjęcia Autorów
+7. Stworzenie metod:
+* startApplication() - tutaj będzie wszystko co ma zostać zainicjalizowane na start (np. tekstury komponentów, teksty itd)
+* jComboBoxCreaner() - do czyszczenia zakładek z jComboBox_CreatingMapOptions
+8. Dodanie nowego konktruktora w klasie Blocks
+
 -------------------------------------------------------------------------------------------------
-TMC v0.0.4.1 || Update 4 - 27.12.2017 //falcon
+
+-------------------------------------------------------------------------------------------------
+TMC v0.0.4.1 || 27.12.2017 //falcon
 ********
 1. Utworzenie selectColorJComboBox 
 2. Po wybraniu odpowiedniego koloru background GridPanelJPanel zostaje zmieniony
@@ -7,25 +35,25 @@ TMC v0.0.4.1 || Update 4 - 27.12.2017 //falcon
 -------------------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------------------
-TMC v0.0.4 || Update 3 - 26.12.2017 //diegomez
+TMC v0.0.4 || 26.12.2017 //diegomez
 ********
 1. Dodanie gotowych tekstur
--Tekstury tank�w mog� si� przyda�, do wybierania spawn�w
+-Tekstury tankow moga sie przydac, do wybierania spawnow
 2. Dodanie klasy Block
 3. Poprawki w Gridzie
--Automatyczne tworzenie pustych blok�w (potrzebna b�dzie nowa tekstura)
--Usuni�cie 255 jpaneli
--Usuni�cie siatki (przy jLabelach i tak nie dzia�a - by� mo�e siatk� zrobimy z tekstury)
-4. Dodanie nowych paneli na narz�dzia i itemy
-5. Wstawienie Comboboxa do prze��czana mi�dzy blokami / spawnami tankow / ustawieniami t�a
-6. Wst�pna implementacja drugiego j�zyka do apki (Angielski)
+-Automatyczne tworzenie pustych blokow (potrzebna bedzie nowa tekstura)
+-Usuniecie 255 jpaneli
+-Usuniecie siatki (przy jLabelach i tak nie dziala - byc moze siatke zrobimy z tekstury)
+4. Dodanie nowych paneli na narzedzia i itemy
+5. Wstawienie Comboboxa do przelaczana miedzy blokami / spawnami tankow / ustawieniami tla
+6. Wstepna implementacja drugiego jezyka do apki (Angielski)
 7. Nowy jLabel na opis
-8. Zrobienie metody zczytuj�cej informacje o bloczkach na mapie
--Potrzebne b�dzie do tworzenia plik�w .txt
+8. Zrobienie metody zczytujacej informacje o bloczkach na mapie
+-Potrzebne bedzie do tworzenia plikow .txt
 -------------------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------------------
-TMC v0.0.3 || Update 2 - 26.12.2017 //falcon
+TMC v0.0.3 || 26.12.2017 //falcon
 ********
 1. Utworzenie siatki 15x15
 2. W kazdym kwadracie jest przycisk
@@ -35,14 +63,14 @@ TMC v0.0.3 || Update 2 - 26.12.2017 //falcon
 -------------------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------------------
-TMC v0.0.2 || Update 1 - 23.12.2017 //falcon
+TMC v0.0.2 || 23.12.2017 //falcon
 ********
 1. Ustawienie szerokosci i wysokosci, resizeable = false
 2. Dodanie MainJPanel
 -------------------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------------------
-TMC v0.0.1 || Update 0 - 17.12.2017 //diegomez
+TMC v0.0.1 || 17.12.2017 //diegomez
 ********
 -Stworzenie nowego projektu
 -------------------------------------------------------------------------------------------------
