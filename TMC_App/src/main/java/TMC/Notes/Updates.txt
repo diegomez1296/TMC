@@ -1,4 +1,11 @@
 -------------------------------------------------------------------------------------------------
+TMC v0.0.5.2 || 28.12.2017 //falcon
+********
+1. Zmiana metody do resetowania mapy, resetMap(), stara metoda resetCreatingMap() zakomentowana
+2. Podpiecie metody pod przycisk File->Nowy
+
+-------------------------------------------------------------------------------------------------﻿
+-------------------------------------------------------------------------------------------------
 TMC v0.0.5.1 || 28.12.2017 //falcon
 ********
 1. Utworzenie przycisku do resetowania obecnych ustawień mapy 

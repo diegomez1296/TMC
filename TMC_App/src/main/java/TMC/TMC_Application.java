@@ -149,15 +149,24 @@ public class TMC_Application extends javax.swing.JFrame {
         selectColorJComboBox.setVisible(false);
     }
 
-    private void resetCreatingMap() {
-        GridPanelJPanel.removeAll();
-        GridPanelJPanel.revalidate();
-        GridPanelJPanel.repaint();
-        setLanguage(LanguagePL);
-        createDefaultBlocks();
-        LoadingDatabaseOfBlocks();
-        jLabel_DeleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block.gif"));
-
+//    private void resetCreatingMap() {
+//        GridPanelJPanel.removeAll();
+//        GridPanelJPanel.revalidate();
+//        GridPanelJPanel.repaint();
+//        setLanguage(LanguagePL);
+//        createDefaultBlocks();
+//        LoadingDatabaseOfBlocks();
+//        jLabel_DeleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block.gif"));
+//
+//    }
+    private void resetMap() {
+        for (Block MapBlock : MapBlocks) {
+            MapBlock.IsCollidingWithBullet = false;
+            MapBlock.IsCollidingWithTanks = false;
+            MapBlock.IsDestroyable = false;
+            MapBlock.IsWater = true;
+            MapBlock.Bloczek.setIcon(new ImageIcon("Assets\\Blocks_Tex\\DefaultBlock.gif"));
+        }
     }
 
     public TMC_Application() {
@@ -189,7 +198,7 @@ public class TMC_Application extends javax.swing.JFrame {
         jLabel_Description = new javax.swing.JLabel();
         MenuJMenu = new javax.swing.JMenuBar();
         jMenu_File = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem_NewFile = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu_Edit = new javax.swing.JMenu();
         jMenu_Authors = new javax.swing.JMenu();
@@ -366,8 +375,13 @@ public class TMC_Application extends javax.swing.JFrame {
 
         jMenu_File.setText("Plik");
 
-        jMenuItem1.setText("Nowy");
-        jMenu_File.add(jMenuItem1);
+        jMenuItem_NewFile.setText("Nowy");
+        jMenuItem_NewFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_NewFileActionPerformed(evt);
+            }
+        });
+        jMenu_File.add(jMenuItem_NewFile);
 
         jMenuItem3.setText("Zapisz");
         jMenu_File.add(jMenuItem3);
@@ -474,9 +488,14 @@ public class TMC_Application extends javax.swing.JFrame {
 
     private void ResetPanelJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetPanelJButtonActionPerformed
         //resetowanie ustawien
-        resetCreatingMap();
+        //resetCreatingMap();
+        resetMap();
 
     }//GEN-LAST:event_ResetPanelJButtonActionPerformed
+
+    private void jMenuItem_NewFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_NewFileActionPerformed
+        resetMap();
+    }//GEN-LAST:event_jMenuItem_NewFileActionPerformed
 
     private void Blocks_Click(java.awt.event.MouseEvent evt) {
         for (int i = 0; i < MapBlocks.size(); i++) {
@@ -555,8 +574,8 @@ public class TMC_Application extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_Description;
     private javax.swing.JLabel jLabel_LangENG;
     private javax.swing.JLabel jLabel_LangPL;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem_NewFile;
     private javax.swing.JMenu jMenu_Authors;
     private javax.swing.JMenu jMenu_Edit;
     private javax.swing.JMenu jMenu_File;
