@@ -6,7 +6,9 @@
 package TMC;
 
 import TMC.Classes.Block;
+import TMC.Classes.Enum_BlockTypes;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -30,6 +32,8 @@ public class TMC_Application extends javax.swing.JFrame {
             jMenu_File.setText("Plik");
             jMenu_Edit.setText("Edycja");
             jMenu_Authors.setText("Autorzy");
+            
+            jMenuItem_NewFile.setText("Nowy");
 
             this.setTitle("Tanks 2k17 - Kreator Map");
 
@@ -42,6 +46,8 @@ public class TMC_Application extends javax.swing.JFrame {
             jMenu_File.setText("File");
             jMenu_Edit.setText("Edit");
             jMenu_Authors.setText("Authors");
+            
+            jMenuItem_NewFile.setText("New");
 
             this.setTitle("Tanks 2k17 - Map Creator");
 
@@ -63,7 +69,7 @@ public class TMC_Application extends javax.swing.JFrame {
 
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
-                Block tmp = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", false, false, false, true, LocationBlockX, LocationBlockY);
+                Block tmp = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", Enum_BlockTypes.Default, LocationBlockX, LocationBlockY);
 
                 GridPanelJPanel.add(tmp.Bloczek);
                 tmp.Bloczek.setVisible(true);
@@ -72,6 +78,13 @@ public class TMC_Application extends javax.swing.JFrame {
                         Blocks_Click(evt);
                     }
                 });
+                
+                tmp.Bloczek.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+                    public void mouseDragged(java.awt.event.MouseEvent evt) {
+                        Blocks_Dragged(evt);
+                    }
+                });
+                
                 MapBlocks.add(tmp);
                 LocationBlockX += 40;
 
@@ -80,7 +93,7 @@ public class TMC_Application extends javax.swing.JFrame {
             LocationBlockX = 5;
         }
         //ActualBlock
-        ActualBlock = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", false, false, false, true, 20, 380);
+        ActualBlock = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", Enum_BlockTypes.Default, 20, 380);
         ActualBlock.Bloczek.setVisible(true);
         jPanel_Tools.add(ActualBlock.Bloczek);
     }
@@ -88,19 +101,19 @@ public class TMC_Application extends javax.swing.JFrame {
     private void LoadingDatabaseOfBlocks() {
         //Block(String ImageFromAddress, boolean isDestroyable, boolean isCollidingtanks, boolean isCollidingBullets boolean isWater)
         //Liquid_Blocks
-        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\WaterBlock.gif", false, true, false, true));
-        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\Lawa.gif", false, true, false, true));
+        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\WaterBlock.gif", Enum_BlockTypes.Liquid));
+        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\Lawa.gif", Enum_BlockTypes.Liquid));
 
         //Destoyable_Blocks
-        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\RedBlock.gif", true, true, true, false));
-        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaBlack.gif", true, true, true, false));
-        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaRed.gif", true, true, true, false));
+        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\RedBlock.gif", Enum_BlockTypes.Destroyable));
+        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaBlack.gif", Enum_BlockTypes.Destroyable));
+        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaRed.gif", Enum_BlockTypes.Destroyable));
 
         //Undestoyable_Blocks
-        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock.gif", false, true, true, false));
+        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock.gif", Enum_BlockTypes.UnDestroyable));
 
         //Green_Blocks
-        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\GreenBlock.gif", false, false, false, false));
+        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\GreenBlock.gif", Enum_BlockTypes.Green));
 
     }
 
@@ -137,35 +150,22 @@ public class TMC_Application extends javax.swing.JFrame {
     }
 
     private void startApplication() {
+              
         setLanguage(LanguagePL);
         createDefaultBlocks();
         LoadingDatabaseOfBlocks();
         BlocksInMenuTools(0, AllTypesOfBlocks.size());
-
-        //jLabel_ActualBlock.setIcon(new ImageIcon ("Assets\\Blocks_Tex\\DefaultBlock.gif"));
+        
         jLabel_DeleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block.gif"));
 
         //getInfoAboutBlocks();
         selectColorJComboBox.setVisible(false);
     }
 
-//    private void resetCreatingMap() {
-//        GridPanelJPanel.removeAll();
-//        GridPanelJPanel.revalidate();
-//        GridPanelJPanel.repaint();
-//        setLanguage(LanguagePL);
-//        createDefaultBlocks();
-//        LoadingDatabaseOfBlocks();
-//        jLabel_DeleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block.gif"));
-//
-//    }
     private void resetMap() {
         for (Block MapBlock : MapBlocks) {
-            MapBlock.IsCollidingWithBullet = false;
-            MapBlock.IsCollidingWithTanks = false;
-            MapBlock.IsDestroyable = false;
-            MapBlock.IsWater = true;
             MapBlock.Bloczek.setIcon(new ImageIcon("Assets\\Blocks_Tex\\DefaultBlock.gif"));
+            MapBlock.setBlockType(Enum_BlockTypes.Default);
         }
     }
 
@@ -255,7 +255,7 @@ public class TMC_Application extends javax.swing.JFrame {
         jPanel_ItemsLayout.setHorizontalGroup(
             jPanel_ItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_ItemsLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addComponent(selectColorJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -336,7 +336,7 @@ public class TMC_Application extends javax.swing.JFrame {
                 .addComponent(jComboBox_CreatingMapOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel_Items, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(46, 46, 46)
                 .addComponent(jLabel_DeleteBlock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ResetPanelJButton)
@@ -469,10 +469,7 @@ public class TMC_Application extends javax.swing.JFrame {
 
     private void jLabel_DeleteBlockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_DeleteBlockMouseClicked
         ActualBlock.Bloczek.setIcon(new ImageIcon("Assets\\Blocks_Tex\\DefaultBlock.gif"));
-        ActualBlock.IsDestroyable = false;
-        ActualBlock.IsCollidingWithTanks = false;
-        ActualBlock.IsCollidingWithBullet = false;
-        ActualBlock.IsWater = true;
+        ActualBlock.setBlockType(Enum_BlockTypes.Default);
 
     }//GEN-LAST:event_jLabel_DeleteBlockMouseClicked
 
@@ -488,7 +485,6 @@ public class TMC_Application extends javax.swing.JFrame {
 
     private void ResetPanelJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetPanelJButtonActionPerformed
         //resetowanie ustawien
-        //resetCreatingMap();
         resetMap();
 
     }//GEN-LAST:event_ResetPanelJButtonActionPerformed
@@ -502,25 +498,45 @@ public class TMC_Application extends javax.swing.JFrame {
             if (MapBlocks.get(i).Bloczek.getLocation().equals(evt.getComponent().getLocation())) {
                 System.out.println(MapBlocks.get(i));
                 MapBlocks.get(i).Bloczek.setIcon(ActualBlock.Bloczek.getIcon());
-                MapBlocks.get(i).IsDestroyable = ActualBlock.IsDestroyable;
-                MapBlocks.get(i).IsCollidingWithTanks = ActualBlock.IsCollidingWithTanks;
-                MapBlocks.get(i).IsCollidingWithBullet = ActualBlock.IsCollidingWithBullet;
-                MapBlocks.get(i).IsWater = ActualBlock.IsWater;
-
+                MapBlocks.get(i).setBlockType(ActualBlock.getBlockType());
+                break;
             }
         }
 
+    }
+    
+    private void Blocks_Dragged(java.awt.event.MouseEvent evt)
+    {
+        for (int i = 0; i < MapBlocks.size(); i++) {
+            
+            /* !!!!!!!!!!!!!!! Do poprawki ten warunek !!!!!!!!!!!!!! 
+                Ogólnie to jest pojebane. 
+            Trzeba zrobić by po przeciągnięciu myszy na danym labelu
+                w pętli, która będzie sprawdzała bloczki, był warunek 
+            - czy akurat aby nasz kursor nie był w granicach bloczka.
+             Jeśli tak: podmień mu teksturę i typ...
+            Dziękuję, do widzienia.                    
+            //diegomez */
+            if (evt.getX()+0  > MapBlocks.get(i).Bloczek.getX() && evt.getX()+0 < MapBlocks.get(i).Bloczek.getX() + 40
+                    && evt.getY()+0 > MapBlocks.get(i).Bloczek.getY() && evt.getY()+0 < MapBlocks.get(i).Bloczek.getY() + 40)
+            {
+                System.out.println(MapBlocks.get(i).Bloczek.getLocation());
+                System.out.println(evt.getPoint());
+                MapBlocks.get(i).Bloczek.setIcon(ActualBlock.Bloczek.getIcon());
+                MapBlocks.get(i).setBlockType(ActualBlock.getBlockType());
+                //break;
+                
+            }
+        }
+              
     }
 
     private void BlocksInMenuTools_Click(java.awt.event.MouseEvent evt) {
         for (int i = 0; i < AllTypesOfBlocks.size(); i++) {
             if (AllTypesOfBlocks.get(i).Bloczek.getLocation().equals(evt.getComponent().getLocation())) {
                 ActualBlock.Bloczek.setIcon(AllTypesOfBlocks.get(i).Bloczek.getIcon());
-                ActualBlock.IsDestroyable = AllTypesOfBlocks.get(i).IsDestroyable;
-                ActualBlock.IsCollidingWithTanks = AllTypesOfBlocks.get(i).IsCollidingWithTanks;
-                ActualBlock.IsCollidingWithBullet = AllTypesOfBlocks.get(i).IsCollidingWithBullet;
-                ActualBlock.IsWater = AllTypesOfBlocks.get(i).IsWater;
-
+                ActualBlock.setBlockType(AllTypesOfBlocks.get(i).getBlockType());
+                break;
             }
         }
     }

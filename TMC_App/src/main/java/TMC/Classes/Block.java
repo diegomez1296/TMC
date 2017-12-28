@@ -6,35 +6,23 @@ package TMC.Classes;
  */
 
 
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.List;
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class Block {
     
     public JLabel Bloczek;
-    public boolean IsDestroyable;
-    public boolean IsCollidingWithTanks;
-    public boolean IsCollidingWithBullet;
-    public boolean IsWater;
+    private Enum_BlockTypes BlockType;
+    
 
 //MapBlocks
-public Block(String ImageFromAddress, boolean isDestroyable, boolean isCollidingtanks, boolean isCollidingBullet, boolean isWater, int LocationBlockX, int LocationBlockY)
+public Block(String ImageFromAddress, Enum_BlockTypes blockType, int LocationBlockX, int LocationBlockY)
         {
             Bloczek = new JLabel();
             Bloczek.setSize(40, 40);
             Bloczek.setLocation(LocationBlockX, LocationBlockY);
             Bloczek.setIcon(new ImageIcon(ImageFromAddress));
-            //Bloczek.setBackground(BackColor);
-            IsDestroyable = isDestroyable;
-            IsCollidingWithTanks = isCollidingtanks;
-            IsCollidingWithBullet = isCollidingBullet;
-            IsWater = isWater;
+            this.BlockType = blockType;   
         }
 
 
@@ -42,28 +30,29 @@ public Block(String ImageFromAddress, boolean isDestroyable, boolean isColliding
 
 
 //AllTypeBlocks
-public Block(String ImageFromAddress, boolean isDestroyable, boolean isCollidingtanks, boolean isCollidingBullet, boolean isWater)
+public Block(String ImageFromAddress, Enum_BlockTypes blockType)
         {
             Bloczek = new JLabel();
             Bloczek.setSize(40, 40);
             Bloczek.setIcon(new ImageIcon(ImageFromAddress));
-            IsDestroyable = isDestroyable;
-            IsCollidingWithTanks = isCollidingtanks;
-            IsCollidingWithBullet = isCollidingBullet;
-            IsWater = isWater;
-                        
-            
+            this.BlockType = blockType;                      
         }
+
+    public Enum_BlockTypes getBlockType() {
+        return BlockType;
+    }
+
+    public void setBlockType(Enum_BlockTypes BlockType) {
+        this.BlockType = BlockType;
+    }
 
     @Override
     public String toString() {
-        return "Block{" + "Bloczek=" + Bloczek + ", IsDestroyable=" + IsDestroyable + ", IsCollidingWithTanks=" + IsCollidingWithTanks + ", IsWater=" + IsWater + '}';
+        return "Block{" + "Bloczek=" + Bloczek + ", BlockType=" + BlockType + '}';
     }
 
+
     
-
-
-
 
 }
    
