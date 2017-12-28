@@ -21,156 +21,152 @@ public class TMC_Application extends javax.swing.JFrame {
 
     Boolean LanguagePL = false;
     Block ActualBlock;
-    
-    private void setLanguage (Boolean LanguagePL)
-    {
-        if(LanguagePL)
-        {
-            jComboBox_CreatingMapOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bloczki", "Spawn Tanków", "Tło" }));         
-            selectColorJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Wybierz kolor tła", "Żółty", "Zielony", "Czerwony", "Niebieski" }));
+
+    private void setLanguage(Boolean LanguagePL) {
+        if (LanguagePL) {
+            jComboBox_CreatingMapOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Bloczki", "Spawn Tanków", "Tło"}));
+            selectColorJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Wybierz kolor tła", "Żółty", "Zielony", "Czerwony", "Niebieski"}));
 
             jMenu_File.setText("Plik");
             jMenu_Edit.setText("Edycja");
             jMenu_Authors.setText("Autorzy");
-            
+
             this.setTitle("Tanks 2k17 - Kreator Map");
-            
-            jLabel_LangPL.setIcon(new ImageIcon ("Assets\\Flags\\FlagaPL_Click.gif"));
-            jLabel_LangENG.setIcon(new ImageIcon ("Assets\\Flags\\FlagaENG.gif"));
-        }
-        else
-        {
-            jComboBox_CreatingMapOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blocks", "Tank Spawn", "Change Background Color" }));
-            selectColorJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Background Color", "Yellow", "Green", "Red", "Blue" }));
-            
+
+            jLabel_LangPL.setIcon(new ImageIcon("Assets\\Flags\\FlagaPL_Click.gif"));
+            jLabel_LangENG.setIcon(new ImageIcon("Assets\\Flags\\FlagaENG.gif"));
+        } else {
+            jComboBox_CreatingMapOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Blocks", "Tank Spawn", "Change Background Color"}));
+            selectColorJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select Background Color", "Yellow", "Green", "Red", "Blue"}));
+
             jMenu_File.setText("File");
             jMenu_Edit.setText("Edit");
             jMenu_Authors.setText("Authors");
-            
+
             this.setTitle("Tanks 2k17 - Map Creator");
-            
-            jLabel_LangPL.setIcon(new ImageIcon ("Assets\\Flags\\FlagaPL.gif"));
-            jLabel_LangENG.setIcon(new ImageIcon ("Assets\\Flags\\FlagaENG_Click.gif"));
+
+            jLabel_LangPL.setIcon(new ImageIcon("Assets\\Flags\\FlagaPL.gif"));
+            jLabel_LangENG.setIcon(new ImageIcon("Assets\\Flags\\FlagaENG_Click.gif"));
         }
-        
+
     }
-    
-    private void getInfoAboutBlocks()
-    {
+
+    private void getInfoAboutBlocks() {
         for (Block Block : MapBlocks) {
             System.out.println(Block.toString());
         }
     }
-    private void createDefaultBlocks()
-    {
+
+    private void createDefaultBlocks() {
         int LocationBlockX = 5;
         int LocationBlockY = 5;
-                
+
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
                 Block tmp = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", false, false, false, true, LocationBlockX, LocationBlockY);
-                
+
                 GridPanelJPanel.add(tmp.Bloczek);
                 tmp.Bloczek.setVisible(true);
-                tmp.Bloczek.addMouseListener(new java.awt.event.MouseAdapter() 
-                {
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    Blocks_Click(evt);
+                tmp.Bloczek.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        Blocks_Click(evt);
                     }
                 });
                 MapBlocks.add(tmp);
-                LocationBlockX+=40;
-                
+                LocationBlockX += 40;
+
             }
-            LocationBlockY+=40;
-            LocationBlockX =5;
+            LocationBlockY += 40;
+            LocationBlockX = 5;
         }
         //ActualBlock
         ActualBlock = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", false, false, false, true, 20, 380);
         ActualBlock.Bloczek.setVisible(true);
         jPanel_Tools.add(ActualBlock.Bloczek);
     }
-    
-    
-    private void LoadingDatabaseOfBlocks()
-    {
+
+    private void LoadingDatabaseOfBlocks() {
         //Block(String ImageFromAddress, boolean isDestroyable, boolean isCollidingtanks, boolean isCollidingBullets boolean isWater)
         //Liquid_Blocks
         AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\WaterBlock.gif", false, true, false, true));
         AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\Lawa.gif", false, true, false, true));
-        
+
         //Destoyable_Blocks
         AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\RedBlock.gif", true, true, true, false));
         AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaBlack.gif", true, true, true, false));
         AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaRed.gif", true, true, true, false));
-        
+
         //Undestoyable_Blocks
         AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock.gif", false, true, true, false));
-        
+
         //Green_Blocks
         AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\GreenBlock.gif", false, false, false, false));
-        
-        
+
     }
-        private void BlocksInMenuTools (int startIndex, int endIndex)
-    {
-        if (endIndex > AllTypesOfBlocks.size())
-        {
+
+    private void BlocksInMenuTools(int startIndex, int endIndex) {
+        if (endIndex > AllTypesOfBlocks.size()) {
             endIndex = AllTypesOfBlocks.size();
         }
-        
+
         int LocationBlockX = 10;
         int LocationBlockY = 5;
         int counter_BlocksInRow = 0;
-        
+
         for (int i = startIndex; i < endIndex; i++) {
-                
+
             jPanel_Items.add(AllTypesOfBlocks.get(i).Bloczek);
             AllTypesOfBlocks.get(i).Bloczek.setVisible(true);
             AllTypesOfBlocks.get(i).Bloczek.setLocation(LocationBlockX, LocationBlockY);
-            
+
             LocationBlockX += 50;
             counter_BlocksInRow++;
-            
-            
-            if (counter_BlocksInRow == 3)
-            {
-            counter_BlocksInRow = 0;
-            LocationBlockX = 10;
-            LocationBlockY += 40;
+
+            if (counter_BlocksInRow == 3) {
+                counter_BlocksInRow = 0;
+                LocationBlockX = 10;
+                LocationBlockY += 40;
             }
-                
-            AllTypesOfBlocks.get(i).Bloczek.addMouseListener(new java.awt.event.MouseAdapter() 
-                {
+
+            AllTypesOfBlocks.get(i).Bloczek.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
                     BlocksInMenuTools_Click(evt);
-                    }
-                });
+                }
+            });
         }
     }
-    
-    
-    private void startApplication()
-    {
+
+    private void startApplication() {
         setLanguage(LanguagePL);
         createDefaultBlocks();
         LoadingDatabaseOfBlocks();
-        BlocksInMenuTools (0, AllTypesOfBlocks.size());
-        
+        BlocksInMenuTools(0, AllTypesOfBlocks.size());
+
         //jLabel_ActualBlock.setIcon(new ImageIcon ("Assets\\Blocks_Tex\\DefaultBlock.gif"));
-        jLabel_DeleteBlock.setIcon(new ImageIcon ("Assets\\Blocks_Tex\\Delete_Block.gif"));
-        
-        
-        
+        jLabel_DeleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block.gif"));
+
         //getInfoAboutBlocks();
         selectColorJComboBox.setVisible(false);
     }
+
+    private void resetCreatingMap() {
+        GridPanelJPanel.removeAll();
+        GridPanelJPanel.revalidate();
+        GridPanelJPanel.repaint();
+        setLanguage(LanguagePL);
+        createDefaultBlocks();
+        LoadingDatabaseOfBlocks();
+        jLabel_DeleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block.gif"));
+
+    }
+
     public TMC_Application() {
-  
+
         initComponents();
         startApplication();
-        
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -189,6 +185,7 @@ public class TMC_Application extends javax.swing.JFrame {
         jLabel_DeleteBlock = new javax.swing.JLabel();
         jLabel_LangPL = new javax.swing.JLabel();
         jLabel_LangENG = new javax.swing.JLabel();
+        ResetPanelJButton = new javax.swing.JButton();
         jLabel_Description = new javax.swing.JLabel();
         MenuJMenu = new javax.swing.JMenuBar();
         jMenu_File = new javax.swing.JMenu();
@@ -249,7 +246,7 @@ public class TMC_Application extends javax.swing.JFrame {
         jPanel_ItemsLayout.setHorizontalGroup(
             jPanel_ItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_ItemsLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(selectColorJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -294,6 +291,13 @@ public class TMC_Application extends javax.swing.JFrame {
             }
         });
 
+        ResetPanelJButton.setText("Reset");
+        ResetPanelJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResetPanelJButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel_ToolsLayout = new javax.swing.GroupLayout(jPanel_Tools);
         jPanel_Tools.setLayout(jPanel_ToolsLayout);
         jPanel_ToolsLayout.setHorizontalGroup(
@@ -306,12 +310,14 @@ public class TMC_Application extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel_DeleteBlock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel_ToolsLayout.createSequentialGroup()
-                        .addComponent(jComboBox_CreatingMapOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel_ToolsLayout.createSequentialGroup()
                         .addComponent(jLabel_LangPL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel_LangENG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel_LangENG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel_ToolsLayout.createSequentialGroup()
+                        .addGroup(jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox_CreatingMapOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ResetPanelJButton))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel_ToolsLayout.setVerticalGroup(
@@ -324,6 +330,8 @@ public class TMC_Application extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addComponent(jLabel_DeleteBlock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ResetPanelJButton)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_LangPL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_LangENG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -388,24 +396,22 @@ public class TMC_Application extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBoxCreaner()
-    {
+    private void jComboBoxCreaner() {
         selectColorJComboBox.setVisible(false);
-        
+
         for (Block Blocks : AllTypesOfBlocks) {
             Blocks.Bloczek.setVisible(false);
         }
-        
+
         ActualBlock.Bloczek.setVisible(false);
     }
-    
+
     private void jComboBox_CreatingMapOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_CreatingMapOptionsActionPerformed
-        switch(jComboBox_CreatingMapOptions.getSelectedIndex())
-        {
+        switch (jComboBox_CreatingMapOptions.getSelectedIndex()) {
             case 0:
                 jComboBoxCreaner();
                 ActualBlock.Bloczek.setVisible(true);
-                BlocksInMenuTools (0, AllTypesOfBlocks.size());
+                BlocksInMenuTools(0, AllTypesOfBlocks.size());
                 jPanel_Items.setBackground(Color.GREEN);
                 ShowInfo("Ustawiamy bloczki");
                 break;
@@ -414,7 +420,7 @@ public class TMC_Application extends javax.swing.JFrame {
                 jPanel_Items.setBackground(Color.blue);
                 ShowInfo("Ustawiamy Spawny Tanków");
                 break;
-            
+
             case 2:
                 //GridPanelJPanel.setBackground(Color.red);
                 jComboBoxCreaner();
@@ -423,17 +429,16 @@ public class TMC_Application extends javax.swing.JFrame {
                 ShowInfo("Ustawiamy BackGround");
                 break;
         }
-        
+
     }//GEN-LAST:event_jComboBox_CreatingMapOptionsActionPerformed
 
     private void selectColorJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectColorJComboBoxActionPerformed
-        // TODO add your handling code here:
         //wybieranie kolorow
-        
-        switch(selectColorJComboBox.getSelectedIndex()){
+
+        switch (selectColorJComboBox.getSelectedIndex()) {
             case 0:
                 break;
-                
+
             case 1:
                 GridPanelJPanel.setBackground(Color.yellow);
                 break;
@@ -451,10 +456,10 @@ public class TMC_Application extends javax.swing.JFrame {
     private void jLabel_DeleteBlockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_DeleteBlockMouseClicked
         ActualBlock.Bloczek.setIcon(new ImageIcon("Assets\\Blocks_Tex\\DefaultBlock.gif"));
         ActualBlock.IsDestroyable = false;
-        ActualBlock.IsCollidingWithTanks = false;  
-        ActualBlock.IsCollidingWithBullet = false; 
+        ActualBlock.IsCollidingWithTanks = false;
+        ActualBlock.IsCollidingWithBullet = false;
         ActualBlock.IsWater = true;
-        
+
     }//GEN-LAST:event_jLabel_DeleteBlockMouseClicked
 
     private void jLabel_LangPLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_LangPLMouseClicked
@@ -466,40 +471,41 @@ public class TMC_Application extends javax.swing.JFrame {
         LanguagePL = false;
         setLanguage(LanguagePL);
     }//GEN-LAST:event_jLabel_LangENGMouseClicked
-    
-    private void Blocks_Click(java.awt.event.MouseEvent evt)
-    {
-       for (int i = 0; i < MapBlocks.size(); i++) {
-            if(MapBlocks.get(i).Bloczek.getLocation().equals(evt.getComponent().getLocation()))
-            {
+
+    private void ResetPanelJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetPanelJButtonActionPerformed
+        //resetowanie ustawien
+        resetCreatingMap();
+
+    }//GEN-LAST:event_ResetPanelJButtonActionPerformed
+
+    private void Blocks_Click(java.awt.event.MouseEvent evt) {
+        for (int i = 0; i < MapBlocks.size(); i++) {
+            if (MapBlocks.get(i).Bloczek.getLocation().equals(evt.getComponent().getLocation())) {
                 System.out.println(MapBlocks.get(i));
                 MapBlocks.get(i).Bloczek.setIcon(ActualBlock.Bloczek.getIcon());
                 MapBlocks.get(i).IsDestroyable = ActualBlock.IsDestroyable;
-                MapBlocks.get(i).IsCollidingWithTanks = ActualBlock.IsCollidingWithTanks;    
-                MapBlocks.get(i).IsCollidingWithBullet = ActualBlock.IsCollidingWithBullet;  
-                MapBlocks.get(i).IsWater = ActualBlock.IsWater;  
-                
+                MapBlocks.get(i).IsCollidingWithTanks = ActualBlock.IsCollidingWithTanks;
+                MapBlocks.get(i).IsCollidingWithBullet = ActualBlock.IsCollidingWithBullet;
+                MapBlocks.get(i).IsWater = ActualBlock.IsWater;
+
             }
         }
-    
+
     }
-    
-    private void BlocksInMenuTools_Click(java.awt.event.MouseEvent evt)
-    {
+
+    private void BlocksInMenuTools_Click(java.awt.event.MouseEvent evt) {
         for (int i = 0; i < AllTypesOfBlocks.size(); i++) {
-            if(AllTypesOfBlocks.get(i).Bloczek.getLocation().equals(evt.getComponent().getLocation()))
-            {
+            if (AllTypesOfBlocks.get(i).Bloczek.getLocation().equals(evt.getComponent().getLocation())) {
                 ActualBlock.Bloczek.setIcon(AllTypesOfBlocks.get(i).Bloczek.getIcon());
                 ActualBlock.IsDestroyable = AllTypesOfBlocks.get(i).IsDestroyable;
-                ActualBlock.IsCollidingWithTanks = AllTypesOfBlocks.get(i).IsCollidingWithTanks;    
-                ActualBlock.IsCollidingWithBullet = AllTypesOfBlocks.get(i).IsCollidingWithBullet;  
-                ActualBlock.IsWater = AllTypesOfBlocks.get(i).IsWater;  
-                
+                ActualBlock.IsCollidingWithTanks = AllTypesOfBlocks.get(i).IsCollidingWithTanks;
+                ActualBlock.IsCollidingWithBullet = AllTypesOfBlocks.get(i).IsCollidingWithBullet;
+                ActualBlock.IsWater = AllTypesOfBlocks.get(i).IsWater;
+
             }
         }
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -531,21 +537,19 @@ public class TMC_Application extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TMC_Application().setVisible(true);
-                
+
             }
         });
     }
 
-    
-    
-    private void ShowInfo(String Info)
-    {
+    private void ShowInfo(String Info) {
         jLabel_Description.setText(Info);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel GridPanelJPanel;
     private javax.swing.JPanel MainJPanel;
     private javax.swing.JMenuBar MenuJMenu;
+    private javax.swing.JButton ResetPanelJButton;
     private javax.swing.JComboBox<String> jComboBox_CreatingMapOptions;
     private javax.swing.JLabel jLabel_DeleteBlock;
     private javax.swing.JLabel jLabel_Description;
