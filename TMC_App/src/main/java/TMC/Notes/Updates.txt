@@ -1,4 +1,23 @@
 ﻿-------------------------------------------------------------------------------------------------
+TMC v0.0.6 || 29.12.2017 //diegomez
+********
+1. Stworzenie kontrolek do zapisu i odczytu mapy
+- Nadanie im domyślnej ścieżki zapisu i odczytu w folderze Maps w głównym projekcie
+2. Dodanie kolejnego MenuItem do odczytu mapy
+- Ustawienie wszystkim MenuItem odpowiednich nazw oraz obsługi dwóch języków
+3. Zapis mapy
+- Stworzenie metody saveMap()
+- Zapis do folderu z mapami w projekcie
+- Zapis bloczków oraz backgroundu mapy
+4. Wczytanie zapisanej mapy (oraz tła)
+- Stworzenie metody loadMapFromFile()
+5. Metoda resetMap resetuje także background
+6. Poprawka w klasie z blokami (metoda toString)
+7. Stworzenie folderu z mapami oraz stworzenie kilku testowych map
+
+-------------------------------------------------------------------------------------------------﻿
+
+-------------------------------------------------------------------------------------------------
 TMC v0.0.5.3 || 28.12.2017 //diegomez
 ********
 1. Dodanie Enuma do projektu

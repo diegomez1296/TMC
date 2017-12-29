@@ -9,6 +9,11 @@ import TMC.Classes.Block;
 import TMC.Classes.Enum_BlockTypes;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -23,6 +28,8 @@ public class TMC_Application extends javax.swing.JFrame {
 
     Boolean LanguagePL = false;
     Block ActualBlock;
+    
+    String errorInfo;
 
     private void setLanguage(Boolean LanguagePL) {
         if (LanguagePL) {
@@ -30,37 +37,60 @@ public class TMC_Application extends javax.swing.JFrame {
             selectColorJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Wybierz kolor tła", "Żółty", "Zielony", "Czerwony", "Niebieski"}));
 
             jMenu_File.setText("Plik");
+                jMenuItem_NewFile.setText("Nowy");
+                jMenuItem_SaveFile.setText("Zapisz");
+                jMenuItem_OpenFile.setText("Otwórz");
             jMenu_Edit.setText("Edycja");
             jMenu_Authors.setText("Autorzy");
             
-            jMenuItem_NewFile.setText("Nowy");
+            
 
             this.setTitle("Tanks 2k17 - Kreator Map");
 
             jLabel_LangPL.setIcon(new ImageIcon("Assets\\Flags\\FlagaPL_Click.gif"));
             jLabel_LangENG.setIcon(new ImageIcon("Assets\\Flags\\FlagaENG.gif"));
+            
+            jFileChooser_SaveFile.setApproveButtonText("Zapisz");
+                jFileChooser_SaveFile.setDialogTitle(jFileChooser_SaveFile.getApproveButtonText());
+            jFileChooser_OpenFile.setApproveButtonText("Otwórz");
+            
+            errorInfo = "Błąd";
         } else {
             jComboBox_CreatingMapOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Blocks", "Tank Spawn", "Change Background Color"}));
             selectColorJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select Background Color", "Yellow", "Green", "Red", "Blue"}));
 
             jMenu_File.setText("File");
+                jMenuItem_NewFile.setText("New");
+                jMenuItem_SaveFile.setText("Save");
+                jMenuItem_OpenFile.setText("Load");
             jMenu_Edit.setText("Edit");
             jMenu_Authors.setText("Authors");
             
-            jMenuItem_NewFile.setText("New");
 
             this.setTitle("Tanks 2k17 - Map Creator");
 
             jLabel_LangPL.setIcon(new ImageIcon("Assets\\Flags\\FlagaPL.gif"));
             jLabel_LangENG.setIcon(new ImageIcon("Assets\\Flags\\FlagaENG_Click.gif"));
+            
+            jFileChooser_SaveFile.setApproveButtonText("Save");
+                jFileChooser_SaveFile.setDialogTitle(jFileChooser_SaveFile.getApproveButtonText());
+            jFileChooser_OpenFile.setApproveButtonText("Load");
+            
+            errorInfo = "Error";
+            
         }
 
     }
 
-    private void getInfoAboutBlocks() {
+    private String getInfoAboutBlocks() {
+        StringBuilder SaveFile = new StringBuilder();
+        SaveFile.append(GridPanelJPanel.getBackground().getRGB());
+        SaveFile.append(System.getProperty("line.separator"));
         for (Block Block : MapBlocks) {
-            System.out.println(Block.toString());
+            SaveFile.append(Block.toString());
+            SaveFile.append(System.getProperty("line.separator"));
         }
+        return SaveFile.toString();
     }
 
     private void createDefaultBlocks() {
@@ -150,7 +180,10 @@ public class TMC_Application extends javax.swing.JFrame {
     }
 
     private void startApplication() {
-              
+       
+        jFileChooser_SaveFile.setCurrentDirectory(new File("Maps"));
+        jFileChooser_OpenFile.setCurrentDirectory(new File("Maps"));
+        
         setLanguage(LanguagePL);
         createDefaultBlocks();
         LoadingDatabaseOfBlocks();
@@ -158,11 +191,13 @@ public class TMC_Application extends javax.swing.JFrame {
         
         jLabel_DeleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block.gif"));
 
-        //getInfoAboutBlocks();
+        getInfoAboutBlocks();
         selectColorJComboBox.setVisible(false);
     }
 
     private void resetMap() {
+        GridPanelJPanel.setBackground(Color.decode("-3355444"));
+        
         for (Block MapBlock : MapBlocks) {
             MapBlock.Bloczek.setIcon(new ImageIcon("Assets\\Blocks_Tex\\DefaultBlock.gif"));
             MapBlock.setBlockType(Enum_BlockTypes.Default);
@@ -185,6 +220,8 @@ public class TMC_Application extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser_SaveFile = new javax.swing.JFileChooser();
+        jFileChooser_OpenFile = new javax.swing.JFileChooser();
         MainJPanel = new javax.swing.JPanel();
         GridPanelJPanel = new javax.swing.JPanel();
         jPanel_Tools = new javax.swing.JPanel();
@@ -199,9 +236,15 @@ public class TMC_Application extends javax.swing.JFrame {
         MenuJMenu = new javax.swing.JMenuBar();
         jMenu_File = new javax.swing.JMenu();
         jMenuItem_NewFile = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem_OpenFile = new javax.swing.JMenuItem();
+        jMenuItem_SaveFile = new javax.swing.JMenuItem();
         jMenu_Edit = new javax.swing.JMenu();
         jMenu_Authors = new javax.swing.JMenu();
+
+        jFileChooser_SaveFile.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+        jFileChooser_SaveFile.setApproveButtonText("");
+        jFileChooser_SaveFile.setApproveButtonToolTipText("");
+        jFileChooser_SaveFile.setDialogTitle("");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tank Map Creator");
@@ -383,8 +426,21 @@ public class TMC_Application extends javax.swing.JFrame {
         });
         jMenu_File.add(jMenuItem_NewFile);
 
-        jMenuItem3.setText("Zapisz");
-        jMenu_File.add(jMenuItem3);
+        jMenuItem_OpenFile.setText("Otwórz");
+        jMenuItem_OpenFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_OpenFileActionPerformed(evt);
+            }
+        });
+        jMenu_File.add(jMenuItem_OpenFile);
+
+        jMenuItem_SaveFile.setText("Zapisz");
+        jMenuItem_SaveFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_SaveFileActionPerformed(evt);
+            }
+        });
+        jMenu_File.add(jMenuItem_SaveFile);
 
         MenuJMenu.add(jMenu_File);
 
@@ -493,6 +549,79 @@ public class TMC_Application extends javax.swing.JFrame {
         resetMap();
     }//GEN-LAST:event_jMenuItem_NewFileActionPerformed
 
+    private void jMenuItem_OpenFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_OpenFileActionPerformed
+        loadMapFromFile();
+    }//GEN-LAST:event_jMenuItem_OpenFileActionPerformed
+
+    private void loadMapFromFile()
+    {
+        int answer = jFileChooser_OpenFile.showOpenDialog(this);
+	      if (answer == jFileChooser_OpenFile.APPROVE_OPTION) {
+	          File file = jFileChooser_OpenFile.getSelectedFile();
+	          try {
+                      BufferedReader in = new BufferedReader(new FileReader(file));
+                      String str;
+                      resetMap();
+                      GridPanelJPanel.setBackground(Color.decode(in.readLine()));
+                      int i=0;
+                      while ((str = in.readLine()) != null) {                          
+                        String[] splittedTex = str.split(";");
+                        
+                        switch (splittedTex[0])
+                        {
+                            case "Destroyable":
+                             MapBlocks.get(i).setBlockType(Enum_BlockTypes.Destroyable);
+                             break;
+                             
+                             case "UnDestroyable":
+                             MapBlocks.get(i).setBlockType(Enum_BlockTypes.UnDestroyable);
+                             break;
+                             
+                             case "Liquid":
+                             MapBlocks.get(i).setBlockType(Enum_BlockTypes.Liquid);
+                             break;
+                             
+                             case "Green":
+                             MapBlocks.get(i).setBlockType(Enum_BlockTypes.Green);
+                             break;
+                             
+                             case "Default":
+                             MapBlocks.get(i).setBlockType(Enum_BlockTypes.Default);
+                             break;
+                        }
+                        MapBlocks.get(i).Bloczek.setIcon(new ImageIcon(splittedTex[1]));
+                        MapBlocks.get(i).Bloczek.setLocation(Integer.parseInt(splittedTex[2]), Integer.parseInt(splittedTex[3]));
+                        i++;
+                       }
+                      
+	          } catch (IOException e) {
+	              System.out.println(errorInfo+file.getAbsolutePath());
+                      System.out.println(errorInfo+e);
+	          }
+
+              }
+    }
+    
+    private void saveMap()
+    {
+        int answer = jFileChooser_SaveFile.showSaveDialog(this);
+	   if (answer == jFileChooser_SaveFile.APPROVE_OPTION) {
+	       File file = jFileChooser_SaveFile.getSelectedFile();
+	       try {
+	           FileWriter out = new FileWriter(file);
+	           out.write(getInfoAboutBlocks());
+	           out.close();
+	       } catch (IOException e) {
+	           System.out.println(errorInfo+file.getAbsolutePath());
+	           System.out.println(errorInfo+e);
+	       }
+	   }
+    }
+    
+    private void jMenuItem_SaveFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_SaveFileActionPerformed
+        saveMap();
+    }//GEN-LAST:event_jMenuItem_SaveFileActionPerformed
+
     private void Blocks_Click(java.awt.event.MouseEvent evt) {
         for (int i = 0; i < MapBlocks.size(); i++) {
             if (MapBlocks.get(i).Bloczek.getLocation().equals(evt.getComponent().getLocation())) {
@@ -586,12 +715,15 @@ public class TMC_Application extends javax.swing.JFrame {
     private javax.swing.JMenuBar MenuJMenu;
     private javax.swing.JButton ResetPanelJButton;
     private javax.swing.JComboBox<String> jComboBox_CreatingMapOptions;
+    private javax.swing.JFileChooser jFileChooser_OpenFile;
+    private javax.swing.JFileChooser jFileChooser_SaveFile;
     private javax.swing.JLabel jLabel_DeleteBlock;
     private javax.swing.JLabel jLabel_Description;
     private javax.swing.JLabel jLabel_LangENG;
     private javax.swing.JLabel jLabel_LangPL;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem_NewFile;
+    private javax.swing.JMenuItem jMenuItem_OpenFile;
+    private javax.swing.JMenuItem jMenuItem_SaveFile;
     private javax.swing.JMenu jMenu_Authors;
     private javax.swing.JMenu jMenu_Edit;
     private javax.swing.JMenu jMenu_File;

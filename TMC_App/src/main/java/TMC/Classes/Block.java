@@ -48,7 +48,7 @@ public Block(String ImageFromAddress, Enum_BlockTypes blockType)
 
     @Override
     public String toString() {
-        return "Block{" + "Bloczek=" + Bloczek + ", BlockType=" + BlockType + '}';
+        return this.BlockType + ";" + this.Bloczek.getIcon() + ";" + this.Bloczek.getX() + ";" + this.Bloczek.getY();
     }
 
 
