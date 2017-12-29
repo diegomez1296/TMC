@@ -6,9 +6,8 @@
 package TMC;
 
 import TMC.Classes.Block;
-import TMC.Classes.Enum_BlockTypes;
+import TMC.Classes.BlockTypes;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -19,78 +18,70 @@ import javax.swing.*;
 
 /**
  *
- * @author Windows 8
+ * @author diegomez
  */
 public class TMC_Application extends javax.swing.JFrame {
 
-    ArrayList<Block> MapBlocks = new ArrayList<>();
-    ArrayList<Block> AllTypesOfBlocks = new ArrayList<>();
-
-    Boolean LanguagePL = false;
-    Block ActualBlock;
+    //Zwijanie kodu => CTRL, SHIFT, - 
     
+    // Variables
+    // <editor-fold> 
+    ArrayList<Block> mapBlocks = new ArrayList<>();
+    ArrayList<Block> allTypesOfBlocks = new ArrayList<>();
+
+    Boolean languagePL = false;
+    Boolean mouseDragged = false;
+    Block actualBlock;
+
     String errorInfo;
 
-    private void setLanguage(Boolean LanguagePL) {
-        if (LanguagePL) {
+    // </editor-fold>
+    private void setLanguage(Boolean languagePL) {
+        if (languagePL) {
             jComboBox_CreatingMapOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Bloczki", "Spawn Tanków", "Tło"}));
-            selectColorJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Wybierz kolor tła", "Żółty", "Zielony", "Czerwony", "Niebieski"}));
+            jComboBox_SelectColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Wybierz kolor tła", "Żółty", "Zielony", "Czerwony", "Niebieski"}));
 
             jMenu_File.setText("Plik");
-                jMenuItem_NewFile.setText("Nowy");
-                jMenuItem_SaveFile.setText("Zapisz");
-                jMenuItem_OpenFile.setText("Otwórz");
+            jMenuItem_NewFile.setText("Nowy");
+            jMenuItem_SaveFile.setText("Zapisz");
+            jMenuItem_OpenFile.setText("Otwórz");
             jMenu_Edit.setText("Edycja");
             jMenu_Authors.setText("Autorzy");
-            
-            
 
             this.setTitle("Tanks 2k17 - Kreator Map");
 
             jLabel_LangPL.setIcon(new ImageIcon("Assets\\Flags\\FlagaPL_Click.gif"));
             jLabel_LangENG.setIcon(new ImageIcon("Assets\\Flags\\FlagaENG.gif"));
-            
+
             jFileChooser_SaveFile.setApproveButtonText("Zapisz");
-                jFileChooser_SaveFile.setDialogTitle(jFileChooser_SaveFile.getApproveButtonText());
+            jFileChooser_SaveFile.setDialogTitle(jFileChooser_SaveFile.getApproveButtonText());
             jFileChooser_OpenFile.setApproveButtonText("Otwórz");
-            
+
             errorInfo = "Błąd";
         } else {
             jComboBox_CreatingMapOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Blocks", "Tank Spawn", "Change Background Color"}));
-            selectColorJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select Background Color", "Yellow", "Green", "Red", "Blue"}));
+            jComboBox_SelectColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select Background Color", "Yellow", "Green", "Red", "Blue"}));
 
             jMenu_File.setText("File");
-                jMenuItem_NewFile.setText("New");
-                jMenuItem_SaveFile.setText("Save");
-                jMenuItem_OpenFile.setText("Load");
+            jMenuItem_NewFile.setText("New");
+            jMenuItem_SaveFile.setText("Save");
+            jMenuItem_OpenFile.setText("Load");
             jMenu_Edit.setText("Edit");
             jMenu_Authors.setText("Authors");
-            
 
             this.setTitle("Tanks 2k17 - Map Creator");
 
             jLabel_LangPL.setIcon(new ImageIcon("Assets\\Flags\\FlagaPL.gif"));
             jLabel_LangENG.setIcon(new ImageIcon("Assets\\Flags\\FlagaENG_Click.gif"));
-            
+
             jFileChooser_SaveFile.setApproveButtonText("Save");
-                jFileChooser_SaveFile.setDialogTitle(jFileChooser_SaveFile.getApproveButtonText());
+            jFileChooser_SaveFile.setDialogTitle(jFileChooser_SaveFile.getApproveButtonText());
             jFileChooser_OpenFile.setApproveButtonText("Load");
-            
+
             errorInfo = "Error";
-            
+
         }
 
-    }
-
-    private String getInfoAboutBlocks() {
-        StringBuilder SaveFile = new StringBuilder();
-        SaveFile.append(GridPanelJPanel.getBackground().getRGB());
-        SaveFile.append(System.getProperty("line.separator"));
-        for (Block Block : MapBlocks) {
-            SaveFile.append(Block.toString());
-            SaveFile.append(System.getProperty("line.separator"));
-        }
-        return SaveFile.toString();
     }
 
     private void createDefaultBlocks() {
@@ -99,57 +90,66 @@ public class TMC_Application extends javax.swing.JFrame {
 
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
-                Block tmp = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", Enum_BlockTypes.Default, LocationBlockX, LocationBlockY);
+                Block tmp = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", BlockTypes.DEFAULT, LocationBlockX, LocationBlockY);
 
-                GridPanelJPanel.add(tmp.Bloczek);
-                tmp.Bloczek.setVisible(true);
-                tmp.Bloczek.addMouseListener(new java.awt.event.MouseAdapter() {
+                jPanel_Grid.add(tmp.getjLabel_Block());
+                tmp.getjLabel_Block().setVisible(true);
+                tmp.getjLabel_Block().addMouseListener(new java.awt.event.MouseAdapter() {
+
                     public void mouseClicked(java.awt.event.MouseEvent evt) {
-                        Blocks_Click(evt);
+                        blocks_Click(evt);
+                    }
+
+                    public void mouseEntered(java.awt.event.MouseEvent evt) {
+                        blocks_Entered(evt);
+                    }
+
+                    public void mousePressed(java.awt.event.MouseEvent evt) {
+                        mouseDragged = true;
+
+                    }
+
+                    public void mouseReleased(java.awt.event.MouseEvent evt) {
+                        mouseDragged = false;
+
                     }
                 });
-                
-                tmp.Bloczek.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-                    public void mouseDragged(java.awt.event.MouseEvent evt) {
-                        Blocks_Dragged(evt);
-                    }
-                });
-                
-                MapBlocks.add(tmp);
+
+                mapBlocks.add(tmp);
                 LocationBlockX += 40;
 
             }
             LocationBlockY += 40;
             LocationBlockX = 5;
         }
-        //ActualBlock
-        ActualBlock = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", Enum_BlockTypes.Default, 20, 380);
-        ActualBlock.Bloczek.setVisible(true);
-        jPanel_Tools.add(ActualBlock.Bloczek);
+        //actualBlock
+        actualBlock = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", BlockTypes.DEFAULT, 20, 380);
+        actualBlock.getjLabel_Block().setVisible(true);
+        jPanel_Tools.add(actualBlock.getjLabel_Block());
     }
 
-    private void LoadingDatabaseOfBlocks() {
+    private void loadingDatabaseOfBlocks() {
         //Block(String ImageFromAddress, boolean isDestroyable, boolean isCollidingtanks, boolean isCollidingBullets boolean isWater)
         //Liquid_Blocks
-        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\WaterBlock.gif", Enum_BlockTypes.Liquid));
-        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\Lawa.gif", Enum_BlockTypes.Liquid));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\WaterBlock.gif", BlockTypes.LIQUID));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\Lawa.gif", BlockTypes.LIQUID));
 
         //Destoyable_Blocks
-        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\RedBlock.gif", Enum_BlockTypes.Destroyable));
-        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaBlack.gif", Enum_BlockTypes.Destroyable));
-        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaRed.gif", Enum_BlockTypes.Destroyable));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\RedBlock.gif", BlockTypes.DESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaBlack.gif", BlockTypes.DESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaRed.gif", BlockTypes.DESTROYABLE));
 
         //Undestoyable_Blocks
-        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock.gif", Enum_BlockTypes.UnDestroyable));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock.gif", BlockTypes.UNDESTROYABLE));
 
         //Green_Blocks
-        AllTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\GreenBlock.gif", Enum_BlockTypes.Green));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\GreenBlock.gif", BlockTypes.GREEN));
 
     }
 
-    private void BlocksInMenuTools(int startIndex, int endIndex) {
-        if (endIndex > AllTypesOfBlocks.size()) {
-            endIndex = AllTypesOfBlocks.size();
+    private void blocksInMenuTools(int startIndex, int endIndex) {
+        if (endIndex > allTypesOfBlocks.size()) {
+            endIndex = allTypesOfBlocks.size();
         }
 
         int LocationBlockX = 10;
@@ -158,9 +158,9 @@ public class TMC_Application extends javax.swing.JFrame {
 
         for (int i = startIndex; i < endIndex; i++) {
 
-            jPanel_Items.add(AllTypesOfBlocks.get(i).Bloczek);
-            AllTypesOfBlocks.get(i).Bloczek.setVisible(true);
-            AllTypesOfBlocks.get(i).Bloczek.setLocation(LocationBlockX, LocationBlockY);
+            jPanel_Items.add(allTypesOfBlocks.get(i).getjLabel_Block());
+            allTypesOfBlocks.get(i).getjLabel_Block().setVisible(true);
+            allTypesOfBlocks.get(i).getjLabel_Block().setLocation(LocationBlockX, LocationBlockY);
 
             LocationBlockX += 50;
             counter_BlocksInRow++;
@@ -171,37 +171,154 @@ public class TMC_Application extends javax.swing.JFrame {
                 LocationBlockY += 40;
             }
 
-            AllTypesOfBlocks.get(i).Bloczek.addMouseListener(new java.awt.event.MouseAdapter() {
+            allTypesOfBlocks.get(i).getjLabel_Block().addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    BlocksInMenuTools_Click(evt);
+                    blocksInMenuTools_Click(evt);
                 }
             });
         }
     }
 
-    private void startApplication() {
-       
-        jFileChooser_SaveFile.setCurrentDirectory(new File("Maps"));
-        jFileChooser_OpenFile.setCurrentDirectory(new File("Maps"));
-        
-        setLanguage(LanguagePL);
-        createDefaultBlocks();
-        LoadingDatabaseOfBlocks();
-        BlocksInMenuTools(0, AllTypesOfBlocks.size());
-        
-        jLabel_DeleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block.gif"));
+    //Listeners Methods
+    // <editor-fold> 
+    private void blocks_Click(java.awt.event.MouseEvent evt) {
+        for (int i = 0; i < mapBlocks.size(); i++) {
+            if (mapBlocks.get(i).getjLabel_Block().getLocation().equals(evt.getComponent().getLocation())) {
+                mapBlocks.get(i).getjLabel_Block().setIcon(actualBlock.getjLabel_Block().getIcon());
+                mapBlocks.get(i).setBlockType(actualBlock.getBlockType());
+                break;
+            }
+        }
 
-        getInfoAboutBlocks();
-        selectColorJComboBox.setVisible(false);
     }
 
-    private void resetMap() {
-        GridPanelJPanel.setBackground(Color.decode("-3355444"));
-        
-        for (Block MapBlock : MapBlocks) {
-            MapBlock.Bloczek.setIcon(new ImageIcon("Assets\\Blocks_Tex\\DefaultBlock.gif"));
-            MapBlock.setBlockType(Enum_BlockTypes.Default);
+    private void blocks_Entered(java.awt.event.MouseEvent evt) {
+        if (mouseDragged) {
+            for (int i = 0; i < mapBlocks.size(); i++) {
+                if (evt.getComponent().equals(mapBlocks.get(i).getjLabel_Block())) {
+                    //System.out.println(mapBlocks.get(i).getjLabel_Block().getLocation());
+                    //System.out.println(evt.getPoint());
+                    mapBlocks.get(i).getjLabel_Block().setIcon(actualBlock.getjLabel_Block().getIcon());
+                    mapBlocks.get(i).setBlockType(actualBlock.getBlockType());
+                    break;
+                }
+            }
         }
+    }
+
+    private void blocksInMenuTools_Click(java.awt.event.MouseEvent evt) {
+        for (int i = 0; i < allTypesOfBlocks.size(); i++) {
+            if (allTypesOfBlocks.get(i).getjLabel_Block().getLocation().equals(evt.getComponent().getLocation())) {
+                actualBlock.getjLabel_Block().setIcon(allTypesOfBlocks.get(i).getjLabel_Block().getIcon());
+                actualBlock.setBlockType(allTypesOfBlocks.get(i).getBlockType());
+                break;
+            }
+        }
+    }
+    // </editor-fold> 
+
+    // Save/Load MapFile
+    // <editor-fold> 
+    private String getInfoAboutBlocks() {
+        StringBuilder SaveFile = new StringBuilder();
+        SaveFile.append(jPanel_Grid.getBackground().getRGB());
+        SaveFile.append(System.getProperty("line.separator"));
+        for (Block Block : mapBlocks) {
+            SaveFile.append(Block.toString());
+            SaveFile.append(System.getProperty("line.separator"));
+        }
+        return SaveFile.toString();
+    }
+
+    private void loadMapFromFile() {
+        int answer = jFileChooser_OpenFile.showOpenDialog(this);
+        if (answer == jFileChooser_OpenFile.APPROVE_OPTION) {
+            File file = jFileChooser_OpenFile.getSelectedFile();
+            try {
+                BufferedReader in = new BufferedReader(new FileReader(file));
+                String str;
+                resetMap();
+                jPanel_Grid.setBackground(Color.decode(in.readLine()));
+                int i = 0;
+                while ((str = in.readLine()) != null) {
+                    String[] splittedTex = str.split(";");
+
+                    switch (splittedTex[0]) {
+                        case "DESTROYABLE":
+                            mapBlocks.get(i).setBlockType(BlockTypes.DESTROYABLE);
+                            break;
+
+                        case "UNDESTROYABLE":
+                            mapBlocks.get(i).setBlockType(BlockTypes.UNDESTROYABLE);
+                            break;
+
+                        case "LIQUID":
+                            mapBlocks.get(i).setBlockType(BlockTypes.LIQUID);
+                            break;
+
+                        case "GREEN":
+                            mapBlocks.get(i).setBlockType(BlockTypes.GREEN);
+                            break;
+
+                        case "DEFAULT":
+                            mapBlocks.get(i).setBlockType(BlockTypes.DEFAULT);
+                            break;
+                    }
+                    mapBlocks.get(i).getjLabel_Block().setIcon(new ImageIcon(splittedTex[1]));
+                    mapBlocks.get(i).getjLabel_Block().setLocation(Integer.parseInt(splittedTex[2]), Integer.parseInt(splittedTex[3]));
+                    i++;
+                }
+
+            } catch (IOException e) {
+                System.out.println(errorInfo + file.getAbsolutePath());
+                System.out.println(errorInfo + e);
+            }
+
+        }
+    }
+
+    private void saveMap() {
+        int answer = jFileChooser_SaveFile.showSaveDialog(this);
+        if (answer == jFileChooser_SaveFile.APPROVE_OPTION) {
+            File file = jFileChooser_SaveFile.getSelectedFile();
+            try {
+                FileWriter out = new FileWriter(file);
+                out.write(getInfoAboutBlocks());
+                out.close();
+            } catch (IOException e) {
+                System.out.println(errorInfo + file.getAbsolutePath());
+                System.out.println(errorInfo + e);
+            }
+        }
+    }
+    // </editor-fold> 
+
+    private void resetMap() {
+        jPanel_Grid.setBackground(Color.decode("-3355444"));
+
+        for (Block MapBlock : mapBlocks) {
+            MapBlock.getjLabel_Block().setIcon(new ImageIcon("Assets\\Blocks_Tex\\DefaultBlock.gif"));
+            MapBlock.setBlockType(BlockTypes.DEFAULT);
+        }
+    }
+
+    private void showInfo(String Info) {
+        jLabel_Description.setText(Info);
+    }
+
+    private void startApplication() {
+
+        jFileChooser_SaveFile.setCurrentDirectory(new File("Maps"));
+        jFileChooser_OpenFile.setCurrentDirectory(new File("Maps"));
+
+        setLanguage(languagePL);
+        createDefaultBlocks();
+        loadingDatabaseOfBlocks();
+        blocksInMenuTools(0, allTypesOfBlocks.size());
+
+        jLabel_DeleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block.gif"));
+
+        jComboBox_SelectColor.setVisible(false);
     }
 
     public TMC_Application() {
@@ -211,29 +328,24 @@ public class TMC_Application extends javax.swing.JFrame {
 
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jFileChooser_SaveFile = new javax.swing.JFileChooser();
         jFileChooser_OpenFile = new javax.swing.JFileChooser();
-        MainJPanel = new javax.swing.JPanel();
-        GridPanelJPanel = new javax.swing.JPanel();
+        jPanel_Main = new javax.swing.JPanel();
+        jPanel_Grid = new javax.swing.JPanel();
         jPanel_Tools = new javax.swing.JPanel();
         jComboBox_CreatingMapOptions = new javax.swing.JComboBox<>();
         jPanel_Items = new javax.swing.JPanel();
-        selectColorJComboBox = new javax.swing.JComboBox<>();
+        jComboBox_SelectColor = new javax.swing.JComboBox<>();
         jLabel_DeleteBlock = new javax.swing.JLabel();
         jLabel_LangPL = new javax.swing.JLabel();
         jLabel_LangENG = new javax.swing.JLabel();
-        ResetPanelJButton = new javax.swing.JButton();
+        jButton_ResetPanel = new javax.swing.JButton();
         jLabel_Description = new javax.swing.JLabel();
-        MenuJMenu = new javax.swing.JMenuBar();
+        jMenuBar_Menu = new javax.swing.JMenuBar();
         jMenu_File = new javax.swing.JMenu();
         jMenuItem_NewFile = new javax.swing.JMenuItem();
         jMenuItem_OpenFile = new javax.swing.JMenuItem();
@@ -248,31 +360,30 @@ public class TMC_Application extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tank Map Creator");
-        setPreferredSize(new java.awt.Dimension(800, 700));
         setResizable(false);
         setSize(new java.awt.Dimension(800, 700));
 
-        MainJPanel.setBackground(new java.awt.Color(204, 204, 255));
-        MainJPanel.setMaximumSize(new java.awt.Dimension(800, 636));
-        MainJPanel.setMinimumSize(new java.awt.Dimension(800, 636));
-        MainJPanel.setPreferredSize(new java.awt.Dimension(800, 636));
-        MainJPanel.setVerifyInputWhenFocusTarget(false);
+        jPanel_Main.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel_Main.setMaximumSize(new java.awt.Dimension(800, 636));
+        jPanel_Main.setMinimumSize(new java.awt.Dimension(800, 636));
+        jPanel_Main.setPreferredSize(new java.awt.Dimension(800, 636));
+        jPanel_Main.setVerifyInputWhenFocusTarget(false);
 
-        GridPanelJPanel.setBackground(new java.awt.Color(204, 204, 204));
-        GridPanelJPanel.setAlignmentX(10.0F);
-        GridPanelJPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        GridPanelJPanel.setMaximumSize(new java.awt.Dimension(610, 610));
-        GridPanelJPanel.setMinimumSize(new java.awt.Dimension(610, 610));
-        GridPanelJPanel.setPreferredSize(new java.awt.Dimension(610, 610));
+        jPanel_Grid.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel_Grid.setAlignmentX(10.0F);
+        jPanel_Grid.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel_Grid.setMaximumSize(new java.awt.Dimension(610, 610));
+        jPanel_Grid.setMinimumSize(new java.awt.Dimension(610, 610));
+        jPanel_Grid.setPreferredSize(new java.awt.Dimension(610, 610));
 
-        javax.swing.GroupLayout GridPanelJPanelLayout = new javax.swing.GroupLayout(GridPanelJPanel);
-        GridPanelJPanel.setLayout(GridPanelJPanelLayout);
-        GridPanelJPanelLayout.setHorizontalGroup(
-            GridPanelJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel_GridLayout = new javax.swing.GroupLayout(jPanel_Grid);
+        jPanel_Grid.setLayout(jPanel_GridLayout);
+        jPanel_GridLayout.setHorizontalGroup(
+            jPanel_GridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 610, Short.MAX_VALUE)
         );
-        GridPanelJPanelLayout.setVerticalGroup(
-            GridPanelJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel_GridLayout.setVerticalGroup(
+            jPanel_GridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 610, Short.MAX_VALUE)
         );
 
@@ -286,10 +397,10 @@ public class TMC_Application extends javax.swing.JFrame {
 
         jPanel_Items.setBackground(new java.awt.Color(51, 255, 51));
 
-        selectColorJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Background Color", "Yellow", "Green", "Red", "Blue" }));
-        selectColorJComboBox.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox_SelectColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Background Color", "Yellow", "Green", "Red", "Blue" }));
+        jComboBox_SelectColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectColorJComboBoxActionPerformed(evt);
+                jComboBox_SelectColorActionPerformed(evt);
             }
         });
 
@@ -299,14 +410,14 @@ public class TMC_Application extends javax.swing.JFrame {
             jPanel_ItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_ItemsLayout.createSequentialGroup()
                 .addContainerGap(12, Short.MAX_VALUE)
-                .addComponent(selectColorJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBox_SelectColor, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel_ItemsLayout.setVerticalGroup(
             jPanel_ItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_ItemsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(selectColorJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBox_SelectColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(278, Short.MAX_VALUE))
         );
 
@@ -343,10 +454,10 @@ public class TMC_Application extends javax.swing.JFrame {
             }
         });
 
-        ResetPanelJButton.setText("Reset");
-        ResetPanelJButton.addActionListener(new java.awt.event.ActionListener() {
+        jButton_ResetPanel.setText("Reset");
+        jButton_ResetPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ResetPanelJButtonActionPerformed(evt);
+                jButton_ResetPanelActionPerformed(evt);
             }
         });
 
@@ -368,7 +479,7 @@ public class TMC_Application extends javax.swing.JFrame {
                     .addGroup(jPanel_ToolsLayout.createSequentialGroup()
                         .addGroup(jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBox_CreatingMapOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ResetPanelJButton))
+                            .addComponent(jButton_ResetPanel))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -382,7 +493,7 @@ public class TMC_Application extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addComponent(jLabel_DeleteBlock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ResetPanelJButton)
+                .addComponent(jButton_ResetPanel)
                 .addGap(31, 31, 31)
                 .addGroup(jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_LangPL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -395,23 +506,23 @@ public class TMC_Application extends javax.swing.JFrame {
         jLabel_Description.setMaximumSize(new java.awt.Dimension(30, 15));
         jLabel_Description.setMinimumSize(new java.awt.Dimension(30, 15));
 
-        javax.swing.GroupLayout MainJPanelLayout = new javax.swing.GroupLayout(MainJPanel);
-        MainJPanel.setLayout(MainJPanelLayout);
-        MainJPanelLayout.setHorizontalGroup(
-            MainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MainJPanelLayout.createSequentialGroup()
-                .addGroup(MainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(GridPanelJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel_MainLayout = new javax.swing.GroupLayout(jPanel_Main);
+        jPanel_Main.setLayout(jPanel_MainLayout);
+        jPanel_MainLayout.setHorizontalGroup(
+            jPanel_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_MainLayout.createSequentialGroup()
+                .addGroup(jPanel_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel_Grid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel_Description, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_Tools, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(2, 2, 2))
         );
-        MainJPanelLayout.setVerticalGroup(
-            MainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel_MainLayout.setVerticalGroup(
+            jPanel_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel_Tools, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainJPanelLayout.createSequentialGroup()
-                .addComponent(GridPanelJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_MainLayout.createSequentialGroup()
+                .addComponent(jPanel_Grid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_Description, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -442,108 +553,106 @@ public class TMC_Application extends javax.swing.JFrame {
         });
         jMenu_File.add(jMenuItem_SaveFile);
 
-        MenuJMenu.add(jMenu_File);
+        jMenuBar_Menu.add(jMenu_File);
 
         jMenu_Edit.setText("Edycja");
-        MenuJMenu.add(jMenu_Edit);
+        jMenuBar_Menu.add(jMenu_Edit);
 
         jMenu_Authors.setText("Autorzy");
-        MenuJMenu.add(jMenu_Authors);
+        jMenuBar_Menu.add(jMenu_Authors);
 
-        setJMenuBar(MenuJMenu);
+        setJMenuBar(jMenuBar_Menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MainJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel_Main, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MainJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel_Main, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxCreaner() {
-        selectColorJComboBox.setVisible(false);
+        jComboBox_SelectColor.setVisible(false);
 
-        for (Block Blocks : AllTypesOfBlocks) {
-            Blocks.Bloczek.setVisible(false);
+        for (Block Blocks : allTypesOfBlocks) {
+            Blocks.getjLabel_Block().setVisible(false);
         }
 
-        ActualBlock.Bloczek.setVisible(false);
+        actualBlock.getjLabel_Block().setVisible(false);
     }
 
     private void jComboBox_CreatingMapOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_CreatingMapOptionsActionPerformed
         switch (jComboBox_CreatingMapOptions.getSelectedIndex()) {
             case 0:
                 jComboBoxCreaner();
-                ActualBlock.Bloczek.setVisible(true);
-                BlocksInMenuTools(0, AllTypesOfBlocks.size());
+                actualBlock.getjLabel_Block().setVisible(true);
+                blocksInMenuTools(0, allTypesOfBlocks.size());
                 jPanel_Items.setBackground(Color.GREEN);
-                ShowInfo("Ustawiamy bloczki");
+                showInfo("Ustawiamy bloczki");
                 break;
             case 1:
                 jComboBoxCreaner();
                 jPanel_Items.setBackground(Color.blue);
-                ShowInfo("Ustawiamy Spawny Tanków");
+                showInfo("Ustawiamy Spawny Tanków");
                 break;
 
             case 2:
                 //GridPanelJPanel.setBackground(Color.red);
                 jComboBoxCreaner();
-                selectColorJComboBox.setVisible(true);
+                jComboBox_SelectColor.setVisible(true);
                 jPanel_Items.setBackground(Color.red);
-                ShowInfo("Ustawiamy BackGround");
+                showInfo("Ustawiamy BackGround");
                 break;
         }
 
     }//GEN-LAST:event_jComboBox_CreatingMapOptionsActionPerformed
 
-    private void selectColorJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectColorJComboBoxActionPerformed
+    private void jComboBox_SelectColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_SelectColorActionPerformed
         //wybieranie kolorow
 
-        switch (selectColorJComboBox.getSelectedIndex()) {
+        switch (jComboBox_SelectColor.getSelectedIndex()) {
             case 0:
                 break;
 
             case 1:
-                GridPanelJPanel.setBackground(Color.yellow);
+                jPanel_Grid.setBackground(Color.yellow);
                 break;
             case 2:
-                GridPanelJPanel.setBackground(Color.green);
+                jPanel_Grid.setBackground(Color.green);
                 break;
             case 3:
-                GridPanelJPanel.setBackground(Color.red);
+                jPanel_Grid.setBackground(Color.red);
                 break;
             case 4:
-                GridPanelJPanel.setBackground(Color.blue);
+                jPanel_Grid.setBackground(Color.blue);
         }
-    }//GEN-LAST:event_selectColorJComboBoxActionPerformed
+    }//GEN-LAST:event_jComboBox_SelectColorActionPerformed
 
     private void jLabel_DeleteBlockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_DeleteBlockMouseClicked
-        ActualBlock.Bloczek.setIcon(new ImageIcon("Assets\\Blocks_Tex\\DefaultBlock.gif"));
-        ActualBlock.setBlockType(Enum_BlockTypes.Default);
+        actualBlock.getjLabel_Block().setIcon(new ImageIcon("Assets\\Blocks_Tex\\DefaultBlock.gif"));
+        actualBlock.setBlockType(BlockTypes.DEFAULT);
 
     }//GEN-LAST:event_jLabel_DeleteBlockMouseClicked
 
     private void jLabel_LangPLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_LangPLMouseClicked
-        LanguagePL = true;
-        setLanguage(LanguagePL);
+        languagePL = true;
+        setLanguage(languagePL);
     }//GEN-LAST:event_jLabel_LangPLMouseClicked
 
     private void jLabel_LangENGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_LangENGMouseClicked
-        LanguagePL = false;
-        setLanguage(LanguagePL);
+        languagePL = false;
+        setLanguage(languagePL);
     }//GEN-LAST:event_jLabel_LangENGMouseClicked
 
-    private void ResetPanelJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetPanelJButtonActionPerformed
-        //resetowanie ustawien
+    private void jButton_ResetPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ResetPanelActionPerformed
         resetMap();
-
-    }//GEN-LAST:event_ResetPanelJButtonActionPerformed
+    }//GEN-LAST:event_jButton_ResetPanelActionPerformed
 
     private void jMenuItem_NewFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_NewFileActionPerformed
         resetMap();
@@ -553,126 +662,10 @@ public class TMC_Application extends javax.swing.JFrame {
         loadMapFromFile();
     }//GEN-LAST:event_jMenuItem_OpenFileActionPerformed
 
-    private void loadMapFromFile()
-    {
-        int answer = jFileChooser_OpenFile.showOpenDialog(this);
-	      if (answer == jFileChooser_OpenFile.APPROVE_OPTION) {
-	          File file = jFileChooser_OpenFile.getSelectedFile();
-	          try {
-                      BufferedReader in = new BufferedReader(new FileReader(file));
-                      String str;
-                      resetMap();
-                      GridPanelJPanel.setBackground(Color.decode(in.readLine()));
-                      int i=0;
-                      while ((str = in.readLine()) != null) {                          
-                        String[] splittedTex = str.split(";");
-                        
-                        switch (splittedTex[0])
-                        {
-                            case "Destroyable":
-                             MapBlocks.get(i).setBlockType(Enum_BlockTypes.Destroyable);
-                             break;
-                             
-                             case "UnDestroyable":
-                             MapBlocks.get(i).setBlockType(Enum_BlockTypes.UnDestroyable);
-                             break;
-                             
-                             case "Liquid":
-                             MapBlocks.get(i).setBlockType(Enum_BlockTypes.Liquid);
-                             break;
-                             
-                             case "Green":
-                             MapBlocks.get(i).setBlockType(Enum_BlockTypes.Green);
-                             break;
-                             
-                             case "Default":
-                             MapBlocks.get(i).setBlockType(Enum_BlockTypes.Default);
-                             break;
-                        }
-                        MapBlocks.get(i).Bloczek.setIcon(new ImageIcon(splittedTex[1]));
-                        MapBlocks.get(i).Bloczek.setLocation(Integer.parseInt(splittedTex[2]), Integer.parseInt(splittedTex[3]));
-                        i++;
-                       }
-                      
-	          } catch (IOException e) {
-	              System.out.println(errorInfo+file.getAbsolutePath());
-                      System.out.println(errorInfo+e);
-	          }
-
-              }
-    }
-    
-    private void saveMap()
-    {
-        int answer = jFileChooser_SaveFile.showSaveDialog(this);
-	   if (answer == jFileChooser_SaveFile.APPROVE_OPTION) {
-	       File file = jFileChooser_SaveFile.getSelectedFile();
-	       try {
-	           FileWriter out = new FileWriter(file);
-	           out.write(getInfoAboutBlocks());
-	           out.close();
-	       } catch (IOException e) {
-	           System.out.println(errorInfo+file.getAbsolutePath());
-	           System.out.println(errorInfo+e);
-	       }
-	   }
-    }
-    
     private void jMenuItem_SaveFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_SaveFileActionPerformed
         saveMap();
     }//GEN-LAST:event_jMenuItem_SaveFileActionPerformed
 
-    private void Blocks_Click(java.awt.event.MouseEvent evt) {
-        for (int i = 0; i < MapBlocks.size(); i++) {
-            if (MapBlocks.get(i).Bloczek.getLocation().equals(evt.getComponent().getLocation())) {
-                System.out.println(MapBlocks.get(i));
-                MapBlocks.get(i).Bloczek.setIcon(ActualBlock.Bloczek.getIcon());
-                MapBlocks.get(i).setBlockType(ActualBlock.getBlockType());
-                break;
-            }
-        }
-
-    }
-    
-    private void Blocks_Dragged(java.awt.event.MouseEvent evt)
-    {
-        for (int i = 0; i < MapBlocks.size(); i++) {
-            
-            /* !!!!!!!!!!!!!!! Do poprawki ten warunek !!!!!!!!!!!!!! 
-                Ogólnie to jest pojebane. 
-            Trzeba zrobić by po przeciągnięciu myszy na danym labelu
-                w pętli, która będzie sprawdzała bloczki, był warunek 
-            - czy akurat aby nasz kursor nie był w granicach bloczka.
-             Jeśli tak: podmień mu teksturę i typ...
-            Dziękuję, do widzienia.                    
-            //diegomez */
-            if (evt.getX()+0  > MapBlocks.get(i).Bloczek.getX() && evt.getX()+0 < MapBlocks.get(i).Bloczek.getX() + 40
-                    && evt.getY()+0 > MapBlocks.get(i).Bloczek.getY() && evt.getY()+0 < MapBlocks.get(i).Bloczek.getY() + 40)
-            {
-                System.out.println(MapBlocks.get(i).Bloczek.getLocation());
-                System.out.println(evt.getPoint());
-                MapBlocks.get(i).Bloczek.setIcon(ActualBlock.Bloczek.getIcon());
-                MapBlocks.get(i).setBlockType(ActualBlock.getBlockType());
-                //break;
-                
-            }
-        }
-              
-    }
-
-    private void BlocksInMenuTools_Click(java.awt.event.MouseEvent evt) {
-        for (int i = 0; i < AllTypesOfBlocks.size(); i++) {
-            if (AllTypesOfBlocks.get(i).Bloczek.getLocation().equals(evt.getComponent().getLocation())) {
-                ActualBlock.Bloczek.setIcon(AllTypesOfBlocks.get(i).Bloczek.getIcon());
-                ActualBlock.setBlockType(AllTypesOfBlocks.get(i).getBlockType());
-                break;
-            }
-        }
-    }
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -706,29 +699,26 @@ public class TMC_Application extends javax.swing.JFrame {
         });
     }
 
-    private void ShowInfo(String Info) {
-        jLabel_Description.setText(Info);
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel GridPanelJPanel;
-    private javax.swing.JPanel MainJPanel;
-    private javax.swing.JMenuBar MenuJMenu;
-    private javax.swing.JButton ResetPanelJButton;
+    private javax.swing.JButton jButton_ResetPanel;
     private javax.swing.JComboBox<String> jComboBox_CreatingMapOptions;
+    private javax.swing.JComboBox<String> jComboBox_SelectColor;
     private javax.swing.JFileChooser jFileChooser_OpenFile;
     private javax.swing.JFileChooser jFileChooser_SaveFile;
     private javax.swing.JLabel jLabel_DeleteBlock;
     private javax.swing.JLabel jLabel_Description;
     private javax.swing.JLabel jLabel_LangENG;
     private javax.swing.JLabel jLabel_LangPL;
+    private javax.swing.JMenuBar jMenuBar_Menu;
     private javax.swing.JMenuItem jMenuItem_NewFile;
     private javax.swing.JMenuItem jMenuItem_OpenFile;
     private javax.swing.JMenuItem jMenuItem_SaveFile;
     private javax.swing.JMenu jMenu_Authors;
     private javax.swing.JMenu jMenu_Edit;
     private javax.swing.JMenu jMenu_File;
+    private javax.swing.JPanel jPanel_Grid;
     private javax.swing.JPanel jPanel_Items;
+    private javax.swing.JPanel jPanel_Main;
     private javax.swing.JPanel jPanel_Tools;
-    private javax.swing.JComboBox<String> selectColorJComboBox;
     // End of variables declaration//GEN-END:variables
 }

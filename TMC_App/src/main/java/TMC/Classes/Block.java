@@ -11,18 +11,18 @@ import javax.swing.JLabel;
 
 public class Block {
     
-    public JLabel Bloczek;
-    private Enum_BlockTypes BlockType;
+    private JLabel jLabel_Block;
+    private BlockTypes blockType;
     
 
 //MapBlocks
-public Block(String ImageFromAddress, Enum_BlockTypes blockType, int LocationBlockX, int LocationBlockY)
+public Block(String ImageFromAddress, BlockTypes blockType, int LocationBlockX, int LocationBlockY)
         {
-            Bloczek = new JLabel();
-            Bloczek.setSize(40, 40);
-            Bloczek.setLocation(LocationBlockX, LocationBlockY);
-            Bloczek.setIcon(new ImageIcon(ImageFromAddress));
-            this.BlockType = blockType;   
+            jLabel_Block = new JLabel();
+            jLabel_Block.setSize(40, 40);
+            jLabel_Block.setLocation(LocationBlockX, LocationBlockY);
+            jLabel_Block.setIcon(new ImageIcon(ImageFromAddress));
+            this.blockType = blockType;   
         }
 
 
@@ -30,30 +30,37 @@ public Block(String ImageFromAddress, Enum_BlockTypes blockType, int LocationBlo
 
 
 //AllTypeBlocks
-public Block(String ImageFromAddress, Enum_BlockTypes blockType)
+public Block(String ImageFromAddress, BlockTypes blockType)
         {
-            Bloczek = new JLabel();
-            Bloczek.setSize(40, 40);
-            Bloczek.setIcon(new ImageIcon(ImageFromAddress));
-            this.BlockType = blockType;                      
+            jLabel_Block = new JLabel();
+            jLabel_Block.setSize(40, 40);
+            jLabel_Block.setIcon(new ImageIcon(ImageFromAddress));
+            this.blockType = blockType;                      
         }
 
-    public Enum_BlockTypes getBlockType() {
-        return BlockType;
+    public void setjLabel_Block(JLabel jLabel_Block) {
+        this.jLabel_Block = jLabel_Block;
     }
 
-    public void setBlockType(Enum_BlockTypes BlockType) {
-        this.BlockType = BlockType;
+    public void setBlockType(BlockTypes blockType) {
+        this.blockType = blockType;
     }
+
+    public JLabel getjLabel_Block() {
+        return jLabel_Block;
+    }
+
+    public BlockTypes getBlockType() {
+        return blockType;
+    }
+
+    
+    
 
     @Override
     public String toString() {
-        return this.BlockType + ";" + this.Bloczek.getIcon() + ";" + this.Bloczek.getX() + ";" + this.Bloczek.getY();
+        return this.blockType + ";" + this.jLabel_Block.getIcon() + ";" + this.jLabel_Block.getX() + ";" + this.jLabel_Block.getY();
     }
-
-
-    
-
 }
    
 

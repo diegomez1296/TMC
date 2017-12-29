@@ -1,4 +1,13 @@
 ﻿-------------------------------------------------------------------------------------------------
+TMC v0.0.6.1 || 29.12.2017 //diegomez
+********
+1. Przeciąganie bloczków - naprawione
+2. Zmienienie nazw klas, metod, zmiennych, komponentów, na zgodne z konwencją nazw przyjętych w javie
+3. Uporządkowanie kodu, pogrupowanie metod, dodanie regionów
+
+-------------------------------------------------------------------------------------------------﻿
+
+-------------------------------------------------------------------------------------------------
 TMC v0.0.6 || 29.12.2017 //diegomez
 ********
 1. Stworzenie kontrolek do zapisu i odczytu mapy
