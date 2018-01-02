@@ -28,6 +28,8 @@ public class TMC_Application extends javax.swing.JFrame {
     ArrayList<Block> mapBlocks = new ArrayList<>();
     ArrayList<Block> allTypesOfBlocks = new ArrayList<>();
     JButton[] buttonsInTools = new JButton[4];
+    JLabel deleteBlock = new JLabel();
+    JPanel settingsPanel = new JPanel();
 
     int indexOfLastDestroyableBlock;
     int indexOfLastUnDestroyableBlock;
@@ -125,7 +127,7 @@ public class TMC_Application extends javax.swing.JFrame {
         actualBlock.getjLabel_Block().setVisible(true);
         jPanel_Tools.add(actualBlock.getjLabel_Block());
         //deleteBlock
-        JLabel deleteBlock = new JLabel();
+
         deleteBlock.setSize(40, 40);
         deleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block1.gif"));
         deleteBlock.setVisible(true);
@@ -140,6 +142,34 @@ public class TMC_Application extends javax.swing.JFrame {
 
         jPanel_Tools.add(deleteBlock);
         deleteBlock.setLocation(50, 565);
+
+    }
+
+    private void createPanelSettings() {
+        settingsPanel.setSize(160, 600);
+        settingsPanel.setBackground(jPanel_Tools.getBackground());
+        settingsPanel.setVisible(true);
+        settingsPanel.setLocation(6, 5);
+        jPanel_Tools.add(settingsPanel);
+        
+
+    }
+
+    private void visibleItemsInToolsPanel(boolean visible) {
+        jPanel_Items.setVisible(visible);
+        if (visible) {
+            showBlocksInMenuTools(0, indexOfLastDestroyableBlock);
+            settingsPanel.setVisible(false);
+        } else {
+            cleanBlocksInMenuTools();
+            settingsPanel.setVisible(true);
+        }
+        actualBlock.getjLabel_Block().setVisible(visible);
+        deleteBlock.setVisible(visible);
+        for (int i = 0; i < buttonsInTools.length; i++) {
+
+            buttonsInTools[i].setVisible(visible);
+        }
 
     }
 
@@ -276,8 +306,8 @@ public class TMC_Application extends javax.swing.JFrame {
                 }
             }
         }
-        int pointX = (int) ((evt.getComponent().getLocation().getX() - 5)/40+1);
-        int pointY = (int) ((evt.getComponent().getLocation().getY() - 5)/40+1);
+        int pointX = (int) ((evt.getComponent().getLocation().getX() - 5) / 40 + 1);
+        int pointY = (int) ((evt.getComponent().getLocation().getY() - 5) / 40 + 1);
 
         showInfo("[" + pointX + ";" + pointY + "]");
     }
@@ -412,7 +442,9 @@ public class TMC_Application extends javax.swing.JFrame {
         loadingDatabaseOfBlocks();
         createBlocksInMenuTools();
         showBlocksInMenuTools(0, indexOfLastDestroyableBlock);
-
+        createPanelSettings();
+        visibleItemsInToolsPanel(false);
+        visibleItemsInToolsPanel(true);
     }
 
     public void centreWindow(Window frame) {
@@ -586,6 +618,11 @@ public class TMC_Application extends javax.swing.JFrame {
         jMenuBar_Menu.add(jMenuItem_Languages);
 
         jMenuItem_Settings.setText("Settings");
+        jMenuItem_Settings.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem_SettingsMouseClicked(evt);
+            }
+        });
         jMenuBar_Menu.add(jMenuItem_Settings);
 
         setJMenuBar(jMenuBar_Menu);
@@ -628,15 +665,10 @@ public class TMC_Application extends javax.swing.JFrame {
         setLanguage(languagePL);
     }//GEN-LAST:event_jMenuItem_LanguagesMouseClicked
 
-    private void jComboBoxCreaner() {
-        //jComboBox_SelectColor.setVisible(false);
+    private void jMenuItem_SettingsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem_SettingsMouseClicked
+        visibleItemsInToolsPanel(false);
 
-        for (Block Blocks : allTypesOfBlocks) {
-            Blocks.getjLabel_Block().setVisible(false);
-        }
-
-        actualBlock.getjLabel_Block().setVisible(false);
-    }
+    }//GEN-LAST:event_jMenuItem_SettingsMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
