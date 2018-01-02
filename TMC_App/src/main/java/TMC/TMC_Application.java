@@ -7,7 +7,7 @@ package TMC;
 
 import TMC.Classes.Block;
 import TMC.Classes.BlockTypes;
-import java.awt.Color;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -27,11 +27,19 @@ public class TMC_Application extends javax.swing.JFrame {
     // <editor-fold> 
     ArrayList<Block> mapBlocks = new ArrayList<>();
     ArrayList<Block> allTypesOfBlocks = new ArrayList<>();
+    JButton[] buttonsInTools = new JButton[4];
+
+    int indexOfLastDestroyableBlock;
+    int indexOfLastUnDestroyableBlock;
+    int indexOfLastLiquidBlock;
+    int indexOfLastGreenBlock;
 
     Boolean languagePL = false;
     Boolean mouseDragged = false;
     Block actualBlock;
 
+    String newFileTitle;
+    String newFileInfo;
     String errorInfo;
 
     // </editor-fold>
@@ -48,6 +56,8 @@ public class TMC_Application extends javax.swing.JFrame {
             jFileChooser_SaveFile.setDialogTitle(jFileChooser_SaveFile.getApproveButtonText());
             jFileChooser_OpenFile.setApproveButtonText("Otwórz");
 
+            newFileTitle = "Nowy plik";
+            newFileInfo = "Czy napewno chcesz utworzyć nowy plik?";
             errorInfo = "Błąd";
         } else {
             jMenuItem_NewFile.setText("New");
@@ -61,6 +71,8 @@ public class TMC_Application extends javax.swing.JFrame {
             jFileChooser_SaveFile.setDialogTitle(jFileChooser_SaveFile.getApproveButtonText());
             jFileChooser_OpenFile.setApproveButtonText("Load");
 
+            newFileTitle = "New file";
+            newFileInfo = "Do you want to create a new file?";
             errorInfo = "Error";
 
         }
@@ -94,7 +106,10 @@ public class TMC_Application extends javax.swing.JFrame {
 
                     public void mouseReleased(java.awt.event.MouseEvent evt) {
                         mouseDragged = false;
+                    }
 
+                    public void mouseExited(java.awt.event.MouseEvent evt) {
+                        showInfo("");
                     }
                 });
 
@@ -114,50 +129,98 @@ public class TMC_Application extends javax.swing.JFrame {
         deleteBlock.setSize(40, 40);
         deleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block1.gif"));
         deleteBlock.setVisible(true);
-        deleteBlock.setText("deleteBlock_Tekst");
+
+        deleteBlock.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                actualBlock.getjLabel_Block().setIcon(new ImageIcon("Assets\\Blocks_Tex\\DefaultBlock.gif"));
+                actualBlock.setBlockType(BlockTypes.DEFAULT);
+            }
+        });
+
         jPanel_Tools.add(deleteBlock);
         deleteBlock.setLocation(50, 565);
 
     }
 
     private void toolsButtonsSettings() {
-        
-        System.out.println(jButton_ToolsDestroyable.getLocation());
-        System.out.println(jButton_ToolsUnDestroyable.getLocation());
-        System.out.println(jButton_ToolsLiquid.getLocation());
-        System.out.println(jButton_ToolsGreen.getLocation());
-        
-        jButton_ToolsDestroyable.setLocation(5, 5);
-        jButton_ToolsUnDestroyable.setLocation(45, 5);
-        jButton_ToolsLiquid.setLocation(85, 5);
-        jButton_ToolsGreen.setLocation(125, 5);
-        
-        jButton_ToolsDestroyable.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Default_Blocks\\RedBlock.gif"));
-        jButton_ToolsUnDestroyable.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock.gif"));
-        jButton_ToolsLiquid.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Default_Blocks\\WaterBlock.gif"));
-        jButton_ToolsGreen.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Default_Blocks\\GreenBlock.gif"));
+
+        int locationButtonsInToolsX = 10;
+        int locationButtonsInToolsY = 10;
+
+        for (int i = 0; i < buttonsInTools.length; i++) {
+            buttonsInTools[i] = new JButton();
+
+            buttonsInTools[i].setSize(30, 30);
+            buttonsInTools[i].setLocation(locationButtonsInToolsX, locationButtonsInToolsY);
+            buttonsInTools[i].setVisible(true);
+
+            buttonsInTools[i].addMouseListener(new java.awt.event.MouseAdapter() {
+
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    buttonsInTools_Click(evt);
+                }
+            });
+
+            jPanel_Tools.add(buttonsInTools[i]);
+
+            locationButtonsInToolsX += 40;
+        }
+
+        buttonsInTools[0].setIcon(new ImageIcon("Assets\\Blocks_Tex\\Default_Blocks\\RedBlock.gif"));
+        buttonsInTools[1].setIcon(new ImageIcon("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock3.gif"));
+        buttonsInTools[2].setIcon(new ImageIcon("Assets\\Blocks_Tex\\Default_Blocks\\WaterBlock.gif"));
+        buttonsInTools[3].setIcon(new ImageIcon("Assets\\Blocks_Tex\\Default_Blocks\\GreenBlock.gif"));
+
     }
 
     private void loadingDatabaseOfBlocks() {
-        //Block(String ImageFromAddress, boolean isDestroyable, boolean isCollidingtanks, boolean isCollidingBullets boolean isWater)
-        //Liquid_Blocks
-        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\WaterBlock.gif", BlockTypes.LIQUID));
-        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\Lawa.gif", BlockTypes.LIQUID));
-
         //Destoyable_Blocks
         allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\RedBlock.gif", BlockTypes.DESTROYABLE));
         allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaBlack.gif", BlockTypes.DESTROYABLE));
         allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaRed.gif", BlockTypes.DESTROYABLE));
 
+        indexOfLastDestroyableBlock = allTypesOfBlocks.size();
+
         //Undestoyable_Blocks
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock3.gif", BlockTypes.UNDESTROYABLE));
         allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock.gif", BlockTypes.UNDESTROYABLE));
+
+        indexOfLastUnDestroyableBlock = allTypesOfBlocks.size();
+
+        //Liquid_Blocks
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\WaterBlock.gif", BlockTypes.LIQUID));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\Lawa.gif", BlockTypes.LIQUID));
+
+        indexOfLastLiquidBlock = allTypesOfBlocks.size();
 
         //Green_Blocks
         allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\GreenBlock.gif", BlockTypes.GREEN));
 
+        indexOfLastGreenBlock = allTypesOfBlocks.size();
+
     }
 
-    private void blocksInMenuTools(int startIndex, int endIndex) {
+    private void createBlocksInMenuTools() {
+
+        for (int i = 0; i < allTypesOfBlocks.size(); i++) {
+
+            jPanel_Items.add(allTypesOfBlocks.get(i).getjLabel_Block());
+            allTypesOfBlocks.get(i).getjLabel_Block().setVisible(false);
+            allTypesOfBlocks.get(i).getjLabel_Block().setLocation(-1000, -1000);
+
+            allTypesOfBlocks.get(i).getjLabel_Block().addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    blocksInMenuTools_Click(evt);
+                }
+            });
+        }
+    }
+
+    private void showBlocksInMenuTools(int startIndex, int endIndex) {
+
+        cleanBlocksInMenuTools();
+
         if (endIndex > allTypesOfBlocks.size()) {
             endIndex = allTypesOfBlocks.size();
         }
@@ -168,7 +231,6 @@ public class TMC_Application extends javax.swing.JFrame {
 
         for (int i = startIndex; i < endIndex; i++) {
 
-            jPanel_Items.add(allTypesOfBlocks.get(i).getjLabel_Block());
             allTypesOfBlocks.get(i).getjLabel_Block().setVisible(true);
             allTypesOfBlocks.get(i).getjLabel_Block().setLocation(LocationBlockX, LocationBlockY);
 
@@ -181,11 +243,13 @@ public class TMC_Application extends javax.swing.JFrame {
                 LocationBlockY += 40;
             }
 
-            allTypesOfBlocks.get(i).getjLabel_Block().addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    blocksInMenuTools_Click(evt);
-                }
-            });
+        }
+    }
+
+    private void cleanBlocksInMenuTools() {
+        for (int i = 0; i < allTypesOfBlocks.size(); i++) {
+            allTypesOfBlocks.get(i).getjLabel_Block().setVisible(false);
+            allTypesOfBlocks.get(i).getjLabel_Block().setLocation(-1000, -1000);
         }
     }
 
@@ -206,14 +270,16 @@ public class TMC_Application extends javax.swing.JFrame {
         if (mouseDragged) {
             for (int i = 0; i < mapBlocks.size(); i++) {
                 if (evt.getComponent().equals(mapBlocks.get(i).getjLabel_Block())) {
-                    //System.out.println(mapBlocks.get(i).getjLabel_Block().getLocation());
-                    //System.out.println(evt.getPoint());
                     mapBlocks.get(i).getjLabel_Block().setIcon(actualBlock.getjLabel_Block().getIcon());
                     mapBlocks.get(i).setBlockType(actualBlock.getBlockType());
                     break;
                 }
             }
         }
+        int pointX = (int) ((evt.getComponent().getLocation().getX() - 5)/40+1);
+        int pointY = (int) ((evt.getComponent().getLocation().getY() - 5)/40+1);
+
+        showInfo("[" + pointX + ";" + pointY + "]");
     }
 
     private void blocksInMenuTools_Click(java.awt.event.MouseEvent evt) {
@@ -225,8 +291,25 @@ public class TMC_Application extends javax.swing.JFrame {
             }
         }
     }
-    // </editor-fold> 
 
+    private void buttonsInTools_Click(java.awt.event.MouseEvent evt) {
+        switch (evt.getComponent().getX()) {
+            case 10: //Dest
+                showBlocksInMenuTools(0, indexOfLastDestroyableBlock);
+                break;
+            case 50: //UnDest
+                showBlocksInMenuTools(indexOfLastDestroyableBlock, indexOfLastUnDestroyableBlock);
+                break;
+            case 90: //Liquid
+                showBlocksInMenuTools(indexOfLastUnDestroyableBlock, indexOfLastLiquidBlock);
+                break;
+            case 130: //Green
+                showBlocksInMenuTools(indexOfLastLiquidBlock, indexOfLastGreenBlock);
+                break;
+        }
+    }
+
+    // </editor-fold> 
     // Save/Load MapFile
     // <editor-fold> 
     private String getInfoAboutBlocks() {
@@ -318,6 +401,8 @@ public class TMC_Application extends javax.swing.JFrame {
 
     private void startApplication() {
 
+        centreWindow(this);
+
         jFileChooser_SaveFile.setCurrentDirectory(new File("Maps"));
         jFileChooser_OpenFile.setCurrentDirectory(new File("Maps"));
         System.out.println(jPanel_Grid.getBackground().getRGB());
@@ -325,16 +410,23 @@ public class TMC_Application extends javax.swing.JFrame {
         createDefaultBlocks();
         toolsButtonsSettings();
         loadingDatabaseOfBlocks();
-        blocksInMenuTools(0, allTypesOfBlocks.size());
-               
-        
+        createBlocksInMenuTools();
+        showBlocksInMenuTools(0, indexOfLastDestroyableBlock);
+
+    }
+
+    public void centreWindow(Window frame) {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+        frame.setLocation(x, y);
     }
 
     public TMC_Application() {
 
         initComponents();
         startApplication();
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -347,10 +439,6 @@ public class TMC_Application extends javax.swing.JFrame {
         jPanel_Grid = new javax.swing.JPanel();
         jPanel_Tools = new javax.swing.JPanel();
         jPanel_Items = new javax.swing.JPanel();
-        jButton_ToolsUnDestroyable = new javax.swing.JButton();
-        jButton_ToolsLiquid = new javax.swing.JButton();
-        jButton_ToolsGreen = new javax.swing.JButton();
-        jButton_ToolsDestroyable = new javax.swing.JButton();
         jLabel_Description = new javax.swing.JLabel();
         jMenuBar_Menu = new javax.swing.JMenuBar();
         jMenuItem_NewFile = new javax.swing.JMenu();
@@ -394,13 +482,14 @@ public class TMC_Application extends javax.swing.JFrame {
         );
 
         jPanel_Tools.setBackground(new java.awt.Color(127, 127, 127));
-        jPanel_Tools.setMaximumSize(new java.awt.Dimension(182, 350));
-        jPanel_Tools.setMinimumSize(new java.awt.Dimension(182, 350));
+        jPanel_Tools.setMaximumSize(new java.awt.Dimension(200, 615));
+        jPanel_Tools.setMinimumSize(new java.awt.Dimension(200, 615));
+        jPanel_Tools.setPreferredSize(new java.awt.Dimension(200, 615));
 
         jPanel_Items.setBackground(new java.awt.Color(170, 170, 170));
-        jPanel_Items.setMaximumSize(new java.awt.Dimension(160, 520));
-        jPanel_Items.setMinimumSize(new java.awt.Dimension(160, 520));
-        jPanel_Items.setPreferredSize(new java.awt.Dimension(160, 520));
+        jPanel_Items.setMaximumSize(new java.awt.Dimension(160, 510));
+        jPanel_Items.setMinimumSize(new java.awt.Dimension(160, 510));
+        jPanel_Items.setPreferredSize(new java.awt.Dimension(160, 510));
 
         javax.swing.GroupLayout jPanel_ItemsLayout = new javax.swing.GroupLayout(jPanel_Items);
         jPanel_Items.setLayout(jPanel_ItemsLayout);
@@ -410,27 +499,8 @@ public class TMC_Application extends javax.swing.JFrame {
         );
         jPanel_ItemsLayout.setVerticalGroup(
             jPanel_ItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 520, Short.MAX_VALUE)
+            .addGap(0, 510, Short.MAX_VALUE)
         );
-
-        jButton_ToolsUnDestroyable.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton_ToolsUnDestroyable.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton_ToolsUnDestroyable.setPreferredSize(new java.awt.Dimension(30, 30));
-        jButton_ToolsUnDestroyable.setLocation(45, 5);
-
-        jButton_ToolsLiquid.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton_ToolsLiquid.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton_ToolsLiquid.setPreferredSize(new java.awt.Dimension(30, 30));
-        jButton_ToolsLiquid.setLocation(85, 5);
-
-        jButton_ToolsGreen.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton_ToolsGreen.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton_ToolsGreen.setPreferredSize(new java.awt.Dimension(30, 30));
-
-        jButton_ToolsDestroyable.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton_ToolsDestroyable.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton_ToolsDestroyable.setPreferredSize(new java.awt.Dimension(30, 30));
-        jButton_ToolsDestroyable.setLocation(5, 5);
 
         javax.swing.GroupLayout jPanel_ToolsLayout = new javax.swing.GroupLayout(jPanel_Tools);
         jPanel_Tools.setLayout(jPanel_ToolsLayout);
@@ -438,36 +508,20 @@ public class TMC_Application extends javax.swing.JFrame {
             jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_ToolsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel_ToolsLayout.createSequentialGroup()
-                        .addComponent(jButton_ToolsDestroyable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
-                        .addComponent(jButton_ToolsUnDestroyable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton_ToolsLiquid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
-                        .addComponent(jButton_ToolsGreen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel_Items, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 32, Short.MAX_VALUE))
+                .addComponent(jPanel_Items, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 30, Short.MAX_VALUE))
         );
         jPanel_ToolsLayout.setVerticalGroup(
             jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_ToolsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton_ToolsLiquid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton_ToolsGreen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton_ToolsDestroyable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_ToolsUnDestroyable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(47, 47, 47)
                 .addComponent(jPanel_Items, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         jLabel_Description.setBackground(new java.awt.Color(127, 127, 127));
+        jLabel_Description.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel_Description.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_Description.setText("Opis...");
         jLabel_Description.setMaximumSize(new java.awt.Dimension(30, 15));
         jLabel_Description.setMinimumSize(new java.awt.Dimension(30, 15));
 
@@ -553,7 +607,12 @@ public class TMC_Application extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem_NewFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem_NewFileMouseClicked
-        resetMap();
+        int imput = JOptionPane.showConfirmDialog(null, newFileInfo, newFileTitle, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new ImageIcon("Assets\\Icons\\NewFile_Warning.png"));
+        switch (imput) {
+            case 0:
+                resetMap();
+                break;
+        }
     }//GEN-LAST:event_jMenuItem_NewFileMouseClicked
 
     private void jMenuItem_OpenFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem_OpenFileMouseClicked
@@ -613,10 +672,6 @@ public class TMC_Application extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton_ToolsDestroyable;
-    private javax.swing.JButton jButton_ToolsGreen;
-    private javax.swing.JButton jButton_ToolsLiquid;
-    private javax.swing.JButton jButton_ToolsUnDestroyable;
     private javax.swing.JFileChooser jFileChooser_OpenFile;
     private javax.swing.JFileChooser jFileChooser_SaveFile;
     private javax.swing.JLabel jLabel_Description;

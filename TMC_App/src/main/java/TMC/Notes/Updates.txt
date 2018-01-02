@@ -1,4 +1,15 @@
 ﻿-------------------------------------------------------------------------------------------------
+TMC v0.0.7 || 2.01.2018 //diegomez
+********
+1. Wyświetlanie kategorii bloczków
+2. Utworzenie okienka ostrzegającego przed utworzeniem nowego pliku
+3. Wyświetlanie koordynatów dla bloczka
+
+//FoxFromDarness
+1. Nowe tekstury (Bloczek metalu, ikonka dla okienka z ostrzeżeniem)
+-------------------------------------------------------------------------------------------------﻿
+
+-------------------------------------------------------------------------------------------------
 TMC v0.0.6.2 || 2.01.2018 //FoxFromDarness
 ********
 1. GUI
