@@ -23,7 +23,6 @@ import javax.swing.*;
 public class TMC_Application extends javax.swing.JFrame {
 
     //Zwijanie kodu => CTRL, SHIFT, - 
-    
     // Variables
     // <editor-fold> 
     ArrayList<Block> mapBlocks = new ArrayList<>();
@@ -38,20 +37,12 @@ public class TMC_Application extends javax.swing.JFrame {
     // </editor-fold>
     private void setLanguage(Boolean languagePL) {
         if (languagePL) {
-            jComboBox_CreatingMapOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Bloczki", "Spawn Tanków", "Tło"}));
-            jComboBox_SelectColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Wybierz kolor tła", "Żółty", "Zielony", "Czerwony", "Niebieski"}));
-
-            jMenu_File.setText("Plik");
             jMenuItem_NewFile.setText("Nowy");
             jMenuItem_SaveFile.setText("Zapisz");
             jMenuItem_OpenFile.setText("Otwórz");
-            jMenu_Edit.setText("Edycja");
-            jMenu_Authors.setText("Autorzy");
-
+            jMenuItem_Languages.setText("Języki");
+            jMenuItem_Settings.setText("Ustawienia");
             this.setTitle("Tanks 2k17 - Kreator Map");
-
-            jLabel_LangPL.setIcon(new ImageIcon("Assets\\Flags\\FlagaPL_Click.gif"));
-            jLabel_LangENG.setIcon(new ImageIcon("Assets\\Flags\\FlagaENG.gif"));
 
             jFileChooser_SaveFile.setApproveButtonText("Zapisz");
             jFileChooser_SaveFile.setDialogTitle(jFileChooser_SaveFile.getApproveButtonText());
@@ -59,20 +50,12 @@ public class TMC_Application extends javax.swing.JFrame {
 
             errorInfo = "Błąd";
         } else {
-            jComboBox_CreatingMapOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Blocks", "Tank Spawn", "Change Background Color"}));
-            jComboBox_SelectColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select Background Color", "Yellow", "Green", "Red", "Blue"}));
-
-            jMenu_File.setText("File");
             jMenuItem_NewFile.setText("New");
             jMenuItem_SaveFile.setText("Save");
             jMenuItem_OpenFile.setText("Load");
-            jMenu_Edit.setText("Edit");
-            jMenu_Authors.setText("Authors");
-
+            jMenuItem_Languages.setText("Languages");
+            jMenuItem_Settings.setText("Settings");
             this.setTitle("Tanks 2k17 - Map Creator");
-
-            jLabel_LangPL.setIcon(new ImageIcon("Assets\\Flags\\FlagaPL.gif"));
-            jLabel_LangENG.setIcon(new ImageIcon("Assets\\Flags\\FlagaENG_Click.gif"));
 
             jFileChooser_SaveFile.setApproveButtonText("Save");
             jFileChooser_SaveFile.setDialogTitle(jFileChooser_SaveFile.getApproveButtonText());
@@ -123,9 +106,36 @@ public class TMC_Application extends javax.swing.JFrame {
             LocationBlockX = 5;
         }
         //actualBlock
-        actualBlock = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", BlockTypes.DEFAULT, 20, 380);
+        actualBlock = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", BlockTypes.DEFAULT, 7, 565);
         actualBlock.getjLabel_Block().setVisible(true);
         jPanel_Tools.add(actualBlock.getjLabel_Block());
+        //deleteBlock
+        JLabel deleteBlock = new JLabel();
+        deleteBlock.setSize(40, 40);
+        deleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block1.gif"));
+        deleteBlock.setVisible(true);
+        deleteBlock.setText("deleteBlock_Tekst");
+        jPanel_Tools.add(deleteBlock);
+        deleteBlock.setLocation(50, 565);
+
+    }
+
+    private void toolsButtonsSettings() {
+        
+        System.out.println(jButton_ToolsDestroyable.getLocation());
+        System.out.println(jButton_ToolsUnDestroyable.getLocation());
+        System.out.println(jButton_ToolsLiquid.getLocation());
+        System.out.println(jButton_ToolsGreen.getLocation());
+        
+        jButton_ToolsDestroyable.setLocation(5, 5);
+        jButton_ToolsUnDestroyable.setLocation(45, 5);
+        jButton_ToolsLiquid.setLocation(85, 5);
+        jButton_ToolsGreen.setLocation(125, 5);
+        
+        jButton_ToolsDestroyable.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Default_Blocks\\RedBlock.gif"));
+        jButton_ToolsUnDestroyable.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock.gif"));
+        jButton_ToolsLiquid.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Default_Blocks\\WaterBlock.gif"));
+        jButton_ToolsGreen.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Default_Blocks\\GreenBlock.gif"));
     }
 
     private void loadingDatabaseOfBlocks() {
@@ -294,8 +304,8 @@ public class TMC_Application extends javax.swing.JFrame {
     // </editor-fold> 
 
     private void resetMap() {
-        jPanel_Grid.setBackground(Color.decode("-3355444"));
 
+        jPanel_Grid.setBackground(Color.decode("-8421505"));
         for (Block MapBlock : mapBlocks) {
             MapBlock.getjLabel_Block().setIcon(new ImageIcon("Assets\\Blocks_Tex\\DefaultBlock.gif"));
             MapBlock.setBlockType(BlockTypes.DEFAULT);
@@ -310,22 +320,21 @@ public class TMC_Application extends javax.swing.JFrame {
 
         jFileChooser_SaveFile.setCurrentDirectory(new File("Maps"));
         jFileChooser_OpenFile.setCurrentDirectory(new File("Maps"));
-
+        System.out.println(jPanel_Grid.getBackground().getRGB());
         setLanguage(languagePL);
         createDefaultBlocks();
+        toolsButtonsSettings();
         loadingDatabaseOfBlocks();
         blocksInMenuTools(0, allTypesOfBlocks.size());
-
-        jLabel_DeleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block.gif"));
-
-        jComboBox_SelectColor.setVisible(false);
+               
+        
     }
 
     public TMC_Application() {
 
         initComponents();
         startApplication();
-
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -337,21 +346,18 @@ public class TMC_Application extends javax.swing.JFrame {
         jPanel_Main = new javax.swing.JPanel();
         jPanel_Grid = new javax.swing.JPanel();
         jPanel_Tools = new javax.swing.JPanel();
-        jComboBox_CreatingMapOptions = new javax.swing.JComboBox<>();
         jPanel_Items = new javax.swing.JPanel();
-        jComboBox_SelectColor = new javax.swing.JComboBox<>();
-        jLabel_DeleteBlock = new javax.swing.JLabel();
-        jLabel_LangPL = new javax.swing.JLabel();
-        jLabel_LangENG = new javax.swing.JLabel();
-        jButton_ResetPanel = new javax.swing.JButton();
+        jButton_ToolsUnDestroyable = new javax.swing.JButton();
+        jButton_ToolsLiquid = new javax.swing.JButton();
+        jButton_ToolsGreen = new javax.swing.JButton();
+        jButton_ToolsDestroyable = new javax.swing.JButton();
         jLabel_Description = new javax.swing.JLabel();
         jMenuBar_Menu = new javax.swing.JMenuBar();
-        jMenu_File = new javax.swing.JMenu();
-        jMenuItem_NewFile = new javax.swing.JMenuItem();
-        jMenuItem_OpenFile = new javax.swing.JMenuItem();
-        jMenuItem_SaveFile = new javax.swing.JMenuItem();
-        jMenu_Edit = new javax.swing.JMenu();
-        jMenu_Authors = new javax.swing.JMenu();
+        jMenuItem_NewFile = new javax.swing.JMenu();
+        jMenuItem_OpenFile = new javax.swing.JMenu();
+        jMenuItem_SaveFile = new javax.swing.JMenu();
+        jMenuItem_Languages = new javax.swing.JMenu();
+        jMenuItem_Settings = new javax.swing.JMenu();
 
         jFileChooser_SaveFile.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         jFileChooser_SaveFile.setApproveButtonText("");
@@ -363,13 +369,13 @@ public class TMC_Application extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(800, 700));
 
-        jPanel_Main.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel_Main.setBackground(new java.awt.Color(127, 127, 127));
         jPanel_Main.setMaximumSize(new java.awt.Dimension(800, 636));
         jPanel_Main.setMinimumSize(new java.awt.Dimension(800, 636));
         jPanel_Main.setPreferredSize(new java.awt.Dimension(800, 636));
         jPanel_Main.setVerifyInputWhenFocusTarget(false);
 
-        jPanel_Grid.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel_Grid.setBackground(new java.awt.Color(127, 127, 127));
         jPanel_Grid.setAlignmentX(10.0F);
         jPanel_Grid.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel_Grid.setMaximumSize(new java.awt.Dimension(610, 610));
@@ -387,121 +393,80 @@ public class TMC_Application extends javax.swing.JFrame {
             .addGap(0, 610, Short.MAX_VALUE)
         );
 
-        jPanel_Tools.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel_Tools.setBackground(new java.awt.Color(127, 127, 127));
+        jPanel_Tools.setMaximumSize(new java.awt.Dimension(182, 350));
+        jPanel_Tools.setMinimumSize(new java.awt.Dimension(182, 350));
 
-        jComboBox_CreatingMapOptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox_CreatingMapOptionsActionPerformed(evt);
-            }
-        });
-
-        jPanel_Items.setBackground(new java.awt.Color(51, 255, 51));
-
-        jComboBox_SelectColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Background Color", "Yellow", "Green", "Red", "Blue" }));
-        jComboBox_SelectColor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox_SelectColorActionPerformed(evt);
-            }
-        });
+        jPanel_Items.setBackground(new java.awt.Color(170, 170, 170));
+        jPanel_Items.setMaximumSize(new java.awt.Dimension(160, 520));
+        jPanel_Items.setMinimumSize(new java.awt.Dimension(160, 520));
+        jPanel_Items.setPreferredSize(new java.awt.Dimension(160, 520));
 
         javax.swing.GroupLayout jPanel_ItemsLayout = new javax.swing.GroupLayout(jPanel_Items);
         jPanel_Items.setLayout(jPanel_ItemsLayout);
         jPanel_ItemsLayout.setHorizontalGroup(
             jPanel_ItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_ItemsLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
-                .addComponent(jComboBox_SelectColor, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGap(0, 160, Short.MAX_VALUE)
         );
         jPanel_ItemsLayout.setVerticalGroup(
             jPanel_ItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_ItemsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jComboBox_SelectColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(278, Short.MAX_VALUE))
+            .addGap(0, 520, Short.MAX_VALUE)
         );
 
-        jLabel_DeleteBlock.setBackground(new java.awt.Color(51, 51, 255));
-        jLabel_DeleteBlock.setForeground(new java.awt.Color(102, 102, 255));
-        jLabel_DeleteBlock.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_DeleteBlock.setLabelFor(jComboBox_CreatingMapOptions);
-        jLabel_DeleteBlock.setMaximumSize(new java.awt.Dimension(40, 40));
-        jLabel_DeleteBlock.setMinimumSize(new java.awt.Dimension(40, 40));
-        jLabel_DeleteBlock.setPreferredSize(new java.awt.Dimension(40, 40));
-        jLabel_DeleteBlock.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_DeleteBlockMouseClicked(evt);
-            }
-        });
+        jButton_ToolsUnDestroyable.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton_ToolsUnDestroyable.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton_ToolsUnDestroyable.setPreferredSize(new java.awt.Dimension(30, 30));
+        jButton_ToolsUnDestroyable.setLocation(45, 5);
 
-        jLabel_LangPL.setText("LangPL");
-        jLabel_LangPL.setMaximumSize(new java.awt.Dimension(52, 30));
-        jLabel_LangPL.setMinimumSize(new java.awt.Dimension(52, 30));
-        jLabel_LangPL.setPreferredSize(new java.awt.Dimension(52, 30));
-        jLabel_LangPL.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_LangPLMouseClicked(evt);
-            }
-        });
+        jButton_ToolsLiquid.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton_ToolsLiquid.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton_ToolsLiquid.setPreferredSize(new java.awt.Dimension(30, 30));
+        jButton_ToolsLiquid.setLocation(85, 5);
 
-        jLabel_LangENG.setText("LangENG");
-        jLabel_LangENG.setMaximumSize(new java.awt.Dimension(52, 30));
-        jLabel_LangENG.setMinimumSize(new java.awt.Dimension(52, 30));
-        jLabel_LangENG.setPreferredSize(new java.awt.Dimension(52, 30));
-        jLabel_LangENG.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_LangENGMouseClicked(evt);
-            }
-        });
+        jButton_ToolsGreen.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton_ToolsGreen.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton_ToolsGreen.setPreferredSize(new java.awt.Dimension(30, 30));
 
-        jButton_ResetPanel.setText("Reset");
-        jButton_ResetPanel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_ResetPanelActionPerformed(evt);
-            }
-        });
+        jButton_ToolsDestroyable.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton_ToolsDestroyable.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton_ToolsDestroyable.setPreferredSize(new java.awt.Dimension(30, 30));
+        jButton_ToolsDestroyable.setLocation(5, 5);
 
         javax.swing.GroupLayout jPanel_ToolsLayout = new javax.swing.GroupLayout(jPanel_Tools);
         jPanel_Tools.setLayout(jPanel_ToolsLayout);
         jPanel_ToolsLayout.setHorizontalGroup(
             jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_ToolsLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel_Items, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel_ToolsLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel_DeleteBlock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel_ToolsLayout.createSequentialGroup()
-                        .addComponent(jLabel_LangPL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel_LangENG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel_ToolsLayout.createSequentialGroup()
-                        .addGroup(jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox_CreatingMapOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton_ResetPanel))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jButton_ToolsDestroyable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(jButton_ToolsUnDestroyable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton_ToolsLiquid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(jButton_ToolsGreen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel_Items, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 32, Short.MAX_VALUE))
         );
         jPanel_ToolsLayout.setVerticalGroup(
             jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_ToolsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBox_CreatingMapOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton_ToolsLiquid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton_ToolsGreen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton_ToolsDestroyable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_ToolsUnDestroyable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_Items, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(jLabel_DeleteBlock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton_ResetPanel)
-                .addGap(31, 31, 31)
-                .addGroup(jPanel_ToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_LangPL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_LangENG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(72, 72, 72))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
-        jLabel_Description.setBackground(new java.awt.Color(153, 255, 255));
+        jLabel_Description.setBackground(new java.awt.Color(127, 127, 127));
+        jLabel_Description.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Description.setText("Opis...");
         jLabel_Description.setMaximumSize(new java.awt.Dimension(30, 15));
         jLabel_Description.setMinimumSize(new java.awt.Dimension(30, 15));
@@ -511,55 +476,63 @@ public class TMC_Application extends javax.swing.JFrame {
         jPanel_MainLayout.setHorizontalGroup(
             jPanel_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_MainLayout.createSequentialGroup()
-                .addGroup(jPanel_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel_Grid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel_Description, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel_Description, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel_MainLayout.createSequentialGroup()
+                .addComponent(jPanel_Grid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_Tools, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(2, 2, 2))
+                .addComponent(jPanel_Tools, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel_MainLayout.setVerticalGroup(
             jPanel_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_Tools, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_MainLayout.createSequentialGroup()
-                .addComponent(jPanel_Grid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_Description, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel_MainLayout.createSequentialGroup()
+                .addGroup(jPanel_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel_Tools, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel_Grid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel_Description, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        jMenu_File.setText("Plik");
+        jMenuBar_Menu.setBackground(new java.awt.Color(170, 170, 170));
+        jMenuBar_Menu.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(170, 170, 170), 1, true));
 
-        jMenuItem_NewFile.setText("Nowy");
-        jMenuItem_NewFile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem_NewFileActionPerformed(evt);
+        jMenuItem_NewFile.setText("New");
+        jMenuItem_NewFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem_NewFileMouseClicked(evt);
             }
         });
-        jMenu_File.add(jMenuItem_NewFile);
+        jMenuBar_Menu.add(jMenuItem_NewFile);
 
-        jMenuItem_OpenFile.setText("Otwórz");
-        jMenuItem_OpenFile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem_OpenFileActionPerformed(evt);
+        jMenuItem_OpenFile.setText("Load");
+        jMenuItem_OpenFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem_OpenFileMouseClicked(evt);
             }
         });
-        jMenu_File.add(jMenuItem_OpenFile);
+        jMenuBar_Menu.add(jMenuItem_OpenFile);
 
-        jMenuItem_SaveFile.setText("Zapisz");
-        jMenuItem_SaveFile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem_SaveFileActionPerformed(evt);
+        jMenuItem_SaveFile.setText("Save");
+        jMenuItem_SaveFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem_SaveFileMouseClicked(evt);
             }
         });
-        jMenu_File.add(jMenuItem_SaveFile);
+        jMenuBar_Menu.add(jMenuItem_SaveFile);
 
-        jMenuBar_Menu.add(jMenu_File);
+        jMenuItem_Languages.setText("Languages");
+        jMenuItem_Languages.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem_LanguagesMouseClicked(evt);
+            }
+        });
+        jMenuBar_Menu.add(jMenuItem_Languages);
 
-        jMenu_Edit.setText("Edycja");
-        jMenuBar_Menu.add(jMenu_Edit);
-
-        jMenu_Authors.setText("Autorzy");
-        jMenuBar_Menu.add(jMenu_Authors);
+        jMenuItem_Settings.setText("Settings");
+        jMenuBar_Menu.add(jMenuItem_Settings);
 
         setJMenuBar(jMenuBar_Menu);
 
@@ -567,18 +540,37 @@ public class TMC_Application extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_Main, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel_Main, javax.swing.GroupLayout.PREFERRED_SIZE, 791, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_Main, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel_Main, javax.swing.GroupLayout.PREFERRED_SIZE, 643, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuItem_NewFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem_NewFileMouseClicked
+        resetMap();
+    }//GEN-LAST:event_jMenuItem_NewFileMouseClicked
+
+    private void jMenuItem_OpenFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem_OpenFileMouseClicked
+        loadMapFromFile();
+    }//GEN-LAST:event_jMenuItem_OpenFileMouseClicked
+
+    private void jMenuItem_SaveFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem_SaveFileMouseClicked
+        saveMap();
+    }//GEN-LAST:event_jMenuItem_SaveFileMouseClicked
+
+    private void jMenuItem_LanguagesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem_LanguagesMouseClicked
+        languagePL = !languagePL;
+        setLanguage(languagePL);
+    }//GEN-LAST:event_jMenuItem_LanguagesMouseClicked
+
     private void jComboBoxCreaner() {
-        jComboBox_SelectColor.setVisible(false);
+        //jComboBox_SelectColor.setVisible(false);
 
         for (Block Blocks : allTypesOfBlocks) {
             Blocks.getjLabel_Block().setVisible(false);
@@ -586,85 +578,6 @@ public class TMC_Application extends javax.swing.JFrame {
 
         actualBlock.getjLabel_Block().setVisible(false);
     }
-
-    private void jComboBox_CreatingMapOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_CreatingMapOptionsActionPerformed
-        switch (jComboBox_CreatingMapOptions.getSelectedIndex()) {
-            case 0:
-                jComboBoxCreaner();
-                actualBlock.getjLabel_Block().setVisible(true);
-                blocksInMenuTools(0, allTypesOfBlocks.size());
-                jPanel_Items.setBackground(Color.GREEN);
-                showInfo("Ustawiamy bloczki");
-                break;
-            case 1:
-                jComboBoxCreaner();
-                jPanel_Items.setBackground(Color.blue);
-                showInfo("Ustawiamy Spawny Tanków");
-                break;
-
-            case 2:
-                //GridPanelJPanel.setBackground(Color.red);
-                jComboBoxCreaner();
-                jComboBox_SelectColor.setVisible(true);
-                jPanel_Items.setBackground(Color.red);
-                showInfo("Ustawiamy BackGround");
-                break;
-        }
-
-    }//GEN-LAST:event_jComboBox_CreatingMapOptionsActionPerformed
-
-    private void jComboBox_SelectColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_SelectColorActionPerformed
-        //wybieranie kolorow
-
-        switch (jComboBox_SelectColor.getSelectedIndex()) {
-            case 0:
-                break;
-
-            case 1:
-                jPanel_Grid.setBackground(Color.yellow);
-                break;
-            case 2:
-                jPanel_Grid.setBackground(Color.green);
-                break;
-            case 3:
-                jPanel_Grid.setBackground(Color.red);
-                break;
-            case 4:
-                jPanel_Grid.setBackground(Color.blue);
-        }
-    }//GEN-LAST:event_jComboBox_SelectColorActionPerformed
-
-    private void jLabel_DeleteBlockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_DeleteBlockMouseClicked
-        actualBlock.getjLabel_Block().setIcon(new ImageIcon("Assets\\Blocks_Tex\\DefaultBlock.gif"));
-        actualBlock.setBlockType(BlockTypes.DEFAULT);
-
-    }//GEN-LAST:event_jLabel_DeleteBlockMouseClicked
-
-    private void jLabel_LangPLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_LangPLMouseClicked
-        languagePL = true;
-        setLanguage(languagePL);
-    }//GEN-LAST:event_jLabel_LangPLMouseClicked
-
-    private void jLabel_LangENGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_LangENGMouseClicked
-        languagePL = false;
-        setLanguage(languagePL);
-    }//GEN-LAST:event_jLabel_LangENGMouseClicked
-
-    private void jButton_ResetPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ResetPanelActionPerformed
-        resetMap();
-    }//GEN-LAST:event_jButton_ResetPanelActionPerformed
-
-    private void jMenuItem_NewFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_NewFileActionPerformed
-        resetMap();
-    }//GEN-LAST:event_jMenuItem_NewFileActionPerformed
-
-    private void jMenuItem_OpenFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_OpenFileActionPerformed
-        loadMapFromFile();
-    }//GEN-LAST:event_jMenuItem_OpenFileActionPerformed
-
-    private void jMenuItem_SaveFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_SaveFileActionPerformed
-        saveMap();
-    }//GEN-LAST:event_jMenuItem_SaveFileActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -700,22 +613,19 @@ public class TMC_Application extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton_ResetPanel;
-    private javax.swing.JComboBox<String> jComboBox_CreatingMapOptions;
-    private javax.swing.JComboBox<String> jComboBox_SelectColor;
+    private javax.swing.JButton jButton_ToolsDestroyable;
+    private javax.swing.JButton jButton_ToolsGreen;
+    private javax.swing.JButton jButton_ToolsLiquid;
+    private javax.swing.JButton jButton_ToolsUnDestroyable;
     private javax.swing.JFileChooser jFileChooser_OpenFile;
     private javax.swing.JFileChooser jFileChooser_SaveFile;
-    private javax.swing.JLabel jLabel_DeleteBlock;
     private javax.swing.JLabel jLabel_Description;
-    private javax.swing.JLabel jLabel_LangENG;
-    private javax.swing.JLabel jLabel_LangPL;
     private javax.swing.JMenuBar jMenuBar_Menu;
-    private javax.swing.JMenuItem jMenuItem_NewFile;
-    private javax.swing.JMenuItem jMenuItem_OpenFile;
-    private javax.swing.JMenuItem jMenuItem_SaveFile;
-    private javax.swing.JMenu jMenu_Authors;
-    private javax.swing.JMenu jMenu_Edit;
-    private javax.swing.JMenu jMenu_File;
+    private javax.swing.JMenu jMenuItem_Languages;
+    private javax.swing.JMenu jMenuItem_NewFile;
+    private javax.swing.JMenu jMenuItem_OpenFile;
+    private javax.swing.JMenu jMenuItem_SaveFile;
+    private javax.swing.JMenu jMenuItem_Settings;
     private javax.swing.JPanel jPanel_Grid;
     private javax.swing.JPanel jPanel_Items;
     private javax.swing.JPanel jPanel_Main;
