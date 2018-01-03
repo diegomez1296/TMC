@@ -7,6 +7,7 @@ package TMC;
 
 import TMC.Classes.Block;
 import TMC.Classes.BlockTypes;
+import TMC.Classes.TankSpawn;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,17 +29,48 @@ public class TMC_Application extends javax.swing.JFrame {
     ArrayList<Block> mapBlocks = new ArrayList<>();
     ArrayList<Block> allTypesOfBlocks = new ArrayList<>();
     JButton[] buttonsInTools = new JButton[4];
-    JLabel deleteBlock = new JLabel();
-    JPanel settingsPanel = new JPanel();
+    JButton[] buttonsSpawnTanks = new JButton[8];
+    JLabel[] labelsSpawnTanks = new JLabel[8];
+    JLabel jLabel_DeleteBlock = new JLabel();
+    JLabel jLabel_SpawnTankTitle = new JLabel();
+    JPanel jPanel_Settings = new JPanel();
+
+    TankSpawn tankSpawn_P1, tankSpawn_P2, tankSpawn_E1, tankSpawn_E2, tankSpawn_E3, tankSpawn_E4, tankSpawn_E5, tankSpawn_E6;
+    TankSpawn[] tankSpawn_tab;
 
     int indexOfLastDestroyableBlock;
     int indexOfLastUnDestroyableBlock;
     int indexOfLastLiquidBlock;
     int indexOfLastGreenBlock;
 
+    //showInfo 
+    int pointX;
+    int pointY;
+
     Boolean languagePL = false;
     Boolean mouseDragged = false;
     Block actualBlock;
+
+    //Spawn Tanks
+    // <editor-fold>
+    boolean setSpawn = false;
+    String actualSpawn;
+
+    String SpawnTankTitle;
+    String Player1;
+    String Player2;
+
+    String Enemy1;
+    String Enemy2;
+    String Enemy3;
+    String Enemy4;
+    String Enemy5;
+    String Enemy6;
+
+    String emptySpawn;
+    String chooseSpawn;
+    String okSpawn;
+    // </editor-fold>
 
     String newFileTitle;
     String newFileInfo;
@@ -61,6 +93,10 @@ public class TMC_Application extends javax.swing.JFrame {
             newFileTitle = "Nowy plik";
             newFileInfo = "Czy napewno chcesz utworzyć nowy plik?";
             errorInfo = "Błąd";
+
+            chooseSpawn = "Ustaw respawn";
+            okSpawn = "Respawn ustawiony";
+
         } else {
             jMenuItem_NewFile.setText("New");
             jMenuItem_SaveFile.setText("Save");
@@ -77,8 +113,65 @@ public class TMC_Application extends javax.swing.JFrame {
             newFileInfo = "Do you want to create a new file?";
             errorInfo = "Error";
 
+            chooseSpawn = "Set respawn";
+            okSpawn = "Respawn created";
+
         }
 
+        setLanguageInSettingsPanel();
+
+    }
+
+    private void setLanguageInSettingsPanel() {
+        if (languagePL) {
+
+            SpawnTankTitle = "Ustaw respawn czołgów";
+
+            Player1 = "Gracz 1";
+            Player2 = "Gracz 2";
+
+            Enemy1 = "Wróg 1";
+            Enemy2 = "Wróg 2";
+            Enemy3 = "Wróg 3";
+            Enemy4 = "Wróg 4";
+            Enemy5 = "Wróg 5";
+            Enemy6 = "Wróg 6";
+
+            emptySpawn = "brak";
+        } else {
+            SpawnTankTitle = "Set respawn for tanks";
+
+            Player1 = "Player 1";
+            Player2 = "Player 2";
+
+            Enemy1 = "Enemy 1";
+            Enemy2 = "Enemy 2";
+            Enemy3 = "Enemy 3";
+            Enemy4 = "Enemy 4";
+            Enemy5 = "Enemy 5";
+            Enemy6 = "Enemy 6";
+
+            emptySpawn = "null";
+        }
+
+        try {
+            jLabel_SpawnTankTitle.setText(SpawnTankTitle);
+            tankSpawn_tab[0].getJbutton_TankSpawn().setText(Player1);
+            tankSpawn_tab[1].getJbutton_TankSpawn().setText(Player2);
+            tankSpawn_tab[2].getJbutton_TankSpawn().setText(Enemy1);
+            tankSpawn_tab[3].getJbutton_TankSpawn().setText(Enemy2);
+            tankSpawn_tab[4].getJbutton_TankSpawn().setText(Enemy3);
+            tankSpawn_tab[5].getJbutton_TankSpawn().setText(Enemy4);
+            tankSpawn_tab[6].getJbutton_TankSpawn().setText(Enemy5);
+            tankSpawn_tab[7].getJbutton_TankSpawn().setText(Enemy6);
+
+            for (TankSpawn item : tankSpawn_tab) {
+                if (item.getJlabel_TankSpawn().getText().equals("") || item.getJlabel_TankSpawn().getText().equals("null") || item.getJlabel_TankSpawn().getText().equals("brak")) {
+                    item.getJlabel_TankSpawn().setText(emptySpawn);
+                }
+            }
+        } catch (Exception e) {
+        }
     }
 
     private void createDefaultBlocks() {
@@ -126,13 +219,13 @@ public class TMC_Application extends javax.swing.JFrame {
         actualBlock = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", BlockTypes.DEFAULT, 7, 565);
         actualBlock.getjLabel_Block().setVisible(true);
         jPanel_Tools.add(actualBlock.getjLabel_Block());
-        //deleteBlock
+        //jLabel_DeleteBlock
 
-        deleteBlock.setSize(40, 40);
-        deleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block1.gif"));
-        deleteBlock.setVisible(true);
+        jLabel_DeleteBlock.setSize(40, 40);
+        jLabel_DeleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block1.gif"));
+        jLabel_DeleteBlock.setVisible(true);
 
-        deleteBlock.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel_DeleteBlock.addMouseListener(new java.awt.event.MouseAdapter() {
 
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 actualBlock.getjLabel_Block().setIcon(new ImageIcon("Assets\\Blocks_Tex\\DefaultBlock.gif"));
@@ -140,37 +233,105 @@ public class TMC_Application extends javax.swing.JFrame {
             }
         });
 
-        jPanel_Tools.add(deleteBlock);
-        deleteBlock.setLocation(50, 565);
+        jPanel_Tools.add(jLabel_DeleteBlock);
+        jLabel_DeleteBlock.setLocation(50, 565);
 
     }
 
     private void createPanelSettings() {
-        settingsPanel.setSize(160, 600);
-        settingsPanel.setBackground(jPanel_Tools.getBackground());
-        settingsPanel.setVisible(true);
-        settingsPanel.setLocation(6, 5);
-        jPanel_Tools.add(settingsPanel);
-        
+        jPanel_Settings.setSize(160, 600);
+        jPanel_Settings.setBackground(jPanel_Tools.getBackground());
+        jPanel_Settings.setVisible(true);
+        jPanel_Settings.setLocation(6, 5);
+        jPanel_Tools.add(jPanel_Settings);
+
+        javax.swing.GroupLayout jPanel_SettingsLayout = new javax.swing.GroupLayout(jPanel_Settings);
+        jPanel_Settings.setLayout(jPanel_SettingsLayout);
+        jPanel_SettingsLayout.setHorizontalGroup(
+                jPanel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 610, Short.MAX_VALUE)
+        );
+        jPanel_SettingsLayout.setVerticalGroup(
+                jPanel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 610, Short.MAX_VALUE)
+        );
+
+        componentsInPanelSettings();
 
     }
 
-    private void visibleItemsInToolsPanel(boolean visible) {
-        jPanel_Items.setVisible(visible);
-        if (visible) {
+    private void visibleSettingsPanel(boolean visible) {
+        jPanel_Items.setVisible(!visible);
+        if (!visible) {
             showBlocksInMenuTools(0, indexOfLastDestroyableBlock);
-            settingsPanel.setVisible(false);
+            setSpawn = false;
+            actualSpawn = "";
         } else {
             cleanBlocksInMenuTools();
-            settingsPanel.setVisible(true);
         }
-        actualBlock.getjLabel_Block().setVisible(visible);
-        deleteBlock.setVisible(visible);
-        for (int i = 0; i < buttonsInTools.length; i++) {
-
-            buttonsInTools[i].setVisible(visible);
+        jPanel_Settings.setVisible(visible);
+        actualBlock.getjLabel_Block().setVisible(!visible);
+        jLabel_DeleteBlock.setVisible(!visible);
+        for (JButton item : buttonsInTools) {
+            item.setVisible(!visible);
         }
+    }
 
+    private void componentsInPanelSettings() {
+        JButton jButton_ClosePanelSettings = new JButton();
+        jButton_ClosePanelSettings.setSize(20, 20);
+        jButton_ClosePanelSettings.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block.gif"));
+        jPanel_Settings.add(jButton_ClosePanelSettings);
+        jButton_ClosePanelSettings.setLocation(130, 10);
+
+        jButton_ClosePanelSettings.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                visibleSettingsPanel(false);
+            }
+        });
+
+        spawnTanks();
+
+    }
+
+    private void spawnTanks() {
+
+        jLabel_SpawnTankTitle.setLocation(20, 370);
+        jLabel_SpawnTankTitle.setForeground(Color.WHITE);
+        jLabel_SpawnTankTitle.setSize(160, 20);
+        jLabel_SpawnTankTitle.setVisible(true);
+        jPanel_Settings.add(jLabel_SpawnTankTitle);
+
+        tankSpawn_P1 = new TankSpawn("P1", new Point(0, 400), new Point(90, 400));
+        tankSpawn_P2 = new TankSpawn("P2", new Point(0, 425), new Point(90, 425));
+
+        tankSpawn_E1 = new TankSpawn("E1", new Point(0, 450), new Point(90, 450));
+        tankSpawn_E2 = new TankSpawn("E2", new Point(0, 475), new Point(90, 475));
+        tankSpawn_E3 = new TankSpawn("E3", new Point(0, 500), new Point(90, 500));
+        tankSpawn_E4 = new TankSpawn("E4", new Point(0, 525), new Point(90, 525));
+        tankSpawn_E5 = new TankSpawn("E5", new Point(0, 550), new Point(90, 550));
+        tankSpawn_E6 = new TankSpawn("E6", new Point(0, 575), new Point(90, 575));
+
+        tankSpawn_tab = new TankSpawn[]{
+            tankSpawn_P1, tankSpawn_P2,
+            tankSpawn_E1, tankSpawn_E2,
+            tankSpawn_E3, tankSpawn_E4,
+            tankSpawn_E5, tankSpawn_E6,};
+
+        for (TankSpawn tankSpawn : tankSpawn_tab) {
+            jPanel_Settings.add(tankSpawn.getJbutton_TankSpawn());
+            jPanel_Settings.add(tankSpawn.getJlabel_TankSpawn());
+
+            tankSpawn.getJbutton_TankSpawn().addMouseListener(new java.awt.event.MouseAdapter() {
+
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    setSpawn = true;
+                    actualSpawn = tankSpawn.getId();
+                    showInfo(chooseSpawn);
+                }
+            });
+        }
     }
 
     private void toolsButtonsSettings() {
@@ -286,14 +447,51 @@ public class TMC_Application extends javax.swing.JFrame {
     //Listeners Methods
     // <editor-fold> 
     private void blocks_Click(java.awt.event.MouseEvent evt) {
-        for (int i = 0; i < mapBlocks.size(); i++) {
-            if (mapBlocks.get(i).getjLabel_Block().getLocation().equals(evt.getComponent().getLocation())) {
-                mapBlocks.get(i).getjLabel_Block().setIcon(actualBlock.getjLabel_Block().getIcon());
-                mapBlocks.get(i).setBlockType(actualBlock.getBlockType());
-                break;
+        if (!setSpawn) {
+            for (int i = 0; i < mapBlocks.size(); i++) {
+                if (mapBlocks.get(i).getjLabel_Block().getLocation().equals(evt.getComponent().getLocation())) {
+                    mapBlocks.get(i).getjLabel_Block().setIcon(actualBlock.getjLabel_Block().getIcon());
+                    mapBlocks.get(i).setBlockType(actualBlock.getBlockType());
+                    break;
+                }
             }
+        } else {
+            switch (actualSpawn) {
+                case "P1":
+                    setActualSpawn(tankSpawn_P1, evt);
+                    break;
+                case "P2":
+                    setActualSpawn(tankSpawn_P2, evt);
+                    break;
+
+                case "E1":
+                    setActualSpawn(tankSpawn_E1, evt);
+                    break;
+                case "E2":
+                    setActualSpawn(tankSpawn_E2, evt);
+                    break;
+                case "E3":
+                    setActualSpawn(tankSpawn_E3, evt);
+                    break;
+                case "E4":
+                    setActualSpawn(tankSpawn_E4, evt);
+                    break;
+                case "E5":
+                    setActualSpawn(tankSpawn_E5, evt);
+                    break;
+                case "E6":
+                    setActualSpawn(tankSpawn_E6, evt);
+                    break;
+            }
+            //setSpawn = false;
+            showInfo(okSpawn);
         }
 
+    }
+
+    private void setActualSpawn(TankSpawn tankSpawn, java.awt.event.MouseEvent evt) {
+        tankSpawn.setSpawnOnMap(evt.getComponent().getLocation());
+        tankSpawn.getJlabel_TankSpawn().setText("[" + pointX + ";" + pointY + "]");
     }
 
     private void blocks_Entered(java.awt.event.MouseEvent evt) {
@@ -306,8 +504,9 @@ public class TMC_Application extends javax.swing.JFrame {
                 }
             }
         }
-        int pointX = (int) ((evt.getComponent().getLocation().getX() - 5) / 40 + 1);
-        int pointY = (int) ((evt.getComponent().getLocation().getY() - 5) / 40 + 1);
+
+        pointX = (int) ((evt.getComponent().getLocation().getX() - 5) / 40 + 1);
+        pointY = (int) ((evt.getComponent().getLocation().getY() - 5) / 40 + 1);
 
         showInfo("[" + pointX + ";" + pointY + "]");
     }
@@ -346,6 +545,15 @@ public class TMC_Application extends javax.swing.JFrame {
         StringBuilder SaveFile = new StringBuilder();
         SaveFile.append(jPanel_Grid.getBackground().getRGB());
         SaveFile.append(System.getProperty("line.separator"));
+        for (TankSpawn item : tankSpawn_tab) {
+            if (item.getSpawnOnMap() != null) {
+                SaveFile.append(item.getSpawnOnMapToSave());
+                SaveFile.append(System.getProperty("line.separator"));
+            } else {
+                SaveFile.append("-1000;-1000");
+                SaveFile.append(System.getProperty("line.separator"));
+            }
+        }
         for (Block Block : mapBlocks) {
             SaveFile.append(Block.toString());
             SaveFile.append(System.getProperty("line.separator"));
@@ -360,8 +568,29 @@ public class TMC_Application extends javax.swing.JFrame {
             try {
                 BufferedReader in = new BufferedReader(new FileReader(file));
                 String str;
+
                 resetMap();
                 jPanel_Grid.setBackground(Color.decode(in.readLine()));
+
+                for (int i = 0; i < tankSpawn_tab.length; i++) {
+                    str = in.readLine();
+                    String[] splittedSpawn = str.split(";");
+
+                    int spawnX = Integer.parseInt(splittedSpawn[0]);
+                    int spawnY = Integer.parseInt(splittedSpawn[1]);
+                    if(spawnX != -1000)
+                    {
+                    tankSpawn_tab[i].setSpawnOnMap(new Point(spawnX, spawnY));
+                    spawnX = (int) ((spawnX - 5) / 40 + 1);
+                    spawnY = (int) ((spawnY - 5) / 40 + 1);
+                    tankSpawn_tab[i].getJlabel_TankSpawn().setText("[" + spawnX + ";" + spawnY + "]");
+                    }
+                    else
+                    {
+                        tankSpawn_tab[i].getJlabel_TankSpawn().setText(emptySpawn);
+                    }
+                }
+
                 int i = 0;
                 while ((str = in.readLine()) != null) {
                     String[] splittedTex = str.split(";");
@@ -423,6 +652,11 @@ public class TMC_Application extends javax.swing.JFrame {
             MapBlock.getjLabel_Block().setIcon(new ImageIcon("Assets\\Blocks_Tex\\DefaultBlock.gif"));
             MapBlock.setBlockType(BlockTypes.DEFAULT);
         }
+        
+        for (TankSpawn item : tankSpawn_tab) {
+                    item.getJlabel_TankSpawn().setText(emptySpawn);
+                    item.setSpawnOnMap(null);
+            }
     }
 
     private void showInfo(String Info) {
@@ -436,15 +670,16 @@ public class TMC_Application extends javax.swing.JFrame {
         jFileChooser_SaveFile.setCurrentDirectory(new File("Maps"));
         jFileChooser_OpenFile.setCurrentDirectory(new File("Maps"));
         System.out.println(jPanel_Grid.getBackground().getRGB());
-        setLanguage(languagePL);
+
         createDefaultBlocks();
         toolsButtonsSettings();
         loadingDatabaseOfBlocks();
         createBlocksInMenuTools();
         showBlocksInMenuTools(0, indexOfLastDestroyableBlock);
         createPanelSettings();
-        visibleItemsInToolsPanel(false);
-        visibleItemsInToolsPanel(true);
+        visibleSettingsPanel(true);
+        visibleSettingsPanel(false);
+        setLanguage(languagePL);
     }
 
     public void centreWindow(Window frame) {
@@ -666,8 +901,7 @@ public class TMC_Application extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem_LanguagesMouseClicked
 
     private void jMenuItem_SettingsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem_SettingsMouseClicked
-        visibleItemsInToolsPanel(false);
-
+        visibleSettingsPanel(true);
     }//GEN-LAST:event_jMenuItem_SettingsMouseClicked
 
     public static void main(String args[]) {

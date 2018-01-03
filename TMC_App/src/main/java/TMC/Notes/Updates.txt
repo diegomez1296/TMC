@@ -1,4 +1,28 @@
 ﻿-------------------------------------------------------------------------------------------------
+TMC v0.0.8 || 3.01.2018 //diegomez
+********
+1. Zmiana nazw z settingsPanel na jPanel_Settings oraz DeleteBlock na jLabel_DeleteBlock
+2. Utworzenie przycisku do zamykania jPanelSettings
+3. Spawny tanków
+- utworzenie klasy TankSpawn
+- utworzenie obiektów klasy TankSpawn, ustawienie im miejsca w jPanelSettings na ich buttony (aktywują możliwość wybrania spawnu)
+	oraz ich labele (pokazujący aktualnie wybrany blok na spawn)
+- przypisanie im indexów w postaci Stringa (np. "P2" dla spawnu Playera 2)
+- utworzenie nowych zmiennych tekstowych do przechowywania i ustawiania języka dla spawnów
+	*oraz stworzenie nowej metody setLanguageInSettingPanel dla ich przechowywania i lepszej przejrzystości
+- przypisanie im listenera, który aktywuje możliwość wybrania spawnu
+- edycja metod do zapisu i odczytu mapy, dodanie do nich obsługi spawnów
+- edycja metody reset - resetująca również spawny
+- stworzenie kilku dodatkowych metod dla lepszej przejrzystości kodu w jPanel_Settings (np. componentsInPanelSettings())
+-------------------------------------------------------------------------------------------------﻿
+
+-------------------------------------------------------------------------------------------------
+TMC v0.0.7.1 || 2.01.2018 //FoxFromDarness
+********
+1. Utworzenie Panelu Opcji (dla ustawień backgroundu oraz spawnów)
+-------------------------------------------------------------------------------------------------﻿
+
+-------------------------------------------------------------------------------------------------
 TMC v0.0.7 || 2.01.2018 //diegomez
 ********
 1. Wyświetlanie kategorii bloczków
