@@ -33,6 +33,7 @@ public class TMC_Application extends javax.swing.JFrame {
     JButton[] buttonsSpawnTanks = new JButton[8];
     JLabel[] labelsSpawnTanks = new JLabel[8];
     JLabel jLabel_DeleteBlock = new JLabel();
+    JLabel jLabel_AutorsBlock = new JLabel();
     JLabel jLabel_SpawnTankTitle = new JLabel();
     JPanel jPanel_Settings = new JPanel();
     
@@ -236,10 +237,16 @@ public class TMC_Application extends javax.swing.JFrame {
                 actualBlock.setBlockType(BlockTypes.DEFAULT);
             }
         });
-
+        //jLabel_AutorsBlock
+        jLabel_AutorsBlock.setSize(40, 40);
+        jLabel_AutorsBlock.setIcon(new ImageIcon("Assets\\Icons\\Autors.png"));
+        jLabel_AutorsBlock.setVisible(true);
+        jPanel_Tools.add(jLabel_AutorsBlock);
+        jLabel_AutorsBlock.setLocation(120, 565);
+        
         jPanel_Tools.add(jLabel_DeleteBlock);
         jLabel_DeleteBlock.setLocation(50, 565);
-
+        
     }
 
     private void createPanelSettings() {
