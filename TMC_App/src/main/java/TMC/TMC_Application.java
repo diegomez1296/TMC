@@ -7,6 +7,7 @@ package TMC;
 
 import TMC.Classes.Block;
 import TMC.Classes.BlockTypes;
+import TMC.Classes.ColorSlider;
 import TMC.Classes.TankSpawn;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -34,7 +35,10 @@ public class TMC_Application extends javax.swing.JFrame {
     JLabel jLabel_DeleteBlock = new JLabel();
     JLabel jLabel_SpawnTankTitle = new JLabel();
     JPanel jPanel_Settings = new JPanel();
-
+    
+    ColorSlider colorSliderR,colorSliderG,colorSliderB;
+    ColorSlider[] colorSlider_tab;
+    
     TankSpawn tankSpawn_P1, tankSpawn_P2, tankSpawn_E1, tankSpawn_E2, tankSpawn_E3, tankSpawn_E4, tankSpawn_E5, tankSpawn_E6;
     TankSpawn[] tankSpawn_tab;
 
@@ -240,7 +244,7 @@ public class TMC_Application extends javax.swing.JFrame {
 
     private void createPanelSettings() {
         jPanel_Settings.setSize(160, 600);
-        jPanel_Settings.setBackground(jPanel_Tools.getBackground());
+        jPanel_Settings.setBackground(jPanel_Items.getBackground());
         jPanel_Settings.setVisible(true);
         jPanel_Settings.setLocation(6, 5);
         jPanel_Tools.add(jPanel_Settings);
@@ -292,7 +296,7 @@ public class TMC_Application extends javax.swing.JFrame {
         });
 
         spawnTanks();
-
+        sliderColor();
     }
 
     private void spawnTanks() {
@@ -303,15 +307,15 @@ public class TMC_Application extends javax.swing.JFrame {
         jLabel_SpawnTankTitle.setVisible(true);
         jPanel_Settings.add(jLabel_SpawnTankTitle);
 
-        tankSpawn_P1 = new TankSpawn("P1", new Point(0, 400), new Point(90, 400));
-        tankSpawn_P2 = new TankSpawn("P2", new Point(0, 425), new Point(90, 425));
+        tankSpawn_P1 = new TankSpawn("P1", new Point(10, 400), new Point(100, 400));
+        tankSpawn_P2 = new TankSpawn("P2", new Point(10, 425), new Point(100, 425));
 
-        tankSpawn_E1 = new TankSpawn("E1", new Point(0, 450), new Point(90, 450));
-        tankSpawn_E2 = new TankSpawn("E2", new Point(0, 475), new Point(90, 475));
-        tankSpawn_E3 = new TankSpawn("E3", new Point(0, 500), new Point(90, 500));
-        tankSpawn_E4 = new TankSpawn("E4", new Point(0, 525), new Point(90, 525));
-        tankSpawn_E5 = new TankSpawn("E5", new Point(0, 550), new Point(90, 550));
-        tankSpawn_E6 = new TankSpawn("E6", new Point(0, 575), new Point(90, 575));
+        tankSpawn_E1 = new TankSpawn("E1", new Point(10, 450), new Point(100, 450));
+        tankSpawn_E2 = new TankSpawn("E2", new Point(10, 475), new Point(100, 475));
+        tankSpawn_E3 = new TankSpawn("E3", new Point(10, 500), new Point(100, 500));
+        tankSpawn_E4 = new TankSpawn("E4", new Point(10, 525), new Point(100, 525));
+        tankSpawn_E5 = new TankSpawn("E5", new Point(10, 550), new Point(100, 550));
+        tankSpawn_E6 = new TankSpawn("E6", new Point(10, 575), new Point(100, 575));
 
         tankSpawn_tab = new TankSpawn[]{
             tankSpawn_P1, tankSpawn_P2,
@@ -333,7 +337,36 @@ public class TMC_Application extends javax.swing.JFrame {
             });
         }
     }
-
+    
+    private void sliderColor()
+    {
+        JPanel jpanel_ActualColor = new JPanel();
+        jpanel_ActualColor.setVisible(true);
+        jpanel_ActualColor.setSize(60, 40);
+        jPanel_Settings.add(jpanel_ActualColor);
+        jpanel_ActualColor.setLocation(50, 165);
+        
+        colorSliderR = new ColorSlider("R", "R:",new Point(10,40),new Point(22,35),new Point(10,55),jPanel_Settings);
+        colorSliderG = new ColorSlider("G", "G:",new Point(10,80),new Point(22,75),new Point(10,95),jPanel_Settings);
+        colorSliderB = new ColorSlider("B", "B:",new Point(10,120),new Point(22,115),new Point(10,135),jPanel_Settings);
+        
+        colorSlider_tab = new ColorSlider[]{
+           colorSliderR, 
+           colorSliderB, 
+           colorSliderG, 
+        };
+        for (ColorSlider item : colorSlider_tab) {
+            item.getJslider_Color().addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+               item.getJtextfield_Color().setText(item.getJslider_Color().getValue()+"");
+               jPanel_Grid.setBackground(new Color(colorSliderR.getJslider_Color().getValue(), colorSliderB.getJslider_Color().getValue(), colorSliderG.getJslider_Color().getValue()));
+               jpanel_ActualColor.setBackground(new Color(colorSliderR.getJslider_Color().getValue(), colorSliderB.getJslider_Color().getValue(), colorSliderG.getJslider_Color().getValue()));
+            }
+        });
+        }
+    }
+    
+    
     private void toolsButtonsSettings() {
 
         int locationButtonsInToolsX = 10;
