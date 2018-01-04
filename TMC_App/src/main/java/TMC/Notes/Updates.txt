@@ -1,4 +1,17 @@
 ﻿-------------------------------------------------------------------------------------------------
+TMC v0.0.9.1 || 4.01.2018 //diegomez
+********
+1. Łatka do autorów
+- Dodanie listenera
+- Poprawne wyświetlanie/zanikanie
+2. Łatka do listenera w sliderach
+- Zamienienie kolejności ustawiania kolorów
+3. Łatka w spawnach
+- Dodawanie komponentów na panel zrobione jest w klasie
+
+-------------------------------------------------------------------------------------------------﻿
+
+-------------------------------------------------------------------------------------------------
 TMC v0.0.9 || 3.01.2018 //FoxFromDarness
 ********
 1. Ikona autorow bez lisinera

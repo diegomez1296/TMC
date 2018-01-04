@@ -14,21 +14,23 @@ import javax.swing.*;
  */
 public class TankSpawn {
     private String id; //"P1" -> Spawn Player 1; "E2" -> Spawn Enemy 2; etc
-    private JButton jbutton_TankSpawn;
-    private JLabel jlabel_TankSpawn;
+    private JButton jButton_TankSpawn;
+    private JLabel jLabel_TankSpawn;
     
     private Point spawnOnMap;
 
-    public TankSpawn(String id, Point buttonLocation, Point labelLocation) {
+    public TankSpawn(String id, Point buttonLocation, Point labelLocation, JPanel jPanel) {
         this.id = id;
-        jbutton_TankSpawn = new JButton();
-        jbutton_TankSpawn.setSize(80,20);
-        jbutton_TankSpawn.setLocation(buttonLocation);
-        jbutton_TankSpawn.setVisible(true);
-        jlabel_TankSpawn = new JLabel();
-        jlabel_TankSpawn.setSize(70, 20);
-        jlabel_TankSpawn.setLocation(labelLocation);
-        jlabel_TankSpawn.setVisible(true);
+        jButton_TankSpawn = new JButton();
+        jButton_TankSpawn.setSize(80,20);
+        jPanel.add(jButton_TankSpawn);
+        jButton_TankSpawn.setLocation(buttonLocation);
+        jButton_TankSpawn.setVisible(true);
+        jLabel_TankSpawn = new JLabel();
+        jLabel_TankSpawn.setSize(70, 20);
+        jPanel.add(jLabel_TankSpawn);
+        jLabel_TankSpawn.setLocation(labelLocation);
+        jLabel_TankSpawn.setVisible(true);
     }
     
 
@@ -41,19 +43,19 @@ public class TankSpawn {
     }
 
     public JButton getJbutton_TankSpawn() {
-        return jbutton_TankSpawn;
+        return jButton_TankSpawn;
     }
 
     public void setJbutton_TankSpawn(JButton jbutton_TankSpawn) {
-        this.jbutton_TankSpawn = jbutton_TankSpawn;
+        this.jButton_TankSpawn = jbutton_TankSpawn;
     }
 
     public JLabel getJlabel_TankSpawn() {
-        return jlabel_TankSpawn;
+        return jLabel_TankSpawn;
     }
 
     public void setJlabel_TankSpawn(JLabel jlabel_TankSpawn) {
-        this.jlabel_TankSpawn = jlabel_TankSpawn;
+        this.jLabel_TankSpawn = jlabel_TankSpawn;
     }
 
     public Point getSpawnOnMap() {
