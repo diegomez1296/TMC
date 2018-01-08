@@ -5,10 +5,7 @@
  */
 package TMC;
 
-import TMC.Classes.Block;
-import TMC.Classes.BlockTypes;
-import TMC.Classes.ColorSlider;
-import TMC.Classes.TankSpawn;
+import TMC.Classes.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -35,10 +32,13 @@ public class TMC_Application extends javax.swing.JFrame {
     JLabel jLabel_DeleteBlock = new JLabel();
     JLabel jLabel_AutorsBlock = new JLabel();
     JLabel jLabel_SpawnTankTitle = new JLabel();
+    JLabel jLabel_BonusTitle = new JLabel();
     JPanel jPanel_Settings = new JPanel();
 
     ColorSlider colorSliderR, colorSliderG, colorSliderB;
     ColorSlider[] colorSlider_tab;
+
+    BonusSlider bonusSlider;
 
     TankSpawn tankSpawn_P1, tankSpawn_P2, tankSpawn_E1, tankSpawn_E2, tankSpawn_E3, tankSpawn_E4, tankSpawn_E5, tankSpawn_E6;
     TankSpawn[] tankSpawn_tab;
@@ -77,11 +77,40 @@ public class TMC_Application extends javax.swing.JFrame {
     String okSpawn;
     // </editor-fold>
 
+    String BonusTitle;
+
     String newFileTitle;
     String newFileInfo;
     String errorInfo;
 
     // </editor-fold>
+    private void loadingDatabaseOfBlocks() {
+        //Destoyable_Blocks
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\RedBlock.gif", BlockTypes.DESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaBlack.gif", BlockTypes.DESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaRed.gif", BlockTypes.DESTROYABLE));
+
+        indexOfLastDestroyableBlock = allTypesOfBlocks.size();
+
+        //Undestoyable_Blocks
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock3.gif", BlockTypes.UNDESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock.gif", BlockTypes.UNDESTROYABLE));
+
+        indexOfLastUnDestroyableBlock = allTypesOfBlocks.size();
+
+        //Liquid_Blocks
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\WaterBlock.gif", BlockTypes.LIQUID));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\Lawa.gif", BlockTypes.LIQUID));
+
+        indexOfLastLiquidBlock = allTypesOfBlocks.size();
+
+        //Green_Blocks
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\GreenBlock.gif", BlockTypes.GREEN));
+
+        indexOfLastGreenBlock = allTypesOfBlocks.size();
+
+    }
+
     private void setLanguage(Boolean languagePL) {
         if (languagePL) {
             jMenuItem_NewFile.setText("Nowy");
@@ -131,6 +160,7 @@ public class TMC_Application extends javax.swing.JFrame {
         if (languagePL) {
 
             SpawnTankTitle = "Ustaw respawn czołgów";
+            BonusTitle = "Szansa na bonus [%]";
 
             Player1 = "Gracz 1";
             Player2 = "Gracz 2";
@@ -145,6 +175,7 @@ public class TMC_Application extends javax.swing.JFrame {
             emptySpawn = "brak";
         } else {
             SpawnTankTitle = "Set respawn for tanks";
+            BonusTitle = "Chance for a bonus [%]";
 
             Player1 = "Player 1";
             Player2 = "Player 2";
@@ -160,6 +191,8 @@ public class TMC_Application extends javax.swing.JFrame {
         }
 
         try {
+            jLabel_BonusTitle.setText(BonusTitle);
+
             jLabel_SpawnTankTitle.setText(SpawnTankTitle);
             tankSpawn_tab[0].getJbutton_TankSpawn().setText(Player1);
             tankSpawn_tab[1].getJbutton_TankSpawn().setText(Player2);
@@ -179,7 +212,7 @@ public class TMC_Application extends javax.swing.JFrame {
         }
     }
 
-    private void createDefaultBlocks() {
+    private void createComponentsInPanelGrid() {
         int LocationBlockX = 5;
         int LocationBlockY = 5;
 
@@ -218,6 +251,14 @@ public class TMC_Application extends javax.swing.JFrame {
             LocationBlockY += 40;
             LocationBlockX = 5;
         }
+
+    }
+
+    private void createComponentsInPanelTools() {
+
+        blockTypesButtonsInPanelTools();
+        createBlocksInPanelItems();
+
         //actualBlock
         actualBlock = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", BlockTypes.DEFAULT, new Point(7, 565), jPanel_Tools);
 
@@ -241,7 +282,6 @@ public class TMC_Application extends javax.swing.JFrame {
                 jPanel_Authors.setVisible(true);
             }
         });
-
     }
 
     private void createPanelSettings() {
@@ -258,8 +298,24 @@ public class TMC_Application extends javax.swing.JFrame {
                         .addGap(0, 610, Short.MAX_VALUE)
         );
 
-        componentsInPanelSettings();
+        createComponentsInPanelSettings();
 
+    }
+
+    private void createComponentsInPanelSettings() {
+        JButton jButton_ClosePanelSettings = new JButton();
+        setComponentSettings(jButton_ClosePanelSettings, "", "Assets\\Blocks_Tex\\Delete_Block.gif", 0, new Dimension(20, 20), new Point(130, 10), jPanel_Settings, true);
+
+        jButton_ClosePanelSettings.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                visibleSettingsPanel(false);
+            }
+        });
+
+        spawnTanks();
+        sliderColor();
+        sliderBonus();
     }
 
     private void createComponentsInPanelAuthors() {
@@ -288,13 +344,13 @@ public class TMC_Application extends javax.swing.JFrame {
     private void visibleSettingsPanel(boolean visible) {
         jPanel_Items.setVisible(!visible);
         if (!visible) {
-            showBlocksInMenuTools(0, indexOfLastDestroyableBlock);
+            showBlocksInPanelItems(0, indexOfLastDestroyableBlock);
             jLabel_AutorsBlock.setVisible(true);
             jLabel_AutorsBlock.setLocation(120, 565);
             setSpawn = false;
             actualSpawn = "";
         } else {
-            cleanBlocksInMenuTools();
+            cleanBlocksInPanelItems();
             jLabel_AutorsBlock.setVisible(false);
             jLabel_AutorsBlock.setLocation(-1000, -1000);
         }
@@ -304,21 +360,6 @@ public class TMC_Application extends javax.swing.JFrame {
         for (JButton item : buttonsInTools) {
             item.setVisible(!visible);
         }
-    }
-
-    private void componentsInPanelSettings() {
-        JButton jButton_ClosePanelSettings = new JButton();
-        setComponentSettings(jButton_ClosePanelSettings, "", "Assets\\Blocks_Tex\\Delete_Block.gif", 0, new Dimension(20, 20), new Point(130, 10), jPanel_Settings, true);
-
-        jButton_ClosePanelSettings.addMouseListener(new java.awt.event.MouseAdapter() {
-
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                visibleSettingsPanel(false);
-            }
-        });
-
-        spawnTanks();
-        sliderColor();
     }
 
     private void spawnTanks() {
@@ -374,20 +415,7 @@ public class TMC_Application extends javax.swing.JFrame {
             colorSliderB,
             colorSliderG,};
         for (ColorSlider item : colorSlider_tab) {
-            item.getJslider_Color().addChangeListener(new javax.swing.event.ChangeListener() {
-                public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                    item.getJtextfield_Color().setText(item.getJslider_Color().getValue() + "");
-                    jButton_ActualColor.setBackground(new Color(colorSliderR.getJslider_Color().getValue(), colorSliderG.getJslider_Color().getValue(), colorSliderB.getJslider_Color().getValue()));
-                }
-            });
-            item.getJtextfield_Color().addKeyListener(new java.awt.event.KeyAdapter() {
-                public void keyPressed(java.awt.event.KeyEvent evt) {
-                    try {
-                        item.getJslider_Color().setValue(Integer.parseInt(item.getJtextfield_Color().getText()));
-                    } catch (Exception e) {
-                    }
-                }
-            });
+            sliderCreateListener(item.getJslider_Color(), item.getJtextfield_Color(), jButton_ActualColor);
         }
 
         setSliderColorValue();
@@ -408,7 +436,14 @@ public class TMC_Application extends javax.swing.JFrame {
         colorSliderB.getJslider_Color().setValue(colorB);
     }
 
-    private void toolsButtonsSettings() {
+    private void sliderBonus() {
+        setComponentSettings(jLabel_BonusTitle, "", "", Color.WHITE.getRGB(), new Dimension(160, 20), new Point(20, 240), jPanel_Settings, true);
+
+        bonusSlider = new BonusSlider(new Dimension(colorSliderR.getJslider_Color().getSize()), new Point(10, 255), new Dimension(colorSliderR.getJtextfield_Color().getSize()), new Point(63, 285), jPanel_Settings);
+        sliderCreateListener(bonusSlider.getjSlider_Bonus(), bonusSlider.getjTextField_BonusValue(), null);
+    }
+
+    private void blockTypesButtonsInPanelTools() {
 
         int locationButtonsInToolsX = 10;
         int locationButtonsInToolsY = 10;
@@ -434,34 +469,7 @@ public class TMC_Application extends javax.swing.JFrame {
 
     }
 
-    private void loadingDatabaseOfBlocks() {
-        //Destoyable_Blocks
-        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\RedBlock.gif", BlockTypes.DESTROYABLE));
-        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaBlack.gif", BlockTypes.DESTROYABLE));
-        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaRed.gif", BlockTypes.DESTROYABLE));
-
-        indexOfLastDestroyableBlock = allTypesOfBlocks.size();
-
-        //Undestoyable_Blocks
-        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock3.gif", BlockTypes.UNDESTROYABLE));
-        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock.gif", BlockTypes.UNDESTROYABLE));
-
-        indexOfLastUnDestroyableBlock = allTypesOfBlocks.size();
-
-        //Liquid_Blocks
-        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\WaterBlock.gif", BlockTypes.LIQUID));
-        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\Lawa.gif", BlockTypes.LIQUID));
-
-        indexOfLastLiquidBlock = allTypesOfBlocks.size();
-
-        //Green_Blocks
-        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\GreenBlock.gif", BlockTypes.GREEN));
-
-        indexOfLastGreenBlock = allTypesOfBlocks.size();
-
-    }
-
-    private void createBlocksInMenuTools() {
+    private void createBlocksInPanelItems() {
 
         for (int i = 0; i < allTypesOfBlocks.size(); i++) {
 
@@ -477,9 +485,9 @@ public class TMC_Application extends javax.swing.JFrame {
         }
     }
 
-    private void showBlocksInMenuTools(int startIndex, int endIndex) {
+    private void showBlocksInPanelItems(int startIndex, int endIndex) {
 
-        cleanBlocksInMenuTools();
+        cleanBlocksInPanelItems();
 
         if (endIndex > allTypesOfBlocks.size()) {
             endIndex = allTypesOfBlocks.size();
@@ -506,7 +514,7 @@ public class TMC_Application extends javax.swing.JFrame {
         }
     }
 
-    private void cleanBlocksInMenuTools() {
+    private void cleanBlocksInPanelItems() {
         for (int i = 0; i < allTypesOfBlocks.size(); i++) {
             allTypesOfBlocks.get(i).getjLabel_Block().setVisible(false);
             allTypesOfBlocks.get(i).getjLabel_Block().setLocation(-1000, -1000);
@@ -593,18 +601,39 @@ public class TMC_Application extends javax.swing.JFrame {
     private void buttonsInTools_Click(java.awt.event.MouseEvent evt) {
         switch (evt.getComponent().getX()) {
             case 10: //Dest
-                showBlocksInMenuTools(0, indexOfLastDestroyableBlock);
+                showBlocksInPanelItems(0, indexOfLastDestroyableBlock);
                 break;
             case 50: //UnDest
-                showBlocksInMenuTools(indexOfLastDestroyableBlock, indexOfLastUnDestroyableBlock);
+                showBlocksInPanelItems(indexOfLastDestroyableBlock, indexOfLastUnDestroyableBlock);
                 break;
             case 90: //Liquid
-                showBlocksInMenuTools(indexOfLastUnDestroyableBlock, indexOfLastLiquidBlock);
+                showBlocksInPanelItems(indexOfLastUnDestroyableBlock, indexOfLastLiquidBlock);
                 break;
             case 130: //Green
-                showBlocksInMenuTools(indexOfLastLiquidBlock, indexOfLastGreenBlock);
+                showBlocksInPanelItems(indexOfLastLiquidBlock, indexOfLastGreenBlock);
                 break;
         }
+    }
+
+    private void sliderCreateListener(JSlider jSlider, JTextField jTextfield, JButton jButton) {
+        jSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTextfield.setText(jSlider.getValue() + "");
+                if (jButton != null) {
+                    jButton.setBackground(new Color(colorSliderR.getJslider_Color().getValue(), colorSliderG.getJslider_Color().getValue(), colorSliderB.getJslider_Color().getValue()));
+                }
+            }
+        });
+        jTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                if (evt.getKeyCode() == evt.VK_ENTER) {
+                    try {
+                        jSlider.setValue(Integer.parseInt(jTextfield.getText()));
+                    } catch (Exception e) {
+                    }
+                }
+            }
+        });
     }
 
     // </editor-fold> 
@@ -613,6 +642,8 @@ public class TMC_Application extends javax.swing.JFrame {
     private String getInfoAboutBlocks() {
         StringBuilder SaveFile = new StringBuilder();
         SaveFile.append(jPanel_Grid.getBackground().getRGB());
+        SaveFile.append(System.getProperty("line.separator"));
+        SaveFile.append(bonusSlider.getjSlider_Bonus().getValue());
         SaveFile.append(System.getProperty("line.separator"));
         for (TankSpawn item : tankSpawn_tab) {
             if (item.getSpawnOnMap() != null) {
@@ -640,7 +671,8 @@ public class TMC_Application extends javax.swing.JFrame {
 
                 resetMap();
                 jPanel_Grid.setBackground(Color.decode(in.readLine()));
-
+                bonusSlider.getjSlider_Bonus().setValue(Integer.parseInt(in.readLine()));
+                bonusSlider.getjTextField_BonusValue().setText(bonusSlider.getjSlider_Bonus().getValue() + "");
                 for (int i = 0; i < tankSpawn_tab.length; i++) {
                     str = in.readLine();
                     String[] splittedSpawn = str.split(";");
@@ -721,6 +753,10 @@ public class TMC_Application extends javax.swing.JFrame {
             MapBlock.setBlockType(BlockTypes.DEFAULT);
         }
 
+        setSliderColorValue();
+        bonusSlider.getjSlider_Bonus().setValue(50);
+        bonusSlider.getjTextField_BonusValue().setText("50");
+
         for (TankSpawn item : tankSpawn_tab) {
             item.getJlabel_TankSpawn().setText(emptySpawn);
             item.setSpawnOnMap(null);
@@ -729,25 +765,6 @@ public class TMC_Application extends javax.swing.JFrame {
 
     private void showInfo(String info) {
         jLabel_Description.setText(info);
-    }
-
-    private void startApplication() {
-
-        centreWindow(this);
-
-        jFileChooser_SaveFile.setCurrentDirectory(new File("Maps"));
-        jFileChooser_OpenFile.setCurrentDirectory(new File("Maps"));
-
-        createDefaultBlocks();
-        toolsButtonsSettings();
-        loadingDatabaseOfBlocks();
-        createBlocksInMenuTools();
-        showBlocksInMenuTools(0, indexOfLastDestroyableBlock);
-        createPanelSettings();
-        createComponentsInPanelAuthors();
-        visibleSettingsPanel(false);
-        setLanguage(languagePL);
-
     }
 
     public void centreWindow(Window frame) {
@@ -779,6 +796,24 @@ public class TMC_Application extends javax.swing.JFrame {
             ((JButton) component).setText(text);
             ((JButton) component).setIcon(new ImageIcon(iconPath));
         }
+
+    }
+
+    private void startApplication() {
+
+        centreWindow(this);
+
+        jFileChooser_SaveFile.setCurrentDirectory(new File("Maps"));
+        jFileChooser_OpenFile.setCurrentDirectory(new File("Maps"));
+
+        loadingDatabaseOfBlocks();
+        createComponentsInPanelGrid();
+        createComponentsInPanelTools();
+        createPanelSettings();
+        createComponentsInPanelAuthors();
+        showBlocksInPanelItems(0, indexOfLastDestroyableBlock);
+        visibleSettingsPanel(false);
+        setLanguage(languagePL);
 
     }
 

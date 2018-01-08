@@ -1,4 +1,22 @@
 ﻿-------------------------------------------------------------------------------------------------
+TMC v0.1.1 || 8.01.2018 //diegomez
+********
+1. Szansa na bonus
+- Stworzenie obiektu BonusSlider
+- Wstawienie na mape slidera oraz textfielda
+- Dodanie listenerów
+- Uwzględnienie bonusu w zapisie mapy
+- Wczytanie wartości bonusu z zapisanej mapy
+- Dodanie labela informującego o zmienianiu szansy na bonus (w dwóch językach)
+2. Organizacja kodu
+- dodanie kilka metod pomocniczych
+- Zmienienie nazm niektórych metod by były bardziej intuicyjne
+- Przeniesienie niektórych fragmentów kodu tworzących komponenty do metod o bardzej adekwatnej nazwie
+- Lepsza organizacja metody startAplication (pozostawienie metod koniecznych)
+
+-------------------------------------------------------------------------------------------------﻿
+
+-------------------------------------------------------------------------------------------------
 TMC v0.1.0 || 8.01.2018 //diegomez
 ********
 1. Drobne poprawki w klasie Block

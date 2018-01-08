@@ -13,13 +13,13 @@ import javax.swing.*;
  * @author FoxFromDarkness
  */
 public class ColorSlider {
-    
+
     private String id;
     private JLabel jlabel_Color;
     private JSlider jslider_Color;
     private JTextField jtextfield_Color;
 
-    public ColorSlider(String id, String text,Point labelLocation,Point textFieldLocation,Point sliderLocation, JPanel jpanel) {
+    public ColorSlider(String id, String text, Point labelLocation, Point textFieldLocation, Point sliderLocation, JPanel jpanel) {
         this.id = id;
         jlabel_Color = new JLabel();
         jlabel_Color.setSize(15, 14);
@@ -27,14 +27,14 @@ public class ColorSlider {
         jlabel_Color.setText(text);
         jlabel_Color.setLocation(labelLocation);
         jpanel.add(jlabel_Color);
-        
+
         jtextfield_Color = new JTextField();
         jtextfield_Color.setSize(35, 25);
-        jtextfield_Color.setVisible(true);  
+        jtextfield_Color.setVisible(true);
         jtextfield_Color.setLocation(textFieldLocation);
-        
+
         jpanel.add(jtextfield_Color);
-        
+
         jslider_Color = new JSlider();
         jslider_Color.setSize(140, 26);
         jslider_Color.setVisible(true);
@@ -74,7 +74,5 @@ public class ColorSlider {
     public void setJtextfield_Color(JTextField jtextfield_Color) {
         this.jtextfield_Color = jtextfield_Color;
     }
-    
-    
-    
+
 }
