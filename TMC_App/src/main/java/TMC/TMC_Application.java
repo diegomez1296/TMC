@@ -36,10 +36,10 @@ public class TMC_Application extends javax.swing.JFrame {
     JLabel jLabel_AutorsBlock = new JLabel();
     JLabel jLabel_SpawnTankTitle = new JLabel();
     JPanel jPanel_Settings = new JPanel();
-    
-    ColorSlider colorSliderR,colorSliderG,colorSliderB;
+
+    ColorSlider colorSliderR, colorSliderG, colorSliderB;
     ColorSlider[] colorSlider_tab;
-    
+
     TankSpawn tankSpawn_P1, tankSpawn_P2, tankSpawn_E1, tankSpawn_E2, tankSpawn_E3, tankSpawn_E4, tankSpawn_E5, tankSpawn_E6;
     TankSpawn[] tankSpawn_tab;
 
@@ -185,10 +185,8 @@ public class TMC_Application extends javax.swing.JFrame {
 
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
-                Block tmp = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", BlockTypes.DEFAULT, LocationBlockX, LocationBlockY);
+                Block tmp = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", BlockTypes.DEFAULT, new Point(LocationBlockX, LocationBlockY), jPanel_Grid);
 
-                jPanel_Grid.add(tmp.getjLabel_Block());
-                tmp.getjLabel_Block().setVisible(true);
                 tmp.getjLabel_Block().addMouseListener(new java.awt.event.MouseAdapter() {
 
                     public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -221,14 +219,10 @@ public class TMC_Application extends javax.swing.JFrame {
             LocationBlockX = 5;
         }
         //actualBlock
-        actualBlock = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", BlockTypes.DEFAULT, 7, 565);
-        actualBlock.getjLabel_Block().setVisible(true);
-        jPanel_Tools.add(actualBlock.getjLabel_Block());
-        //jLabel_DeleteBlock
+        actualBlock = new Block("Assets\\Blocks_Tex\\DefaultBlock.gif", BlockTypes.DEFAULT, new Point(7, 565), jPanel_Tools);
 
-        jLabel_DeleteBlock.setSize(40, 40);
-        jLabel_DeleteBlock.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block1.gif"));
-        jLabel_DeleteBlock.setVisible(true);
+        //jLabel_DeleteBlock
+        setComponentSettings(jLabel_DeleteBlock, "", "Assets\\Blocks_Tex\\Delete_Block1.gif", 0, new Dimension(40, 40), new Point(50, 565), jPanel_Tools, true);
 
         jLabel_DeleteBlock.addMouseListener(new java.awt.event.MouseAdapter() {
 
@@ -238,31 +232,20 @@ public class TMC_Application extends javax.swing.JFrame {
             }
         });
 
-        jPanel_Tools.add(jLabel_DeleteBlock);
-        jLabel_DeleteBlock.setLocation(50, 565);
-        
         //jLabel_AutorsBlock
-        jLabel_AutorsBlock.setSize(40, 40);
-        jLabel_AutorsBlock.setIcon(new ImageIcon("Assets\\Icons\\Autors.png"));
-        jLabel_AutorsBlock.setVisible(true);
-        jPanel_Tools.add(jLabel_AutorsBlock);
-        jLabel_AutorsBlock.setLocation(120, 565);
-        
+        setComponentSettings(jLabel_AutorsBlock, "", "Assets\\Icons\\Autors.png", 0, new Dimension(40, 40), new Point(120, 565), jPanel_Tools, true);
+
         jLabel_AutorsBlock.addMouseListener(new java.awt.event.MouseAdapter() {
 
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                showInfo("Panel z fotami");
+                jPanel_Authors.setVisible(true);
             }
         });
-        
+
     }
 
     private void createPanelSettings() {
-        jPanel_Settings.setSize(160, 600);
-        jPanel_Settings.setBackground(jPanel_Items.getBackground());
-        jPanel_Settings.setVisible(true);
-        jPanel_Settings.setLocation(6, 5);
-        jPanel_Tools.add(jPanel_Settings);
+        setComponentSettings(jPanel_Settings, "", "", jPanel_Items.getBackground().getRGB(), new Dimension(160, 600), new Point(6, 5), jPanel_Tools, true);
 
         javax.swing.GroupLayout jPanel_SettingsLayout = new javax.swing.GroupLayout(jPanel_Settings);
         jPanel_Settings.setLayout(jPanel_SettingsLayout);
@@ -279,6 +262,29 @@ public class TMC_Application extends javax.swing.JFrame {
 
     }
 
+    private void createComponentsInPanelAuthors() {
+
+        JButton jButton_ClosePanelAuthors = new JButton();
+        setComponentSettings(jButton_ClosePanelAuthors, "", "Assets\\Blocks_Tex\\Delete_Block.gif", 0, new Dimension(20, 20), new Point(460, 10), jPanel_Authors, true);
+
+        jButton_ClosePanelAuthors.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel_Authors.setVisible(false);
+            }
+        });
+
+        JLabel jLabel_PawelMinda = new JLabel();
+        setComponentSettings(jLabel_PawelMinda, "", "Assets\\Authors\\Pawel_Minda.jpg", 0, new Dimension(150, 150), new Point(20, 40), jPanel_Authors, true);
+
+        JLabel jLabel_LukaszRydzinski = new JLabel();
+        setComponentSettings(jLabel_LukaszRydzinski, "", "Assets\\Authors\\Lukasz_Rydzinski2.jpg", 0, new Dimension(150, 150), new Point(190, 40), jPanel_Authors, true);
+
+        JLabel jLabel_PawelSokol = new JLabel();
+        setComponentSettings(jLabel_PawelSokol, "", "Assets\\Authors\\Pawel_Sokol.jpg", 0, new Dimension(150, 150), new Point(360, 40), jPanel_Authors, true);
+
+    }
+
     private void visibleSettingsPanel(boolean visible) {
         jPanel_Items.setVisible(!visible);
         if (!visible) {
@@ -290,7 +296,7 @@ public class TMC_Application extends javax.swing.JFrame {
         } else {
             cleanBlocksInMenuTools();
             jLabel_AutorsBlock.setVisible(false);
-            jLabel_AutorsBlock.setLocation(-1000,-1000);
+            jLabel_AutorsBlock.setLocation(-1000, -1000);
         }
         jPanel_Settings.setVisible(visible);
         actualBlock.getjLabel_Block().setVisible(!visible);
@@ -302,10 +308,7 @@ public class TMC_Application extends javax.swing.JFrame {
 
     private void componentsInPanelSettings() {
         JButton jButton_ClosePanelSettings = new JButton();
-        jButton_ClosePanelSettings.setSize(20, 20);
-        jButton_ClosePanelSettings.setIcon(new ImageIcon("Assets\\Blocks_Tex\\Delete_Block.gif"));
-        jPanel_Settings.add(jButton_ClosePanelSettings);
-        jButton_ClosePanelSettings.setLocation(130, 10);
+        setComponentSettings(jButton_ClosePanelSettings, "", "Assets\\Blocks_Tex\\Delete_Block.gif", 0, new Dimension(20, 20), new Point(130, 10), jPanel_Settings, true);
 
         jButton_ClosePanelSettings.addMouseListener(new java.awt.event.MouseAdapter() {
 
@@ -320,11 +323,7 @@ public class TMC_Application extends javax.swing.JFrame {
 
     private void spawnTanks() {
 
-        jLabel_SpawnTankTitle.setLocation(20, 370);
-        jLabel_SpawnTankTitle.setForeground(Color.WHITE);
-        jLabel_SpawnTankTitle.setSize(160, 20);
-        jLabel_SpawnTankTitle.setVisible(true);
-        jPanel_Settings.add(jLabel_SpawnTankTitle);
+        setComponentSettings(jLabel_SpawnTankTitle, "", "", Color.WHITE.getRGB(), new Dimension(160, 20), new Point(20, 370), jPanel_Settings, true);
 
         tankSpawn_P1 = new TankSpawn("P1", new Point(10, 400), new Point(100, 400), jPanel_Settings);
         tankSpawn_P2 = new TankSpawn("P2", new Point(10, 425), new Point(100, 425), jPanel_Settings);
@@ -353,36 +352,62 @@ public class TMC_Application extends javax.swing.JFrame {
             });
         }
     }
-    
-    private void sliderColor()
-    {
-        JPanel jpanel_ActualColor = new JPanel();
-        jpanel_ActualColor.setVisible(true);
-        jpanel_ActualColor.setSize(60, 40);
-        jPanel_Settings.add(jpanel_ActualColor);
-        jpanel_ActualColor.setLocation(50, 165);
-        
-        colorSliderR = new ColorSlider("R", "R:",new Point(10,40),new Point(22,35),new Point(10,55),jPanel_Settings);
-        colorSliderG = new ColorSlider("G", "G:",new Point(10,80),new Point(22,75),new Point(10,95),jPanel_Settings);
-        colorSliderB = new ColorSlider("B", "B:",new Point(10,120),new Point(22,115),new Point(10,135),jPanel_Settings);
-        
-        colorSlider_tab = new ColorSlider[]{
-           colorSliderR, 
-           colorSliderB, 
-           colorSliderG, 
-        };
-        for (ColorSlider item : colorSlider_tab) {
-            item.getJslider_Color().addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-               item.getJtextfield_Color().setText(item.getJslider_Color().getValue()+"");
-               jPanel_Grid.setBackground(new Color(colorSliderR.getJslider_Color().getValue(), colorSliderG.getJslider_Color().getValue(), colorSliderB.getJslider_Color().getValue()));
-               jpanel_ActualColor.setBackground(new Color(colorSliderR.getJslider_Color().getValue(), colorSliderG.getJslider_Color().getValue(), colorSliderB.getJslider_Color().getValue()));
+
+    private void sliderColor() {
+        //JPanel jButton_ActualColor = new JPanel();
+        JButton jButton_ActualColor = new JButton();
+        setComponentSettings(jButton_ActualColor, "", "", 0, new Dimension(60, 40), new Point(50, 165), jPanel_Settings, true);
+
+        jButton_ActualColor.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel_Grid.setBackground(new Color(colorSliderR.getJslider_Color().getValue(), colorSliderG.getJslider_Color().getValue(), colorSliderB.getJslider_Color().getValue()));
             }
         });
+
+        colorSliderR = new ColorSlider("R", "R:", new Point(10, 40), new Point(22, 35), new Point(10, 55), jPanel_Settings);
+        colorSliderG = new ColorSlider("G", "G:", new Point(10, 80), new Point(22, 75), new Point(10, 95), jPanel_Settings);
+        colorSliderB = new ColorSlider("B", "B:", new Point(10, 120), new Point(22, 115), new Point(10, 135), jPanel_Settings);
+
+        colorSlider_tab = new ColorSlider[]{
+            colorSliderR,
+            colorSliderB,
+            colorSliderG,};
+        for (ColorSlider item : colorSlider_tab) {
+            item.getJslider_Color().addChangeListener(new javax.swing.event.ChangeListener() {
+                public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                    item.getJtextfield_Color().setText(item.getJslider_Color().getValue() + "");
+                    jButton_ActualColor.setBackground(new Color(colorSliderR.getJslider_Color().getValue(), colorSliderG.getJslider_Color().getValue(), colorSliderB.getJslider_Color().getValue()));
+                }
+            });
+            item.getJtextfield_Color().addKeyListener(new java.awt.event.KeyAdapter() {
+                public void keyPressed(java.awt.event.KeyEvent evt) {
+                    try {
+                        item.getJslider_Color().setValue(Integer.parseInt(item.getJtextfield_Color().getText()));
+                    } catch (Exception e) {
+                    }
+                }
+            });
         }
+
+        setSliderColorValue();
     }
-    
-    
+
+    private void setSliderColorValue() {
+
+        int colorR = jPanel_Grid.getBackground().getRed();
+        int colorG = jPanel_Grid.getBackground().getGreen();
+        int colorB = jPanel_Grid.getBackground().getBlue();
+
+        colorSliderR.getJtextfield_Color().setText(colorR + "");
+        colorSliderG.getJtextfield_Color().setText(colorG + "");
+        colorSliderB.getJtextfield_Color().setText(colorB + "");
+
+        colorSliderR.getJslider_Color().setValue(colorR);
+        colorSliderG.getJslider_Color().setValue(colorG);
+        colorSliderB.getJslider_Color().setValue(colorB);
+    }
+
     private void toolsButtonsSettings() {
 
         int locationButtonsInToolsX = 10;
@@ -390,10 +415,7 @@ public class TMC_Application extends javax.swing.JFrame {
 
         for (int i = 0; i < buttonsInTools.length; i++) {
             buttonsInTools[i] = new JButton();
-
-            buttonsInTools[i].setSize(30, 30);
-            buttonsInTools[i].setLocation(locationButtonsInToolsX, locationButtonsInToolsY);
-            buttonsInTools[i].setVisible(true);
+            setComponentSettings(buttonsInTools[i], "", "", 0, new Dimension(30, 30), new Point(locationButtonsInToolsX, locationButtonsInToolsY), jPanel_Tools, true);
 
             buttonsInTools[i].addMouseListener(new java.awt.event.MouseAdapter() {
 
@@ -401,8 +423,6 @@ public class TMC_Application extends javax.swing.JFrame {
                     buttonsInTools_Click(evt);
                 }
             });
-
-            jPanel_Tools.add(buttonsInTools[i]);
 
             locationButtonsInToolsX += 40;
         }
@@ -627,15 +647,12 @@ public class TMC_Application extends javax.swing.JFrame {
 
                     int spawnX = Integer.parseInt(splittedSpawn[0]);
                     int spawnY = Integer.parseInt(splittedSpawn[1]);
-                    if(spawnX != -1000)
-                    {
-                    tankSpawn_tab[i].setSpawnOnMap(new Point(spawnX, spawnY));
-                    spawnX = (int) ((spawnX - 5) / 40 + 1);
-                    spawnY = (int) ((spawnY - 5) / 40 + 1);
-                    tankSpawn_tab[i].getJlabel_TankSpawn().setText("[" + spawnX + ";" + spawnY + "]");
-                    }
-                    else
-                    {
+                    if (spawnX != -1000) {
+                        tankSpawn_tab[i].setSpawnOnMap(new Point(spawnX, spawnY));
+                        spawnX = (int) ((spawnX - 5) / 40 + 1);
+                        spawnY = (int) ((spawnY - 5) / 40 + 1);
+                        tankSpawn_tab[i].getJlabel_TankSpawn().setText("[" + spawnX + ";" + spawnY + "]");
+                    } else {
                         tankSpawn_tab[i].getJlabel_TankSpawn().setText(emptySpawn);
                     }
                 }
@@ -668,6 +685,8 @@ public class TMC_Application extends javax.swing.JFrame {
                     mapBlocks.get(i).getjLabel_Block().setIcon(new ImageIcon(splittedTex[1]));
                     mapBlocks.get(i).getjLabel_Block().setLocation(Integer.parseInt(splittedTex[2]), Integer.parseInt(splittedTex[3]));
                     i++;
+
+                    setSliderColorValue();
                 }
 
             } catch (IOException e) {
@@ -701,15 +720,15 @@ public class TMC_Application extends javax.swing.JFrame {
             MapBlock.getjLabel_Block().setIcon(new ImageIcon("Assets\\Blocks_Tex\\DefaultBlock.gif"));
             MapBlock.setBlockType(BlockTypes.DEFAULT);
         }
-        
+
         for (TankSpawn item : tankSpawn_tab) {
-                    item.getJlabel_TankSpawn().setText(emptySpawn);
-                    item.setSpawnOnMap(null);
-            }
+            item.getJlabel_TankSpawn().setText(emptySpawn);
+            item.setSpawnOnMap(null);
+        }
     }
 
-    private void showInfo(String Info) {
-        jLabel_Description.setText(Info);
+    private void showInfo(String info) {
+        jLabel_Description.setText(info);
     }
 
     private void startApplication() {
@@ -718,7 +737,6 @@ public class TMC_Application extends javax.swing.JFrame {
 
         jFileChooser_SaveFile.setCurrentDirectory(new File("Maps"));
         jFileChooser_OpenFile.setCurrentDirectory(new File("Maps"));
-        System.out.println(jPanel_Grid.getBackground().getRGB());
 
         createDefaultBlocks();
         toolsButtonsSettings();
@@ -726,9 +744,10 @@ public class TMC_Application extends javax.swing.JFrame {
         createBlocksInMenuTools();
         showBlocksInMenuTools(0, indexOfLastDestroyableBlock);
         createPanelSettings();
-        visibleSettingsPanel(true);
+        createComponentsInPanelAuthors();
         visibleSettingsPanel(false);
         setLanguage(languagePL);
+
     }
 
     public void centreWindow(Window frame) {
@@ -736,6 +755,31 @@ public class TMC_Application extends javax.swing.JFrame {
         int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
         int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(x, y);
+    }
+
+    public void setComponentSettings(Component component, String text, String iconPath, int backgroundCode, Dimension size, Point location, JPanel panel, Boolean visible) {
+        component.setSize(size);
+        component.setVisible(visible);
+        component.setLocation(location);
+        if (backgroundCode != 0) {
+            if (component instanceof JLabel || component instanceof JButton) {
+                component.setForeground(Color.decode(backgroundCode + ""));
+            } else {
+                component.setBackground(Color.decode(backgroundCode + ""));
+            }
+        }
+        if (panel != null) {
+            panel.add(component);
+        }
+        if (component instanceof JLabel) {
+            ((JLabel) component).setText(text);
+            ((JLabel) component).setIcon(new ImageIcon(iconPath));
+        }
+        if (component instanceof JButton) {
+            ((JButton) component).setText(text);
+            ((JButton) component).setIcon(new ImageIcon(iconPath));
+        }
+
     }
 
     public TMC_Application() {
@@ -753,6 +797,7 @@ public class TMC_Application extends javax.swing.JFrame {
         jFileChooser_OpenFile = new javax.swing.JFileChooser();
         jPanel_Main = new javax.swing.JPanel();
         jPanel_Grid = new javax.swing.JPanel();
+        jPanel_Authors = new javax.swing.JPanel();
         jPanel_Tools = new javax.swing.JPanel();
         jPanel_Items = new javax.swing.JPanel();
         jLabel_Description = new javax.swing.JLabel();
@@ -786,15 +831,37 @@ public class TMC_Application extends javax.swing.JFrame {
         jPanel_Grid.setMinimumSize(new java.awt.Dimension(610, 610));
         jPanel_Grid.setPreferredSize(new java.awt.Dimension(610, 610));
 
+        jPanel_Authors.setMaximumSize(new java.awt.Dimension(524, 284));
+        jPanel_Authors.setMinimumSize(new java.awt.Dimension(524, 284));
+        jPanel_Authors.setVisible(false);
+        jPanel_Authors.setBackground(Color.CYAN);
+
+        javax.swing.GroupLayout jPanel_AuthorsLayout = new javax.swing.GroupLayout(jPanel_Authors);
+        jPanel_Authors.setLayout(jPanel_AuthorsLayout);
+        jPanel_AuthorsLayout.setHorizontalGroup(
+            jPanel_AuthorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 524, Short.MAX_VALUE)
+        );
+        jPanel_AuthorsLayout.setVerticalGroup(
+            jPanel_AuthorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 284, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel_GridLayout = new javax.swing.GroupLayout(jPanel_Grid);
         jPanel_Grid.setLayout(jPanel_GridLayout);
         jPanel_GridLayout.setHorizontalGroup(
             jPanel_GridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_GridLayout.createSequentialGroup()
+                .addContainerGap(43, Short.MAX_VALUE)
+                .addComponent(jPanel_Authors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
         jPanel_GridLayout.setVerticalGroup(
             jPanel_GridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
+            .addGroup(jPanel_GridLayout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addComponent(jPanel_Authors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(202, Short.MAX_VALUE))
         );
 
         jPanel_Tools.setBackground(new java.awt.Color(127, 127, 127));
@@ -996,6 +1063,7 @@ public class TMC_Application extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuItem_OpenFile;
     private javax.swing.JMenu jMenuItem_SaveFile;
     private javax.swing.JMenu jMenuItem_Settings;
+    private javax.swing.JPanel jPanel_Authors;
     private javax.swing.JPanel jPanel_Grid;
     private javax.swing.JPanel jPanel_Items;
     private javax.swing.JPanel jPanel_Main;

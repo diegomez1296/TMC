@@ -1,4 +1,27 @@
 ﻿-------------------------------------------------------------------------------------------------
+TMC v0.1.0 || 8.01.2018 //diegomez
+********
+1. Drobne poprawki w klasie Block
+- uzupełnienie o panel do którego dodawany jest blok
+
+2. Utworzenie metody setComponentSettings, która ustawia !początkowe! wartości komponentom.
+- Działa dla Paneli, JLabeli i JButtonów
+- Efekt jest taki, że jedna linika kodu zastępuje nam około 5 innych.
+
+3. Poprawka do sliderów
+- Textfieldy od razu pokazują aktualne rgb jPanel_Grid (również po wczytaniu mapy)
+- Slidery ustawiają wartości na zgodne z TextFieldami
+- Można wpisywać wartości z textfildów (nie wywala błędów w przypadku podania liter, ani liczb z poza zakresu)
+- Kolor wyświetla się tylko w małym panelu - po jego kliknięciu ustawiany jest na tło
+- Panel został zmieniony na button
+
+4. Dodanie Panelu z Authorami
+-wersja alfa 
+-rozmiar panelu ([524, 284])
+
+-------------------------------------------------------------------------------------------------﻿
+
+-------------------------------------------------------------------------------------------------
 TMC v0.0.9.1 || 4.01.2018 //diegomez
 ********
 1. Łatka do autorów

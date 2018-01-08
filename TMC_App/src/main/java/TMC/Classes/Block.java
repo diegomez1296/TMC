@@ -6,8 +6,9 @@ package TMC.Classes;
  */
 
 
+import java.awt.*;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import javax.swing.*;
 
 public class Block {
     
@@ -16,12 +17,14 @@ public class Block {
     
 
 //MapBlocks
-public Block(String ImageFromAddress, BlockTypes blockType, int LocationBlockX, int LocationBlockY)
+public Block(String imageFromAddress, BlockTypes blockType, Point location, JPanel panel)
         {
             jLabel_Block = new JLabel();
             jLabel_Block.setSize(40, 40);
-            jLabel_Block.setLocation(LocationBlockX, LocationBlockY);
-            jLabel_Block.setIcon(new ImageIcon(ImageFromAddress));
+            jLabel_Block.setLocation(location);
+            jLabel_Block.setIcon(new ImageIcon(imageFromAddress));
+            jLabel_Block.setVisible(true);
+            panel.add(jLabel_Block);
             this.blockType = blockType;   
         }
 
@@ -35,6 +38,7 @@ public Block(String ImageFromAddress, BlockTypes blockType)
             jLabel_Block = new JLabel();
             jLabel_Block.setSize(40, 40);
             jLabel_Block.setIcon(new ImageIcon(ImageFromAddress));
+            //panel.add(jLabel_Block);
             this.blockType = blockType;                      
         }
 
