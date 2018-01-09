@@ -209,7 +209,7 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jPanel_Authors.setVisible(false);&#xa;jPanel_Authors.setBackground(Color.CYAN);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jPanel_Authors.setVisible(false);&#xa;jPanel_Authors.setBackground(new Color(170, 170, 170));"/>
               </AuxValues>
 
               <Layout>

@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -30,7 +32,7 @@ public class TMC_Application extends javax.swing.JFrame {
     JButton[] buttonsSpawnTanks = new JButton[8];
     JLabel[] labelsSpawnTanks = new JLabel[8];
     JLabel jLabel_DeleteBlock = new JLabel();
-    JLabel jLabel_AutorsBlock = new JLabel();
+    JLabel jLabel_AuthorsBlock = new JLabel();
     JLabel jLabel_SpawnTankTitle = new JLabel();
     JLabel jLabel_BonusTitle = new JLabel();
     JPanel jPanel_Settings = new JPanel();
@@ -116,7 +118,7 @@ public class TMC_Application extends javax.swing.JFrame {
             jMenuItem_NewFile.setText("Nowy");
             jMenuItem_SaveFile.setText("Zapisz");
             jMenuItem_OpenFile.setText("Otwórz");
-            jMenuItem_Languages.setText("Języki");
+            jMenuItem_Languages.setText("PL / ENG");
             jMenuItem_Settings.setText("Ustawienia");
             this.setTitle("Tanks 2k17 - Kreator Map");
 
@@ -135,7 +137,7 @@ public class TMC_Application extends javax.swing.JFrame {
             jMenuItem_NewFile.setText("New");
             jMenuItem_SaveFile.setText("Save");
             jMenuItem_OpenFile.setText("Load");
-            jMenuItem_Languages.setText("Languages");
+            jMenuItem_Languages.setText("ENG / PL");
             jMenuItem_Settings.setText("Settings");
             this.setTitle("Tanks 2k17 - Map Creator");
 
@@ -273,10 +275,10 @@ public class TMC_Application extends javax.swing.JFrame {
             }
         });
 
-        //jLabel_AutorsBlock
-        setComponentSettings(jLabel_AutorsBlock, "", "Assets\\Icons\\Autors.png", 0, new Dimension(40, 40), new Point(120, 565), jPanel_Tools, true);
+        //jLabel_AuthorsBlock
+        setComponentSettings(jLabel_AuthorsBlock, "", "Assets\\Icons\\Authors.png", 0, new Dimension(40, 40), new Point(120, 565), jPanel_Tools, true);
 
-        jLabel_AutorsBlock.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel_AuthorsBlock.addMouseListener(new java.awt.event.MouseAdapter() {
 
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel_Authors.setVisible(true);
@@ -304,7 +306,7 @@ public class TMC_Application extends javax.swing.JFrame {
 
     private void createComponentsInPanelSettings() {
         JButton jButton_ClosePanelSettings = new JButton();
-        setComponentSettings(jButton_ClosePanelSettings, "", "Assets\\Blocks_Tex\\Delete_Block.gif", 0, new Dimension(20, 20), new Point(130, 10), jPanel_Settings, true);
+        setComponentSettings(jButton_ClosePanelSettings, "", "Assets\\Icons\\Exit.gif", 0, new Dimension(20, 20), new Point(130, 10), jPanel_Settings, true);
 
         jButton_ClosePanelSettings.addMouseListener(new java.awt.event.MouseAdapter() {
 
@@ -321,7 +323,7 @@ public class TMC_Application extends javax.swing.JFrame {
     private void createComponentsInPanelAuthors() {
 
         JButton jButton_ClosePanelAuthors = new JButton();
-        setComponentSettings(jButton_ClosePanelAuthors, "", "Assets\\Blocks_Tex\\Delete_Block.gif", 0, new Dimension(20, 20), new Point(460, 10), jPanel_Authors, true);
+        setComponentSettings(jButton_ClosePanelAuthors, "", "Assets\\Icons\\Exit.gif", 0, new Dimension(20, 20), new Point(495, 10), jPanel_Authors, true);
 
         jButton_ClosePanelAuthors.addMouseListener(new java.awt.event.MouseAdapter() {
 
@@ -330,14 +332,22 @@ public class TMC_Application extends javax.swing.JFrame {
             }
         });
 
+        JLabel jLabel_TeamTMC = new JLabel();
+        setComponentSettings(jLabel_TeamTMC, "TMC Team", "", Color.WHITE.getRGB(), new Dimension(150, 150), new Point(187, 160), jPanel_Authors, true);
+        jLabel_TeamTMC.setFont(new Font("Gabriola", 3, 24));
+        jLabel_TeamTMC.setHorizontalAlignment(SwingConstants.CENTER);
+
         JLabel jLabel_PawelMinda = new JLabel();
-        setComponentSettings(jLabel_PawelMinda, "", "Assets\\Authors\\Pawel_Minda.jpg", 0, new Dimension(150, 150), new Point(20, 40), jPanel_Authors, true);
+        setComponentSettings(jLabel_PawelMinda, "", "Assets\\Authors\\Pawel_Minda150x150.jpg", 0, new Dimension(150, 150), new Point(17, 40), jPanel_Authors, true);
+        authorsListener(jLabel_PawelMinda, jLabel_TeamTMC);
 
         JLabel jLabel_LukaszRydzinski = new JLabel();
-        setComponentSettings(jLabel_LukaszRydzinski, "", "Assets\\Authors\\Lukasz_Rydzinski2.jpg", 0, new Dimension(150, 150), new Point(190, 40), jPanel_Authors, true);
+        setComponentSettings(jLabel_LukaszRydzinski, "", "Assets\\Authors\\Lukasz_Rydzinski150x150.jpg", 0, new Dimension(150, 150), new Point(187, 40), jPanel_Authors, true);
+        authorsListener(jLabel_LukaszRydzinski, jLabel_TeamTMC);
 
         JLabel jLabel_PawelSokol = new JLabel();
-        setComponentSettings(jLabel_PawelSokol, "", "Assets\\Authors\\Pawel_Sokol.jpg", 0, new Dimension(150, 150), new Point(360, 40), jPanel_Authors, true);
+        setComponentSettings(jLabel_PawelSokol, "", "Assets\\Authors\\Pawel_Sokol150x150.jpg", 0, new Dimension(150, 150), new Point(357, 40), jPanel_Authors, true);
+        authorsListener(jLabel_PawelSokol, jLabel_TeamTMC);
 
     }
 
@@ -345,14 +355,14 @@ public class TMC_Application extends javax.swing.JFrame {
         jPanel_Items.setVisible(!visible);
         if (!visible) {
             showBlocksInPanelItems(0, indexOfLastDestroyableBlock);
-            jLabel_AutorsBlock.setVisible(true);
-            jLabel_AutorsBlock.setLocation(120, 565);
+            jLabel_AuthorsBlock.setVisible(true);
+            jLabel_AuthorsBlock.setLocation(120, 565);
             setSpawn = false;
             actualSpawn = "";
         } else {
             cleanBlocksInPanelItems();
-            jLabel_AutorsBlock.setVisible(false);
-            jLabel_AutorsBlock.setLocation(-1000, -1000);
+            jLabel_AuthorsBlock.setVisible(false);
+            jLabel_AuthorsBlock.setLocation(-1000, -1000);
         }
         jPanel_Settings.setVisible(visible);
         actualBlock.getjLabel_Block().setVisible(!visible);
@@ -636,6 +646,55 @@ public class TMC_Application extends javax.swing.JFrame {
         });
     }
 
+    private void authorsListener(JLabel jLabel, JLabel jLabel_Desc) {
+        jLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                switch (evt.getComponent().getX()) {
+                    case 20:
+                        showAuthorInBrowser("https://www.facebook.com/profile.php?id=100001728866242");
+                        showAuthorInBrowser("https://github.com/FoxFromDarkness");
+                        break;
+                    case 190:
+                        showAuthorInBrowser("https://www.facebook.com/rlukasz1996");
+                        showAuthorInBrowser("https://github.com/diegomez1296");
+                        break;
+                    case 360:
+                        showAuthorInBrowser("https://www.facebook.com/profile.php?id=100004837568225");
+                        showAuthorInBrowser("https://github.com/f4lco0n");
+                        break;
+                }
+            }
+
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+
+                switch (evt.getComponent().getX()) {
+                    case 20:
+                        jLabel_Desc.setText("Paweł Minda");
+                        break;
+                    case 190:
+                        jLabel_Desc.setText("Łukasz Rydziński");
+                        break;
+                    case 360:
+                        jLabel_Desc.setText("Paweł Sokół");
+                        break;
+                }
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel_Desc.setText("TMC Team");
+            }
+        });
+    }
+
+    private void showAuthorInBrowser(String url) {
+        Runtime rt = Runtime.getRuntime();
+        try {
+            rt.exec("rundll32 url.dll,FileProtocolHandler " + url);
+        } catch (Exception e) {
+        }
+    }
+
     // </editor-fold> 
     // Save/Load MapFile
     // <editor-fold> 
@@ -869,7 +928,7 @@ public class TMC_Application extends javax.swing.JFrame {
         jPanel_Authors.setMaximumSize(new java.awt.Dimension(524, 284));
         jPanel_Authors.setMinimumSize(new java.awt.Dimension(524, 284));
         jPanel_Authors.setVisible(false);
-        jPanel_Authors.setBackground(Color.CYAN);
+        jPanel_Authors.setBackground(new Color(170, 170, 170));
 
         javax.swing.GroupLayout jPanel_AuthorsLayout = new javax.swing.GroupLayout(jPanel_Authors);
         jPanel_Authors.setLayout(jPanel_AuthorsLayout);
