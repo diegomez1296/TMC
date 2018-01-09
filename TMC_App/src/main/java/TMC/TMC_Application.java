@@ -91,23 +91,52 @@ public class TMC_Application extends javax.swing.JFrame {
         allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\RedBlock.gif", BlockTypes.DESTROYABLE));
         allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaBlack.gif", BlockTypes.DESTROYABLE));
         allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\MagmaRed.gif", BlockTypes.DESTROYABLE));
+        //TexturePack_1
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\barrel.gif", BlockTypes.DESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\barrel_blue.gif", BlockTypes.DESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\barrel_purple.gif", BlockTypes.DESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\barrel_red.gif", BlockTypes.DESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\barrel_toxic.gif", BlockTypes.DESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\barrel_Wedi.gif", BlockTypes.DESTROYABLE));
+
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\playWithFireBox.gif", BlockTypes.DESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\playWithFireBoxBlue.gif", BlockTypes.DESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\playWithFireBoxBlue2.gif", BlockTypes.DESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\playWithFireBoxGreen.gif", BlockTypes.DESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\playWithFireBoxPurple.gif", BlockTypes.DESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\playWithFireBoxRed.gif", BlockTypes.DESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\playWithFireBoxYellow.gif", BlockTypes.DESTROYABLE));
 
         indexOfLastDestroyableBlock = allTypesOfBlocks.size();
 
         //Undestoyable_Blocks
         allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock3.gif", BlockTypes.UNDESTROYABLE));
+        //TexturePack_1
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\playWithFireBloc.gif", BlockTypes.UNDESTROYABLE));
+        //OldPack
         allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\MetalBlock.gif", BlockTypes.UNDESTROYABLE));
+        //
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\kamienie_na_lawie.gif", BlockTypes.UNDESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\kamienie_na_magmie.gif", BlockTypes.UNDESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\kamienie_na_toxic_wodzie.gif", BlockTypes.UNDESTROYABLE));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\kamienie_na_wodzie.gif", BlockTypes.UNDESTROYABLE));
 
         indexOfLastUnDestroyableBlock = allTypesOfBlocks.size();
 
         //Liquid_Blocks
         allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\WaterBlock.gif", BlockTypes.LIQUID));
         allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Volcano_Blocks\\Lawa.gif", BlockTypes.LIQUID));
+        //TexturePack1
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\woda_toxic.gif", BlockTypes.LIQUID));
 
         indexOfLastLiquidBlock = allTypesOfBlocks.size();
 
         //Green_Blocks
         allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\Default_Blocks\\GreenBlock.gif", BlockTypes.GREEN));
+        //TexturePack1
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\krzaki_ciemne.gif", BlockTypes.GREEN));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\krzaki_toxic.gif", BlockTypes.GREEN));
+        allTypesOfBlocks.add(new Block("Assets\\Blocks_Tex\\TexturePack_1\\snow.gif", BlockTypes.GREEN));
 
         indexOfLastGreenBlock = allTypesOfBlocks.size();
 
@@ -281,7 +310,11 @@ public class TMC_Application extends javax.swing.JFrame {
         jLabel_AuthorsBlock.addMouseListener(new java.awt.event.MouseAdapter() {
 
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel_Authors.setVisible(true);
+                if (!jPanel_Authors.isShowing()) {
+                    jPanel_Authors.setVisible(true);
+                } else {
+                    jPanel_Authors.setVisible(false);
+                }
             }
         });
     }
@@ -337,17 +370,26 @@ public class TMC_Application extends javax.swing.JFrame {
         jLabel_TeamTMC.setFont(new Font("Gabriola", 3, 24));
         jLabel_TeamTMC.setHorizontalAlignment(SwingConstants.CENTER);
 
+        JPanel jPanel_PM = new JPanel();
+        setComponentSettings(jPanel_PM, "", "", jPanel_Authors.getBackground().getRGB(), new Dimension(158, 158), new Point(13, 36), jPanel_Authors, true);
+
+        JPanel jPanel_LR = new JPanel();
+        setComponentSettings(jPanel_LR, "", "", jPanel_Authors.getBackground().getRGB(), new Dimension(158, 158), new Point(183, 36), jPanel_Authors, true);
+
+        JPanel jPanel_PS = new JPanel();
+        setComponentSettings(jPanel_PS, "", "", jPanel_Authors.getBackground().getRGB(), new Dimension(158, 158), new Point(353, 36), jPanel_Authors, true);
+
         JLabel jLabel_PawelMinda = new JLabel();
-        setComponentSettings(jLabel_PawelMinda, "", "Assets\\Authors\\Pawel_Minda150x150.jpg", 0, new Dimension(150, 150), new Point(17, 40), jPanel_Authors, true);
-        authorsListener(jLabel_PawelMinda, jLabel_TeamTMC);
+        setComponentSettings(jLabel_PawelMinda, "", "Assets\\Authors\\Pawel_Minda150x150.jpg", 0, new Dimension(150, 150), new Point(4, 4), jPanel_PM, true);
+        authorsListener(1, jLabel_PawelMinda, jLabel_TeamTMC, jPanel_PM, jPanel_LR, jPanel_PS);
 
         JLabel jLabel_LukaszRydzinski = new JLabel();
-        setComponentSettings(jLabel_LukaszRydzinski, "", "Assets\\Authors\\Lukasz_Rydzinski150x150.jpg", 0, new Dimension(150, 150), new Point(187, 40), jPanel_Authors, true);
-        authorsListener(jLabel_LukaszRydzinski, jLabel_TeamTMC);
+        setComponentSettings(jLabel_LukaszRydzinski, "", "Assets\\Authors\\Lukasz_Rydzinski150x150.jpg", 0, new Dimension(150, 150), new Point(4, 4), jPanel_LR, true);
+        authorsListener(2, jLabel_LukaszRydzinski, jLabel_TeamTMC, jPanel_PM, jPanel_LR, jPanel_PS);
 
         JLabel jLabel_PawelSokol = new JLabel();
-        setComponentSettings(jLabel_PawelSokol, "", "Assets\\Authors\\Pawel_Sokol150x150.jpg", 0, new Dimension(150, 150), new Point(357, 40), jPanel_Authors, true);
-        authorsListener(jLabel_PawelSokol, jLabel_TeamTMC);
+        setComponentSettings(jLabel_PawelSokol, "", "Assets\\Authors\\Pawel_Sokol150x150.jpg", 0, new Dimension(150, 150), new Point(4, 4), jPanel_PS, true);
+        authorsListener(3, jLabel_PawelSokol, jLabel_TeamTMC, jPanel_PM, jPanel_LR, jPanel_PS);
 
     }
 
@@ -518,7 +560,7 @@ public class TMC_Application extends javax.swing.JFrame {
             if (counter_BlocksInRow == 3) {
                 counter_BlocksInRow = 0;
                 LocationBlockX = 10;
-                LocationBlockY += 40;
+                LocationBlockY += 45;
             }
 
         }
@@ -646,20 +688,20 @@ public class TMC_Application extends javax.swing.JFrame {
         });
     }
 
-    private void authorsListener(JLabel jLabel, JLabel jLabel_Desc) {
+    private void authorsListener(int id, JLabel jLabel, JLabel jLabel_Desc, JPanel jPanel_PM, JPanel jPanel_LR, JPanel jPanel_PS) {
         jLabel.addMouseListener(new java.awt.event.MouseAdapter() {
 
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                switch (evt.getComponent().getX()) {
-                    case 20:
+                switch (id) {
+                    case 1:
                         showAuthorInBrowser("https://www.facebook.com/profile.php?id=100001728866242");
                         showAuthorInBrowser("https://github.com/FoxFromDarkness");
                         break;
-                    case 190:
+                    case 2:
                         showAuthorInBrowser("https://www.facebook.com/rlukasz1996");
                         showAuthorInBrowser("https://github.com/diegomez1296");
                         break;
-                    case 360:
+                    case 3:
                         showAuthorInBrowser("https://www.facebook.com/profile.php?id=100004837568225");
                         showAuthorInBrowser("https://github.com/f4lco0n");
                         break;
@@ -668,21 +710,27 @@ public class TMC_Application extends javax.swing.JFrame {
 
             public void mouseEntered(java.awt.event.MouseEvent evt) {
 
-                switch (evt.getComponent().getX()) {
-                    case 20:
+                switch (id) {
+                    case 1:
                         jLabel_Desc.setText("Paweł Minda");
+                        jPanel_PM.setBackground(new Color(192, 192, 192));
                         break;
-                    case 190:
+                    case 2:
                         jLabel_Desc.setText("Łukasz Rydziński");
+                        jPanel_LR.setBackground(new Color(192, 192, 192));
                         break;
-                    case 360:
+                    case 3:
                         jLabel_Desc.setText("Paweł Sokół");
+                        jPanel_PS.setBackground(new Color(192, 192, 192));
                         break;
                 }
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jLabel_Desc.setText("TMC Team");
+                jPanel_PM.setBackground(jPanel_Authors.getBackground());
+                jPanel_LR.setBackground(jPanel_Authors.getBackground());
+                jPanel_PS.setBackground(jPanel_Authors.getBackground());
             }
         });
     }
@@ -860,6 +908,7 @@ public class TMC_Application extends javax.swing.JFrame {
 
     private void startApplication() {
 
+        //setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("\\TanksIco.png")));
         centreWindow(this);
 
         jFileChooser_SaveFile.setCurrentDirectory(new File("Maps"));
@@ -909,6 +958,7 @@ public class TMC_Application extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tank Map Creator");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
         setSize(new java.awt.Dimension(800, 700));
 
