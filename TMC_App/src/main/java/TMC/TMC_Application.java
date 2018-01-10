@@ -23,6 +23,36 @@ import javax.swing.*;
  */
 public class TMC_Application extends javax.swing.JFrame {
 
+    // Static methods
+    // <editor-fold> 
+    public static void setComponentSettings(Component component, String text, String iconPath, int backgroundCode, Dimension size, Point location, JPanel panel, Boolean visible) {
+        component.setSize(size);
+        component.setVisible(visible);
+        if (location != null) {
+            component.setLocation(location);
+        }
+        if (backgroundCode != 0) {
+            if (component instanceof JLabel || component instanceof JButton) {
+                component.setForeground(Color.decode(backgroundCode + ""));
+            } else {
+                component.setBackground(Color.decode(backgroundCode + ""));
+            }
+        }
+        if (panel != null) {
+            panel.add(component);
+        }
+        if (component instanceof JLabel) {
+            ((JLabel) component).setText(text);
+            ((JLabel) component).setIcon(new ImageIcon(iconPath));
+        }
+        if (component instanceof JButton) {
+            ((JButton) component).setText(text);
+            ((JButton) component).setIcon(new ImageIcon(iconPath));
+        }
+
+    }
+    // </editor-fold> 
+
     //Zwijanie kodu => CTRL, SHIFT, - 
     // Variables
     // <editor-fold> 
@@ -370,26 +400,14 @@ public class TMC_Application extends javax.swing.JFrame {
         jLabel_TeamTMC.setFont(new Font("Gabriola", 3, 24));
         jLabel_TeamTMC.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JPanel jPanel_PM = new JPanel();
-        setComponentSettings(jPanel_PM, "", "", jPanel_Authors.getBackground().getRGB(), new Dimension(158, 158), new Point(13, 36), jPanel_Authors, true);
+        Author PawelMinda = new Author("Assets\\Authors\\Pawel_Minda150x150.jpg", new Point(13, 36), jPanel_Authors);
+        PawelMinda.authorsListener("Paweł Minda", jLabel_TeamTMC, "https://www.facebook.com/profile.php?id=100001728866242", "https://github.com/FoxFromDarkness");
 
-        JPanel jPanel_LR = new JPanel();
-        setComponentSettings(jPanel_LR, "", "", jPanel_Authors.getBackground().getRGB(), new Dimension(158, 158), new Point(183, 36), jPanel_Authors, true);
+        Author LukaszRydzinski = new Author("Assets\\Authors\\Lukasz_Rydzinski150x150.jpg", new Point(183, 36), jPanel_Authors);
+        LukaszRydzinski.authorsListener("Łukasz Rydziński", jLabel_TeamTMC, "https://www.facebook.com/rlukasz1996", "https://github.com/diegomez1296");
 
-        JPanel jPanel_PS = new JPanel();
-        setComponentSettings(jPanel_PS, "", "", jPanel_Authors.getBackground().getRGB(), new Dimension(158, 158), new Point(353, 36), jPanel_Authors, true);
-
-        JLabel jLabel_PawelMinda = new JLabel();
-        setComponentSettings(jLabel_PawelMinda, "", "Assets\\Authors\\Pawel_Minda150x150.jpg", 0, new Dimension(150, 150), new Point(4, 4), jPanel_PM, true);
-        authorsListener(1, jLabel_PawelMinda, jLabel_TeamTMC, jPanel_PM, jPanel_LR, jPanel_PS);
-
-        JLabel jLabel_LukaszRydzinski = new JLabel();
-        setComponentSettings(jLabel_LukaszRydzinski, "", "Assets\\Authors\\Lukasz_Rydzinski150x150.jpg", 0, new Dimension(150, 150), new Point(4, 4), jPanel_LR, true);
-        authorsListener(2, jLabel_LukaszRydzinski, jLabel_TeamTMC, jPanel_PM, jPanel_LR, jPanel_PS);
-
-        JLabel jLabel_PawelSokol = new JLabel();
-        setComponentSettings(jLabel_PawelSokol, "", "Assets\\Authors\\Pawel_Sokol150x150.jpg", 0, new Dimension(150, 150), new Point(4, 4), jPanel_PS, true);
-        authorsListener(3, jLabel_PawelSokol, jLabel_TeamTMC, jPanel_PM, jPanel_LR, jPanel_PS);
+        Author PawelSokol = new Author("Assets\\Authors\\Pawel_Sokol150x150.jpg", new Point(353, 36), jPanel_Authors);
+        PawelSokol.authorsListener("Paweł Sokół", jLabel_TeamTMC, "https://www.facebook.com/profile.php?id=100004837568225", "https://github.com/f4lco0n");
 
     }
 
@@ -435,6 +453,7 @@ public class TMC_Application extends javax.swing.JFrame {
             tankSpawn_E5, tankSpawn_E6,};
 
         for (TankSpawn tankSpawn : tankSpawn_tab) {
+
             tankSpawn.getJbutton_TankSpawn().addMouseListener(new java.awt.event.MouseAdapter() {
 
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -443,6 +462,7 @@ public class TMC_Application extends javax.swing.JFrame {
                     showInfo(chooseSpawn);
                 }
             });
+
         }
     }
 
@@ -454,7 +474,7 @@ public class TMC_Application extends javax.swing.JFrame {
         jButton_ActualColor.addMouseListener(new java.awt.event.MouseAdapter() {
 
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel_Grid.setBackground(new Color(colorSliderR.getJslider_Color().getValue(), colorSliderG.getJslider_Color().getValue(), colorSliderB.getJslider_Color().getValue()));
+                jPanel_Grid.setBackground(new Color(colorSliderR.getJslider_Tmc().getValue(), colorSliderG.getJslider_Tmc().getValue(), colorSliderB.getJslider_Tmc().getValue()));
             }
         });
 
@@ -467,7 +487,7 @@ public class TMC_Application extends javax.swing.JFrame {
             colorSliderB,
             colorSliderG,};
         for (ColorSlider item : colorSlider_tab) {
-            sliderCreateListener(item.getJslider_Color(), item.getJtextfield_Color(), jButton_ActualColor);
+            sliderCreateListener(item.getJslider_Tmc(), item.getJtextfield_Tmc(), jButton_ActualColor);
         }
 
         setSliderColorValue();
@@ -479,20 +499,20 @@ public class TMC_Application extends javax.swing.JFrame {
         int colorG = jPanel_Grid.getBackground().getGreen();
         int colorB = jPanel_Grid.getBackground().getBlue();
 
-        colorSliderR.getJtextfield_Color().setText(colorR + "");
-        colorSliderG.getJtextfield_Color().setText(colorG + "");
-        colorSliderB.getJtextfield_Color().setText(colorB + "");
+        colorSliderR.getJtextfield_Tmc().setText(colorR + "");
+        colorSliderG.getJtextfield_Tmc().setText(colorG + "");
+        colorSliderB.getJtextfield_Tmc().setText(colorB + "");
 
-        colorSliderR.getJslider_Color().setValue(colorR);
-        colorSliderG.getJslider_Color().setValue(colorG);
-        colorSliderB.getJslider_Color().setValue(colorB);
+        colorSliderR.getJslider_Tmc().setValue(colorR);
+        colorSliderG.getJslider_Tmc().setValue(colorG);
+        colorSliderB.getJslider_Tmc().setValue(colorB);
     }
 
     private void sliderBonus() {
         setComponentSettings(jLabel_BonusTitle, "", "", Color.WHITE.getRGB(), new Dimension(160, 20), new Point(20, 240), jPanel_Settings, true);
 
-        bonusSlider = new BonusSlider(new Dimension(colorSliderR.getJslider_Color().getSize()), new Point(10, 255), new Dimension(colorSliderR.getJtextfield_Color().getSize()), new Point(63, 285), jPanel_Settings);
-        sliderCreateListener(bonusSlider.getjSlider_Bonus(), bonusSlider.getjTextField_BonusValue(), null);
+        bonusSlider = new BonusSlider(new Dimension(colorSliderR.getJslider_Tmc().getSize()), new Point(10, 255), new Dimension(colorSliderR.getJtextfield_Tmc().getSize()), new Point(63, 285), jPanel_Settings);
+        sliderCreateListener(bonusSlider.getJslider_Tmc(), bonusSlider.getJtextfield_Tmc(), null);
     }
 
     private void blockTypesButtonsInPanelTools() {
@@ -672,7 +692,7 @@ public class TMC_Application extends javax.swing.JFrame {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jTextfield.setText(jSlider.getValue() + "");
                 if (jButton != null) {
-                    jButton.setBackground(new Color(colorSliderR.getJslider_Color().getValue(), colorSliderG.getJslider_Color().getValue(), colorSliderB.getJslider_Color().getValue()));
+                    jButton.setBackground(new Color(colorSliderR.getJslider_Tmc().getValue(), colorSliderG.getJslider_Tmc().getValue(), colorSliderB.getJslider_Tmc().getValue()));
                 }
             }
         });
@@ -688,61 +708,6 @@ public class TMC_Application extends javax.swing.JFrame {
         });
     }
 
-    private void authorsListener(int id, JLabel jLabel, JLabel jLabel_Desc, JPanel jPanel_PM, JPanel jPanel_LR, JPanel jPanel_PS) {
-        jLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                switch (id) {
-                    case 1:
-                        showAuthorInBrowser("https://www.facebook.com/profile.php?id=100001728866242");
-                        showAuthorInBrowser("https://github.com/FoxFromDarkness");
-                        break;
-                    case 2:
-                        showAuthorInBrowser("https://www.facebook.com/rlukasz1996");
-                        showAuthorInBrowser("https://github.com/diegomez1296");
-                        break;
-                    case 3:
-                        showAuthorInBrowser("https://www.facebook.com/profile.php?id=100004837568225");
-                        showAuthorInBrowser("https://github.com/f4lco0n");
-                        break;
-                }
-            }
-
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-
-                switch (id) {
-                    case 1:
-                        jLabel_Desc.setText("Paweł Minda");
-                        jPanel_PM.setBackground(new Color(192, 192, 192));
-                        break;
-                    case 2:
-                        jLabel_Desc.setText("Łukasz Rydziński");
-                        jPanel_LR.setBackground(new Color(192, 192, 192));
-                        break;
-                    case 3:
-                        jLabel_Desc.setText("Paweł Sokół");
-                        jPanel_PS.setBackground(new Color(192, 192, 192));
-                        break;
-                }
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel_Desc.setText("TMC Team");
-                jPanel_PM.setBackground(jPanel_Authors.getBackground());
-                jPanel_LR.setBackground(jPanel_Authors.getBackground());
-                jPanel_PS.setBackground(jPanel_Authors.getBackground());
-            }
-        });
-    }
-
-    private void showAuthorInBrowser(String url) {
-        Runtime rt = Runtime.getRuntime();
-        try {
-            rt.exec("rundll32 url.dll,FileProtocolHandler " + url);
-        } catch (Exception e) {
-        }
-    }
-
     // </editor-fold> 
     // Save/Load MapFile
     // <editor-fold> 
@@ -750,7 +715,7 @@ public class TMC_Application extends javax.swing.JFrame {
         StringBuilder SaveFile = new StringBuilder();
         SaveFile.append(jPanel_Grid.getBackground().getRGB());
         SaveFile.append(System.getProperty("line.separator"));
-        SaveFile.append(bonusSlider.getjSlider_Bonus().getValue());
+        SaveFile.append(bonusSlider.getJslider_Tmc().getValue());
         SaveFile.append(System.getProperty("line.separator"));
         for (TankSpawn item : tankSpawn_tab) {
             if (item.getSpawnOnMap() != null) {
@@ -778,8 +743,8 @@ public class TMC_Application extends javax.swing.JFrame {
 
                 resetMap();
                 jPanel_Grid.setBackground(Color.decode(in.readLine()));
-                bonusSlider.getjSlider_Bonus().setValue(Integer.parseInt(in.readLine()));
-                bonusSlider.getjTextField_BonusValue().setText(bonusSlider.getjSlider_Bonus().getValue() + "");
+                bonusSlider.getJslider_Tmc().setValue(Integer.parseInt(in.readLine()));
+                bonusSlider.getJtextfield_Tmc().setText(bonusSlider.getJslider_Tmc().getValue() + "");
                 for (int i = 0; i < tankSpawn_tab.length; i++) {
                     str = in.readLine();
                     String[] splittedSpawn = str.split(";");
@@ -861,17 +826,13 @@ public class TMC_Application extends javax.swing.JFrame {
         }
 
         setSliderColorValue();
-        bonusSlider.getjSlider_Bonus().setValue(50);
-        bonusSlider.getjTextField_BonusValue().setText("50");
+        bonusSlider.getJslider_Tmc().setValue(50);
+        bonusSlider.getJtextfield_Tmc().setText("50");
 
         for (TankSpawn item : tankSpawn_tab) {
             item.getJlabel_TankSpawn().setText(emptySpawn);
             item.setSpawnOnMap(null);
         }
-    }
-
-    private void showInfo(String info) {
-        jLabel_Description.setText(info);
     }
 
     public void centreWindow(Window frame) {
@@ -881,29 +842,8 @@ public class TMC_Application extends javax.swing.JFrame {
         frame.setLocation(x, y);
     }
 
-    public void setComponentSettings(Component component, String text, String iconPath, int backgroundCode, Dimension size, Point location, JPanel panel, Boolean visible) {
-        component.setSize(size);
-        component.setVisible(visible);
-        component.setLocation(location);
-        if (backgroundCode != 0) {
-            if (component instanceof JLabel || component instanceof JButton) {
-                component.setForeground(Color.decode(backgroundCode + ""));
-            } else {
-                component.setBackground(Color.decode(backgroundCode + ""));
-            }
-        }
-        if (panel != null) {
-            panel.add(component);
-        }
-        if (component instanceof JLabel) {
-            ((JLabel) component).setText(text);
-            ((JLabel) component).setIcon(new ImageIcon(iconPath));
-        }
-        if (component instanceof JButton) {
-            ((JButton) component).setText(text);
-            ((JButton) component).setIcon(new ImageIcon(iconPath));
-        }
-
+    public void showInfo(String info) {
+        jLabel_Description.setText(info);
     }
 
     private void startApplication() {

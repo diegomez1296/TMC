@@ -5,6 +5,7 @@
  */
 package TMC.Classes;
 
+import static TMC.TMC_Application.*;
 import java.awt.*;
 import javax.swing.*;
 
@@ -23,15 +24,11 @@ public class TankSpawn {
     public TankSpawn(String id, Point buttonLocation, Point labelLocation, JPanel jPanel) {
         this.id = id;
         jButton_TankSpawn = new JButton();
-        jButton_TankSpawn.setSize(80, 20);
-        jPanel.add(jButton_TankSpawn);
-        jButton_TankSpawn.setLocation(buttonLocation);
-        jButton_TankSpawn.setVisible(true);
+        setComponentSettings(jButton_TankSpawn, "", "", 0, new Dimension(80, 20), buttonLocation, jPanel, Boolean.TRUE);
+
         jLabel_TankSpawn = new JLabel();
-        jLabel_TankSpawn.setSize(70, 20);
-        jPanel.add(jLabel_TankSpawn);
-        jLabel_TankSpawn.setLocation(labelLocation);
-        jLabel_TankSpawn.setVisible(true);
+        setComponentSettings(jLabel_TankSpawn, "", "", 0, new Dimension(70, 20), labelLocation, jPanel, Boolean.TRUE);
+
     }
 
     public String getId() {

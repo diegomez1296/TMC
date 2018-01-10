@@ -16,20 +16,14 @@ public class Block {
 //MapBlocks
     public Block(String imageFromAddress, BlockTypes blockType, Point location, JPanel panel) {
         jLabel_Block = new JLabel();
-        jLabel_Block.setSize(40, 40);
-        jLabel_Block.setLocation(location);
-        jLabel_Block.setIcon(new ImageIcon(imageFromAddress));
-        jLabel_Block.setVisible(true);
-        panel.add(jLabel_Block);
+        TMC.TMC_Application.setComponentSettings(jLabel_Block, "", imageFromAddress, 0, new Dimension(40, 40), location, panel, true);
         this.blockType = blockType;
     }
 
 //AllTypeBlocks
-    public Block(String ImageFromAddress, BlockTypes blockType) {
+    public Block(String imageFromAddress, BlockTypes blockType) {
         jLabel_Block = new JLabel();
-        jLabel_Block.setSize(40, 40);
-        jLabel_Block.setIcon(new ImageIcon(ImageFromAddress));
-        //panel.add(jLabel_Block);
+        TMC.TMC_Application.setComponentSettings(jLabel_Block, "", imageFromAddress, 0, new Dimension(40, 40), null, null, false);
         this.blockType = blockType;
     }
 
